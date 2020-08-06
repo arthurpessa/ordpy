@@ -2,8 +2,7 @@
 A Python package for data analysis with permutation entropy 
 and ordinal networks methods.
 
-Copyright (C) 2020 Haroldo V. Ribeiro (hvr@dfi.uem.br)
-                   Arthur A. B. Pessa (arthur_pessa@hotmail.com)
+Copyright (C) 2020 Haroldo V. Ribeiro (hvr@dfi.uem.br), Arthur A. B. Pessa (arthur_pessa@hotmail.com)
 
 If you have used ordpy in a scientific publication, we would appreciate 
 citations to the following reference:
@@ -31,21 +30,25 @@ import itertools
 
 def np_setdiff(a, b):
     """
-    Finds diferent elements (subarrays) in a that are not 
-    contained in b. 
-    
-    From: 
-    https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
-    
+    Finds diferent elements (subarrays) in `a` that are not contained in `b` [*]_. 
+
     Parameters
     ----------    
-    a, b: tuple, list or array [[x_11, x_12, x_13, ..., x_1m], 
-          object in the format  [x_21, x_22, x_23, ..., x_2m], ..., 
-                                [x_n1, x_n2, x_n3, ..., x_nm]] (n x m)
-    ----------
-    Returns a np.ndarray containing the elements in a that are not 
-    contained in b.
+    a : tuples, lists or arrays
+        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+    b : tuples, lists or arrays
+        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
     
+    Returns
+    -------
+      : ndarray
+        A np.ndarray containing the elements in `a` that are not 
+        contained in `b`.
+
+    Notes
+    -----
+    - 
+
     Examples
     --------
     >>> a = np.asarray(((0,1,2), (0,1,2), (1,0,2), (2,0,1)))
@@ -53,6 +56,10 @@ def np_setdiff(a, b):
     >>> np_setdiff(a, b)
     array([[1, 0, 2],
            [2, 0, 1]])
+
+    Notes
+    ----------
+    .. [*] This function was adapted from https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
     """
     a = np.asarray(a)
     b = np.asarray(b)
@@ -258,27 +265,38 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1):
 
 def logq(x, q=1):
     """
-    Calculates the q-logarithm of x.
+    Calculates the `q`-logarithm of `x`.
 
     Parameters
     ----------
-    x: real number or array containing real numbers.
-    q: Tsallis q parameter (default: 1).
-    ----------
-    Returns the value/array of the 
-    q-logarithm of x.
-    
+    x : float or array
+        Real number or array containing real numbers.
+    q : float
+        Tsallis `q` parameter (default: 1).
+
+    Returns
+    -------
+     : float or ndarray
+       Value or array of values with the `q`-logarithm of `x`.
+
+    Notes
+    -----
+    * The `q`-logarithm of `x` is difined as [#tsallis]_
+    .. math::
+       \\log_q (x) = \\frac{x^{1-q} - 1}{1-q}~~\\text{for}~~q\\neq 1
+    and :math:`\\log_q (x) = \\log (x)` for :math:`q=1`.
+
     Examples
     --------
     >>> logq(np.math.e)
     1.0
-    >>>    
     >>> logq([np.math.e for i in range(5)])
     array([1., 1., 1., 1., 1.])
     
     References
     ----------
-    For notation or context, please see: Citar o paper aqui.     
+    .. [#tsallis] Tsallis, C. (2009). Introduction to Nonextensive Statistical 
+           Mechanics: Approaching a Complex World. Springer.
     """
     x = np.asarray(x, dtype=float)
 
