@@ -19,21 +19,62 @@ Basic usage
 
 We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
 illustrating how to use ``ordpy``. This notebook reproduces all figures of our
-article [#pessa2021]_. 
+article [#pessa2021]_. The code below shows a very simple usage of ``ordpy``
+
+.. code-block:: python
+   
+    import numpy as np
+    import ordpy
+    from matplotlib import pylab as plt
+
+    def logistic(a=4, n=100000, x0=0.4):
+        x = np.zeros(n)
+        x[0] = x0
+        for i in range(n-1):
+            x[i+1] = a*x[i]*(1-x[i])
+        return(x)
+
+    time_series = [logistic(a) for a in [3.05, 3.55, 4]]
+    time_series += [np.random.normal(size=100000)]
+
+    HC = [ordpy.complexity_entropy(series, dx=4) for series in time_series]
+
+
+    f, ax = plt.subplots(figsize=(9.1,7))
+
+    for HC_, label_ in zip(HC, ['Simple periodic (a=3.05)', 
+                                '4-period (a=3.55)', 
+                                'Chaotic (a=4)', 
+                                'Gaussian noise']):
+        ax.scatter(*HC_, label=label_, s=100)
+        
+    ax.set_xlabel('Permutation entropy, $H$')
+    ax.set_ylabel('Statistical complexity, $C$')
+
+    plt.legend()
+
+.. figure:: ../examples/figs/sample_fig.png
+   :scale: 80 %
+   :align: center
+   :alt: map to buried treasure
 
 
 Installing
 ----------
 
-To install the ordpy use::
+To install the ordpy use
+
+.. code-block:: console
 
    git clone https://gitlab.com/hvribeiro/ordpy.git
    cd ordpy
    pip install -e .
 
-or::
+or
 
-  pip install ordpy
+.. code-block:: console
+
+   pip install ordpy
 
 
 References
