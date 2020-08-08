@@ -3,10 +3,10 @@ ordpy: A Python package for data analysis with permutation entropy and ordinal n
 ===============================================================================================
 
 ``ordpy`` is pure Python module that implements data analysis methods based
-on Band and Pompe [#bandt_pompe]_symbolic encoding scheme.
+on Band and Pompe [#bandt_pompe]_ symbolic encoding scheme.
 
 If you have used ``ordpy`` in a scientific publication, we would appreciate 
-citations to the following reference:
+citations to the following reference [#pessa2021]_:
 
 - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
   analysis with permutation entropy and ordinal networks methods 
@@ -14,11 +14,37 @@ citations to the following reference:
   Journal ??, ???? (2021).
 
 
+Basic usage
+-----------
+
+We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
+illustrating how to use ``ordpy``. This notebook reproduces all figures of our
+article [#pessa2021]_. 
+
+
+Installing
+----------
+
+To install the ordpy use::
+
+   git clone https://gitlab.com/hvribeiro/ordpy.git
+   cd ordpy
+   pip install -e .
+
+or::
+
+  pip install ordpy
+
+
 References
 ----------
 
 .. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
    Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
+
+.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2020). ordpy: A Python package
+   for data analysis with permutation entropy and ordinal networks methods. 
+   arXiv preprint arXiv:2007.03090.
 
 .. [#lopezruiz] Lopez-Ruiz, R., Mancini, H. L., & Calbet, X. (1995). A Statistical
    Measure of Complexity. Physics Letters A, 209, 321-326.
