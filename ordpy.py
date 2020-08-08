@@ -1,28 +1,61 @@
 """
-A Python package for data analysis with permutation entropy 
-and ordinal networks methods.
+ordpy: A Python package for data analysis with permutation entropy and ordinal networks methods
+===============================================================================================
 
-Copyright (C) 2020 Haroldo V. Ribeiro (hvr@dfi.uem.br), Arthur A. B. Pessa (arthur_pessa@hotmail.com)
+``ordpy`` is pure Python module that implements data analysis methods based
+on Band and Pompe [#bandt_pompe]_symbolic encoding scheme.
 
-If you have used ordpy in a scientific publication, we would appreciate 
+If you have used ``ordpy`` in a scientific publication, we would appreciate 
 citations to the following reference:
 
-A. A. B. Pessa, H. V. Ribeiro, "ordpy: A Python package for data 
-analysis with permutation entropy and ordinal networks methods", 
-Journal ??, ???? (2021).
+- A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
+  analysis with permutation entropy and ordinal networks methods 
+  <https://ourpaper_url>`_, 
+  Journal ??, ???? (2021).
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or 
-any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+References
+----------
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+.. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
+   Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
+
+.. [#lopezruiz] Lopez-Ruiz, R., Mancini, H. L., & Calbet, X. (1995). A Statistical
+   Measure of Complexity. Physics Letters A, 209, 321-326.
+
+.. [#rosso] Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &
+   Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review 
+   Letters, 99, 154102.
+
+.. [#ribeiro_2012] Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &
+   Mendes, R. S. (2012). Complexity-Entropy Causality Plane as a Complexity
+   Measure for Two-Dimensional Patterns. PLOS ONE, 7, e40689.
+
+.. [#tsallis] Tsallis, C. (2009). Introduction to Nonextensive Statistical 
+   Mechanics: Approaching a Complex World. Springer.
+
+.. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
+   Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
+   Philosophical Transactions of the Royal Society A, 375, 20160292.
+
+.. [#pessa2019] Pessa, A. A., & Ribeiro, H. V. (2019). Characterizing Stochastic 
+   Time Series With Ordinal Networks. Physical Review E, 100, 042304.
+
+.. [#small] Small, M. (2013). Complex Networks From Time Series: Capturing 
+   Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
+   (ISCAS2013) (pp. 2509-2512). IEEE.
+
+.. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
+   Ordinal Networks. arXiv preprint arXiv:2007.03090.
+
+.. [#ribeiro2017] Ribeiro, H. V., Jauregui, M., Zunino, L., & Lenzi, E. K. 
+   (2017). Characterizing Time Series Via Complexity-Entropy Curves. 
+   Physical Review E, 95, 062106.
+
+.. [#jauregui] Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &
+   Ribeiro, H. V. (2018). Characterization of Time Series via Rényi 
+   Complexity-Entropy Curves. Physica A, 498, 74-85.
+
 """
 import numpy as np
 import itertools
@@ -35,19 +68,20 @@ def np_setdiff(a, b):
     Parameters
     ----------    
     a : tuples, lists or arrays
-        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
+        \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
     b : tuples, lists or arrays
-        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
+        \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
     
     Returns
     -------
-      : ndarray
-        A np.ndarray containing the elements in `a` that are not 
-        contained in `b`.
+      : array
+        A array containing the elements in `a` that are not contained in `b`.
 
     Notes
-    -----
-    - 
+    ------
+    .. [*] This function was adapted from https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
 
     Examples
     --------
@@ -56,10 +90,6 @@ def np_setdiff(a, b):
     >>> np_setdiff(a, b)
     array([[1, 0, 2],
            [2, 0, 1]])
-
-    Notes
-    ----------
-    .. [*] This function was adapted from https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
     """
     a = np.asarray(a)
     b = np.asarray(b)
@@ -77,46 +107,47 @@ def np_setdiff(a, b):
 
 def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, missing=False):
     """
-    Applies the Bandt and Pompe symbolization process to extract the probability 
+    Applies the Bandt and Pompe [#bandt_pompe]_ symbolization process to extract the probability 
     distribution of ordinal patterns (permutations) from data.
     
     Parameters
     ----------
-    data    : array object in the format [x_1, x_2, x_3, ..., x_n]
-              or [[x_11, x_12, x_13, ..., x_1m], 
-                 [x_21, x_22, x_23, ..., x_2m], ..., 
-                 [x_n1, x_n2, x_n3, ..., x_nm]] (n x m);
-    dx     : embedding dimension (horizontal axis) (default: 3).
-    dy     : embedding dimension (vertical axis); must be 1 for time series 
-             (default: 1).
-    tau_x  : embedding delay (horizontal axis) (default: 1).
-    tau_y  : embedding delay (vertical axis) (default: 1).
-    missing: if True, permutations that do not appear in the symbolic sequence 
-             obtained from data are shown; if False, they are ommited. 
-             (default: False)
-    ----------
-    Returns a list of lists containing the occurring permutations and 
-    their corresponding probabilities.
+    data : array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+            Embedding delay (vertical axis) (default: 1).
+    missing: boolean
+             If `True`, permutations that do not appear in the symbolic sequence 
+             obtained from data are shown; if `False`, they are ommited. 
+             (default: `False`)
+
+    Returns
+    -------
+     : list
+       A list of lists containing the occurring permutations and their 
+       corresponding probabilities.
 
     Examples
     --------
     >>> symbolic_distribution([4,7,9,10,6,11,3], dx=2)
     [[[0, 1], [1, 0]], [0.6666666666666666, 0.3333333333333333]]
-    >>>
     >>> symbolic_distribution([4,7,9,10,6,11,3], dx=3, missing=True)
     [[[0, 1, 2], [1, 0, 2], [2, 0, 1], [0, 2, 1], [1, 2, 0], [2, 1, 0]],
      [0.4, 0.2, 0.4, 0.0, 0.0, 0.0]]
-    >>>
     >>> symbolic_distribution([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2)
     [[[0, 1, 3, 2], [1, 0, 2, 3], [1, 2, 3, 0]], [0.5, 0.25, 0.25]]
-    >>>
     >>> symbolic_distribution([[1,2,1,4],[8,3,4,5],[6,7,5,6]], 
                               dx=2, dy=2, tau_x=2)
     [[[0, 1, 3, 2], [0, 2, 1, 3], [1, 3, 2, 0]], [0.5, 0.25, 0.25]]
-    
-    References
-    ----------
-    For notation or context, please see: Citar o paper aqui.
     """
     try:
         ny, nx = np.shape(data)
@@ -153,43 +184,46 @@ def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, missing=False):
 def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized=True, probs=False):
     """
     Calculates Shannon's entropy using the symbolic ditribution extracted from
-    data.
+    data [#bandt_pompe]_ [#ribeiro_2012]_.
     
     Parameters
     ----------
-    data      : data array object in the format [x_1, x_2, x_3, ..., x_n] 
-                or [[x_11, x_12, x_13, ..., x_1m], 
-                    [x_21, x_22, x_23, ..., x_2m], ..., 
-                    [x_n1, x_n2, x_n3, ..., x_nm]] (n x m)
-                or the ordinal probabilities obtained from symbolic_distribution
-                (if probs=True).
-    dx        : embedding dimension (horizontal axis) (default: 3).
-    dy        : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x     : embedding delay (horizontal axis) (default: 1).
-    tau_y     : embedding delay (vertical axis) (default: 1).
-    base      : logarithm base in Shannon's entropy. Either 'e' or 2 (default: 'e').
-    normalized: if True, permutation entropy lies in the interval [0,1]; if False, 
-                it does not (default: True).
-    probs     : if True, assumes data imput to be an ordinal probability distribution.
-                (default: False)
+    data : array
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`
+           or the ordinal probabilities obtained from symbolic_distribution
+           (if `probs=True`).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3)
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+             Embedding delay (vertical axis) (default: 1).
+    base : str, int
+           Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 'e').
+    normalized: boolean
+                If `True`, permutation entropy is normalized by it maximum value.
+                if `False`, it does not (default: `True`).
+    probs : boolean
+            If `True`, assumes data imput to be an ordinal probability
+            distribution (default: `False`). 
 
-    ----------
-    Returns the value of permutation entropy.
+    Returns
+    -------
+     : float
+       The value of permutation entropy.
     
     Examples
     --------
     >>> permutation_entropy([4,7,9,10,6,11,3], dx=2, base=2, normalized=True)
     0.9182958340544896
-    >>>
     >>> permutation_entropy([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2, base=2, normalized=True)
     0.32715643797829735
-    >>>
     >>> permutation_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2, tau_x=2, normalized=False)
     1.0397207708399179
-    
-    References
-    ----------
-    For notation or context, please see: Citar o paper aqui.
     """
     if not probs:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, missing=False)
@@ -213,36 +247,39 @@ def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized
 
 def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1):
     """
-    Calculates permutation entropy and statistical complexity using 
-    the symbolic ditribution extracted from data.
+    Calculates permutation entropy [#bandt_pompe]_ and statistical
+    complexity [#lopezruiz]_ (also known as the complexity-entropy
+    plane [#rosso]_ [#ribeiro_2012]_) using the symbolic ditribution extracted from data.
     
     Parameters
     ----------
-    data      : tuple, list or array object in the format [x_1, x_2, x_3, ..., x_n] 
-                or [[x_11, x_12, x_13, ..., x_1m], 
-                    [x_21, x_22, x_23, ..., x_2m], ..., 
-                    [x_n1, x_n2, x_n3, ..., x_nm]] (n x m);
-    dx        : embedding dimension (horizontal axis) (default: 3).
-    dy        : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x     : embedding delay (horizontal axis) (default: 1).
-    tau_y     : embedding delay (vertical axis) (default: 1).
-    ----------
-    Returns the values of normalized permutation entropy and statistical complexity.
+    data : tuple, list or array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+            Embedding delay (vertical axis) (default: 1).
+    
+    Returns
+    -------
+     : list
+       Values of the normalized permutation entropy and statistical complexity.
     
     Examples
     --------
     >>> complexity_entropy([4,7,9,10,6,11,3], dx=2)
     [0.9182958340544894, 0.06112816548804511]
-    >>>
     >>> complexity_entropy([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2)
     [0.3271564379782973, 0.2701200547320647]
-    >>>
     >>> complexity_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]],dx=3, dy=2)
     [0.21070701155008006, 0.20704765093242872]
-    
-    References
-    ----------
-    For notation or context, please see: Citar o paper aqui.    
     """
     _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, missing=True)   
     h                = permutation_entropy(probabilities[probabilities>0], dx, dy, tau_x, tau_y, probs=True)
@@ -265,7 +302,7 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1):
 
 def logq(x, q=1):
     """
-    Calculates the `q`-logarithm of `x`.
+    Calculates the `q`-logarithm of `x` [#tsallis]_.
 
     Parameters
     ----------
@@ -276,14 +313,17 @@ def logq(x, q=1):
 
     Returns
     -------
-     : float or ndarray
+     : float or array
        Value or array of values with the `q`-logarithm of `x`.
 
     Notes
     -----
-    * The `q`-logarithm of `x` is difined as [#tsallis]_
+    The `q`-logarithm of `x` is difined as [#tsallis]_
+
     .. math::
+
        \\log_q (x) = \\frac{x^{1-q} - 1}{1-q}~~\\text{for}~~q\\neq 1
+
     and :math:`\\log_q (x) = \\log (x)` for :math:`q=1`.
 
     Examples
@@ -292,11 +332,6 @@ def logq(x, q=1):
     1.0
     >>> logq([np.math.e for i in range(5)])
     array([1., 1., 1., 1., 1.])
-    
-    References
-    ----------
-    .. [#tsallis] Tsallis, C. (2009). Introduction to Nonextensive Statistical 
-           Mechanics: Approaching a Complex World. Springer.
     """
     x = np.asarray(x, dtype=float)
 
@@ -308,26 +343,35 @@ def logq(x, q=1):
 
 def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
-    Calculates the normalized Tsallis's entropy using the symbolic ditribution 
-    extracted from data.
+    Calculates the normalized Tsallis's entropy [#ribeiro2017]) using the
+    symbolic ditribution extracted from data.
     
     Parameters
     ----------
-    data      : tuple, list or array object in the format [x_1, x_2, x_3, ..., x_n]
-                or [[x_11, x_12, x_13, ..., x_1m], 
-                    [x_21, x_22, x_23, ..., x_2m], ..., 
-                    [x_n1, x_n2, x_n3, ..., x_nm]] (n x m)
-                or the ordinal probabilities obtained from symbolic_distribution
-                (if probs=True).
-    q         : Tsallis q parameter, it can be an array of values (default: 1).
-    dx        : embedding dimension (horizontal axis) (default: 3).
-    dy        : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x     : embedding delay (horizontal axis) (default: 1).
-    tau_y     : embedding delay (vertical axis) (default: 1).
-    probs     : if True, assumes data imput to be an ordinal probability distribution.
-                (default: False)
-    ----------
-    Returns the normalized values of Tsallis's entropy for each parameter q.
+    data : array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`) or the ordinal probabilities obtained 
+           from symbolic_distribution (if probs=True).
+    q : float
+        Tsallis `q` parameter, it can be an array of values (default: 1).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+            Embedding delay (vertical axis) (default: 1).
+    probs: boolean
+           If True, assumes data imput to be an ordinal probability distribution
+           (default: `False`)
+
+    Returns
+    -------
+     : float, array
+       The normalized values of Tsallis's entropy for each parameter `q`.
     
     Examples
     --------
@@ -338,11 +382,7 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     >>> tsallis_entropy([4,7,9,10,6,11,3], q=2, dx=2)
     0.888888888888889
     >>> tsallis_entropy([4,7,9,10,6,11,3], q=2, dx=3)
-    0.768
-
-    References
-    ----------
-    For notation or context, please see: Physical Review E 95, 062106 (2017).    
+    0.768 
     """
     if not probs:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y)
@@ -366,14 +406,20 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
 
 def jensen_tsallis_divergence_max(n_states, q):
     """
-    Returns the maximum value of the Jensen Tsallis divergence.
+    Estimates the maximum value of the Jensen Tsallis divergence [#ribeiro2017]_.
 
     Parameters
     ----------
-    n_states: number of ordinal states.
-    q: Tsallis q parameter.
-    ----------
-    Returns the maximum divergence value.
+
+    n_states : int
+              Number of ordinal states.
+    q : float
+        Renyi `alpha` parameter.
+    
+    Returns
+    -------
+     : float
+       The maximum divergence value.
     """
     if q==1:
         return(-0.5*(((n_states+1)/n_states)*np.log(n_states+1) + np.log(n_states) - 2*np.log(2*n_states)))
@@ -387,23 +433,32 @@ def jensen_tsallis_divergence_max(n_states, q):
 
 def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1):
     """
-    Calculates Tsallis generalized complexity-entropy plane using the symbolic 
-    ditribution extracted from data.
+    Calculates Tsallis generalized complexity-entropy plane [#ribeiro2017]_ 
+    using the symbolic ditribution extracted from data.
     
     Parameters
     ----------
-    data      : tuple, list or array object in the format [x_1, x_2, x_3, ..., x_n] 
-                or [[x_11, x_12, x_13, ..., x_1m], 
-                    [x_21, x_22, x_23, ..., x_2m], ..., 
-                    [x_n1, x_n2, x_n3, ..., x_nm]] (n x m);
-    q         : Tsallis q parameter, it can be an array of values (default: 1).
-    dx        : embedding dimension (horizontal axis) (default: 3).
-    dy        : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x     : embedding delay (horizontal axis) (default: 1).
-    tau_y     : embedding delay (vertical axis) (default: 1).
-    ----------
-    Returns the values of Tsallis's generalized normalized permutation entropy 
-    and Tsallis's generalized statistical complexity for each parameter q.
+    data : array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    q : float
+        Tsallis `q` parameter, it can be an array of values (default: 1).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+            Embedding delay (vertical axis) (default: 1).
+
+    Returns
+    -------
+     : array
+       The values of Tsallis's generalized normalized permutation entropy and 
+       Tsallis's generalized statistical complexity for each parameter `q`.
 
     Examples
     --------
@@ -416,10 +471,6 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1):
     array([0.88888889, 0.07619048])
     >>> tsallis_complexity_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], q=3, dx=3, dy=2)
     array([0.93750181, 0.92972165])
-    
-    References
-    ----------
-    For notation or context, please see: Physical Review E 95, 062106 (2017).
     """
 
     _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, missing=True)
@@ -463,26 +514,34 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1):
 
 def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
-    Calculates the normalized Rényi's entropy using the symbolic ditribution 
+    Calculates the normalized Rényi's entropy [#jauregui]_ using the symbolic ditribution 
     extracted from data.
     
     Parameters
     ----------
-    data      : tuple, list or array object in the format [x_1, x_2, x_3, ..., x_n]
-                or [[x_11, x_12, x_13, ..., x_1m], 
-                    [x_21, x_22, x_23, ..., x_2m], ..., 
-                    [x_n1, x_n2, x_n3, ..., x_nm]] (n x m)
-                or the ordinal probabilities obtained from symbolic_distribution
-                (if probs=True).
-    alpha     : Rényi alpha parameter, it can be an array of values (default: 1).
-    dx        : embedding dimension (horizontal axis) (default: 3).
-    dy        : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x     : embedding delay (horizontal axis) (default: 1).
-    tau_y     : embedding delay (vertical axis) (default: 1).
-    probs     : if True, assumes data imput to be an ordinal probability distribution.
-                (default: False)
-    ----------
-    Returns the normalized value of Rényi's entropy for each parameter alpha.
+    data : array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    alpha : float
+            Rényi `alpha` parameter, it can be an array of values (default: 1).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+            Embedding delay (vertical axis) (default: 1).
+    probs : boolean
+            If `True`, assumes data imput to be an ordinal probability
+            distribution (default: `False`).
+
+    Returns
+    -------
+     : float, array
+       The normalized value of Rényi's entropy for each parameter alpha.
     
     Examples
     --------
@@ -493,11 +552,7 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     >>> renyi_entropy([4,7,9,10,6,11,3], alpha=[1,2], dx=2)
     array([0.91829583, 0.84799691])
     >>> renyi_entropy([4,7,9,10,6,11,3], alpha=2, dx=3)
-    0.5701944178769374
-
-    References
-    ----------
-    For notation or context, please see: Citar o paper aqui.    
+    0.5701944178769374 
     """
     if not probs:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y)
@@ -523,16 +578,22 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     return s
 
 
-def jensen_renyi_divergence_max(n_states, q):
+def jensen_renyi_divergence_max(n_states, alpha):
     """
-    Returns the maximum value of the Jensen Renyi divergence.
+    Estimates the maximum value of the Jensen Renyi divergence [#jauregui]_.
     
     Parameters
     ----------
-    n_states: number of ordinal states.
-    q: Renyi q parameter.
-    ----------
-    Returns the maximum divergence value.
+
+    n_states : int
+              Number of ordinal states.
+    q : float
+        Renyi `alpha` parameter.
+    
+    Returns
+    -------
+     : float
+       The maximum divergence value.
     """
     if q==1:
         return(-0.5*(((n_states+1)/n_states)*np.log(n_states+1) + np.log(n_states) - 2*np.log(2*n_states)))
@@ -546,24 +607,32 @@ def jensen_renyi_divergence_max(n_states, q):
 
 def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1):
     """
-    Calculates Rényi generalized complexity-entropy plane using a symbolic 
-    distribution obtained from data.
+    Calculates Rényi's generalized complexity-entropy plane using a symbolic 
+    distribution obtained from data [#jauregui]_.
     
     Parameters
     ----------
-    data      : tuple, list or array object in the format [x_1, x_2, x_3, ..., x_n] 
-                or [[x_11, x_12, x_13, ..., x_1m], 
-                    [x_21, x_22, x_23, ..., x_2m], ..., 
-                    [x_n1, x_n2, x_n3, ..., x_nm]] (n x m);
-    alpha     : Rényi alpha parameter (default: 1).
-    dx        : embedding dimension (horizontal axis) (default: 3).
-    dy        : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x     : embedding delay (horizontal axis) (default: 1).
-    tau_y     : embedding delay (vertical axis) (default: 1).
-    ----------
+    data : array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    alpha : float
+            Rényi `alpha` parameter, it can be an array of values (default: 1).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+            Embedding delay (vertical axis) (default: 1).
 
-    Returns the values of Rényi's generalized normalized permutation entropy 
-    and Rényi's generalized statistical complexity for each parameter alpha.
+    Returns
+    -------
+     : array
+       Values of Rényi's generalized normalized permutation entropyand 
+       Rényi's generalized statistical complexity for each parameter alpha.
 
     Examples
     --------
@@ -575,11 +644,7 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1):
     array([[0.91829583, 0.06112817],
        [0.84799691, 0.08303895]])
     >>> renyi_complexity_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], alpha=3, dx=3, dy=2)
-    array([0.21070701, 0.20975673])
-
-    References
-    ----------
-    For notation or context, please see: Citar o paper aqui.    
+    array([0.21070701, 0.20975673])   
     """
 
     _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, missing=True)
@@ -641,31 +706,46 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1):
 
 def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlapping=True, connections="all"):
     """
-    Generates the elements (nodes, edges and edge weights) necessary to 
-    obtain an ordinal network from data.
+    Generates the elements (nodes, edges and edge weights) necessary to obtain
+    an ordinal network from data [#small]_ [#pessa2019]_ [#pessa2020]_.
     
     Parameters
     ----------
-    data        : array object in the format [x_1, x_2, x_3, ..., x_n] 
-                  or [[x_11, x_12, x_13, ..., x_1m], 
-                      [x_21, x_22, x_23, ..., x_2m], ..., 
-                      [x_n1, x_n2, x_n3, ..., x_nm]] (nxm);
-    dx          : embedding dimension (horizontal axis) (default: 3).
-    dy          : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x       : embedding delay (horizontal axis) (default: 1).
-    tau_y       : embedding delay (vertical axis) (default: 1).
-    overlapping : if True, partitions data into overlapping sliding windows; if False, it does not. 
-                  (Also notice that definitions of tau_x and tau_y become somewhat strange if 
-                  partitions do not overlap. So tau_x = tau_y = 1 if False). Parameter only
-                  valid for time series data. (default: True). 
-    normalized  : if True, edge weights represent transition probabilities between permutations.
-                  If False, edge weights are transition counts.
-    connections : ordinal network is constructed using "all" permutation successions in symbolic 
-                  sequence or only "horizontal" or "vertical" successions. Parameter only valid 
-                  for image data (default: "all"). 
-    ----------
-    Returns a list of arrays containing the nodes, edges and edge weights
-    corresponding to an ordinal network mapped from data.
+    data : array, return of :func:`ordpy.ordinal_network`
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`) or ordinal network returned by ordinal_network().
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3)
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+             Embedding delay (vertical axis) (default: 1).
+    overlapping : boolean
+                  If `True`, data is partitioned into overlapping sliding windows; 
+                  if `False`, it does not. Notice that that the definitions of 
+                  `tau_x` and `tau_y` become somewhat strange if partitions do not 
+                  overlap. So, we must use `tau_x = tau_y = 1` if 
+                  `overlapping=False`). Parameter only valid for time series 
+                  data. (default: `True`). 
+    normalized  : boolean
+                  If `True`, edge weights represent transition probabilities 
+                  between permutations; if `False`, edge weights are transition
+                  counts.
+    connections : str
+                  The ordinal network is constructed using `'all'` permutation
+                  successions in symbolic sequence or only `'horizontal'` or 
+                  `'vertical'` successions. Parameter only valid for image data
+                  (default: `'all'`). 
+
+    Returns
+    -------
+     : list
+       A list of arrays containing the nodes, edges and edge weights corresponding
+       to an ordinal network mapped from data.
     
     Examples
     --------
@@ -676,13 +756,11 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
             ['1|0', '0|1'],
             ['1|0', '1|0']], dtype='<U3'),
      array([2, 2, 2, 1]))
-    >>>
     >>> ordinal_network([4,7,9,10,6,11,8,3,7], dx=2, overlapping=False, normalized=False)
     (array(['0|1', '1|0'], dtype='<U3'),
      array([['0|1', '0|1'],
             ['0|1', '1|0']], dtype='<U3'),
      array([2, 1]))
-    >>>
     >>> ordinal_network([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2, normalized=False)
     (array(['0|1|3|2', '1|0|2|3', '1|2|3|0'], dtype='<U7'),
      array([['0|1|3|2', '1|0|2|3'],
@@ -690,16 +768,11 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
             ['1|0|2|3', '0|1|3|2'],
             ['1|2|3|0', '0|1|3|2']], dtype='<U7'),
      array([1, 1, 1, 1]))
-    >>> 
     >>> ordinal_network([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2, normalized=False, connections='horizontal')
     (array(['0|1|3|2', '1|0|2|3', '1|2|3|0'], dtype='<U7'),
      array([['0|1|3|2', '1|0|2|3'],
             ['1|2|3|0', '0|1|3|2']], dtype='<U7'),
      array([1, 1]))
-    
-    References
-    ----------
-    For notation or context, please see: Citar o paper aqui.    
     """     
     try:
         ny, nx = np.shape(data)
@@ -804,33 +877,51 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
 
 def global_network_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlapping=True, connections="all"):
     """
-    Calculates global node entropy from data.
+    Calculates global node entropy [#McCullough]_ [#pessa2019]_ of an orginal
+    network obtained from data.
 
     Parameters
     ----------
-    data        : array object in the format [x_1, x_2, x_3, ..., x_n] 
-                  or [[x_11, x_12, x_13, ..., x_1m], 
-                      [x_21, x_22, x_23, ..., x_2m], ..., 
-                      [x_n1, x_n2, x_n3, ..., x_nm]] (n x m).
-                  or the ordinal network returned by ordinal_network().
-    dy          : embedding dimension (vertical axis); must be 1 for time series (default: 1).
-    tau_x       : embedding delay (horizontal axis) (default: 1).
-    tau_y       : embedding delay (vertical axis) (default: 1).
-    overlapping : if True, partitions data into overlapping sliding windows; if False, it does not. 
-                  (Also notice that definitions of tau_x and tau_y become somewhat strange if 
-                  partitions do not overlap. So tau_x = tau_y = 1 if False). Parameter only
-                  valid for time series data. (default: True). 
-    normalized  : if True, edge weights represent transition probabilities between permutations.
-                  If False, edge weights are transition counts.
-    connections : ordinal network is constructed using "all" permutation successions in symbolic 
-                  sequence or only "horizontal" or "vertical" successions. Parameter only valid 
-                  for image data (default: "all"). 
-    ----------
-    Returns the value of global node entropy.
-    
+    data : array, return of :func:`ordpy.ordinal_network`
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`) or ordinal network returned by 
+           :func:`ordpy.ordinal_network`.
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3)
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+             Embedding delay (vertical axis) (default: 1).
+    overlapping : boolean
+                  If `True`, data is partitioned into overlapping sliding windows; 
+                  if `False`, it does not. Notice that that the definitions of 
+                  `tau_x` and `tau_y` become somewhat strange if partitions do not 
+                  overlap. So, we must use `tau_x = tau_y = 1` if 
+                  `overlapping=False`). Parameter only valid for time series 
+                  data. (default: `True`). 
+    normalized  : boolean
+                  If `True`, edge weights represent transition probabilities 
+                  between permutations; if `False`, edge weights are transition
+                  counts.
+    connections : str
+                  The ordinal network is constructed using `'all'` permutation
+                  successions in symbolic sequence or only `'horizontal'` or 
+                  `'vertical'` successions. Parameter only valid for image data
+                  (default: `'all'`). 
+    Returns
+    -------
+     : float
+       The value of global node entropy.
+
     Examples
     --------
-    
+    >>>
+    >>>
+    >>>
     """
     if len(data)==3 and type(data[0][0])==numpy.str_:
         nodes, links, weights = data
@@ -856,17 +947,21 @@ def global_network_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, 
 def random_ordinal_network(dx=3, dy=1):
     """
     Creates a random ordinal network representing the mapping of a random time 
-    series or a random bidimensional field. The result assume overlapping window
-    partitions and embbeding delays unitaries.
+    series [#pessa2019]_ or a random bidimensional field [#pessa2020]_. The 
+    result assumes overlapping window partitions and embbeding delays unitaries.
     
     Parameters
     ----------
-    dx     : horizontal embedding dimension (default: 3)
-    dy     : vertical embedding dimension (default: 1 [time series data])
-    ----------
-    Returns a list of arrays containing the nodes, edges and edge weights
-    corresponding to a random ordinal network.
+    dx : int
+         Horizontal embedding dimension (default: 3).
+    dy : int
+         Vertical embedding dimension (default: 1 [time series data])
     
+    Returns
+    -------
+     : list
+       A list of arrays containing the nodes, edges and edge weights of the
+       corresponding random ordinal network.
     """
 
 #THEORETICAL RESULTS FOR IMAGE DATA

@@ -63,7 +63,7 @@ html_static_path = ['_static']
 
 # -- Extension configuration -------------------------------------------------
 
-linkcode_url = "https://github.com/arthurpessa/ordpy/blob/master/ordpy/ordpy.py"
+linkcode_url = "https://github.com/hvribeiro/ordpy/blob/master/ordpy.py"
 
 def linkcode_resolve(domain, info):
     """
