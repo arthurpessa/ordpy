@@ -56,7 +56,6 @@ article [#pessa2021]_. The code below shows a very simple usage of ``ordpy``
 .. figure:: ../examples/figs/sample_fig.png
    :scale: 80 %
    :align: center
-   :alt: map to buried treasure
 
 
 Installing
