@@ -19,7 +19,9 @@ Basic usage
 
 We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
 illustrating how to use ``ordpy``. This notebook reproduces all figures of our
-article [#pessa2021]_. The code below shows a very simple usage of ``ordpy``
+article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
+
+**Complexity-entropy plane for logistic map and Gaussian noise**
 
 .. code-block:: python
    
@@ -54,9 +56,73 @@ article [#pessa2021]_. The code below shows a very simple usage of ``ordpy``
     plt.legend()
 
 .. figure:: ../examples/figs/sample_fig.png
+   :height: 489px
+   :width: 633px
    :scale: 80 %
    :align: center
 
+**Ordinal networks for logistic map and Gaussian noise**
+
+.. code-block:: python
+
+    import numpy as np
+    import igraph
+    import ordpy
+    from matplotlib import pylab as plt
+
+    vertex_list, edge_list, edge_weight_list = list(), list(), list()
+
+    for series in time_series:
+        v_, e_, w_ = ordpy.ordinal_network(series, dx=4)
+        vertex_list += [v_]
+        edge_list += [e_]
+        edge_weight_list += [w_]
+
+    def create_ig_graph(vertex_list, edge_list, edge_weight):
+        
+        G = igraph.Graph(directed=True)
+        
+        for v_ in vertex_list:
+            G.add_vertex(v_)
+        
+        for [in_, out_], weight_ in zip(edge_list, edge_weight):
+            G.add_edge(in_, out_, weight=weight_)
+            
+        return G
+
+    graphs = []
+
+    for v_, e_, w_ in zip(vertex_list, edge_list, edge_weight_list):
+        graphs += [create_ig_graph(v_, e_, w_)]
+
+    def igplot(g):
+        f = igraph.plot(g,
+                        layout=g.layout_circle(),
+                        bbox=(500,500),
+                        margin=(40, 40, 40, 40),
+                        vertex_label = [s.replace('|','') for s in g.vs['name']],
+                        vertex_label_color='#202020',
+                        vertex_color='#969696',
+                        vertex_size=20,
+                        vertex_font_size=6,
+                        edge_width=(1 + 8*np.asarray(g.es['weight'])).tolist(),
+                       )
+        return f
+
+    from IPython.core.display import display, SVG
+
+    for graph_, label_ in zip(graphs, ['Simple periodic (a=3.05)', 
+                                       '4-period (a=3.55)', 
+                                       'Chaotic (a=4)', 
+                                       'Gaussian noise']):
+        print(label_)
+        display(SVG(igplot(graph_)._repr_svg_()))
+
+.. figure:: ../examples/figs/sample_net.png
+   :height: 1648px
+   :width: 795px
+   :scale: 50 %
+   :align: center    
 
 Installing
 ----------
@@ -770,7 +836,8 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1):
     return np.asarray([h_a,h_a*jr_div/jr_div_max ]).T
 
 
-def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlapping=True, connections="all"):
+def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, 
+                    overlapping=True, connections='all', char_separator='|'):
     """
     Generates the elements (nodes, edges and edge weights) necessary to obtain
     an ordinal network from data [#small]_ [#pessa2019]_ [#pessa2020]_.
@@ -806,7 +873,9 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
                   successions in symbolic sequence or only `'horizontal'` or 
                   `'vertical'` successions. Parameter only valid for image data
                   (default: `'all'`). 
-
+    char_separator : str
+                     Character used as separator of ordinal symbols when
+                     creating node labels ((default: `'|'`)).
     Returns
     -------
      : list
@@ -865,7 +934,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
             if normalized == True: 
                 occurrences = occurrences/len(links)
 
-            unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator="|")
+            unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator=char_separator)
             for char in ['[', ']']:
                 unique_links = np.char.replace(unique_links, char, '')   
             
@@ -886,7 +955,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
             if normalized == True: 
                 occurrences = occurrences/len(links)
 
-            unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator="|")
+            unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator=char_separator)
             for char in ['[', ']']:
                 unique_links = np.char.replace(unique_links, char, '')   
 
@@ -934,7 +1003,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
             if normalized == True: 
                 occurrences = occurrences/len(vlinks)
                 
-        unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator="|")
+        unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator=char_separator)
         for char in ['[', ']']:
             unique_links = np.char.replace(unique_links, char, '')   
             
