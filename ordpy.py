@@ -1,5 +1,5 @@
 """
-ordpy: A Python package for data analysis with permutation entropy and ordinal networks methods
+ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Networks Methods
 ===============================================================================================
 
 ``ordpy`` is pure Python module that implements data analysis methods based
@@ -13,9 +13,26 @@ citations to the following reference [#pessa2021]_:
   <https://ourpaper_url>`_, 
   Journal ??, ???? (2021).
 
+Installing
+==========
+
+To install the ordpy use
+
+.. code-block:: console
+
+   pip install ordpy
+
+or
+
+.. code-block:: console
+
+   git clone https://gitlab.com/hvribeiro/ordpy.git
+   cd ordpy
+   pip install -e .
+
 
 Basic usage
------------
+===========
 
 We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
 illustrating how to use ``ordpy``. This notebook reproduces all figures of our
@@ -123,23 +140,6 @@ article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
    :width: 795px
    :scale: 50 %
    :align: center    
-
-Installing
-----------
-
-To install the ordpy use
-
-.. code-block:: console
-
-   git clone https://gitlab.com/hvribeiro/ordpy.git
-   cd ordpy
-   pip install -e .
-
-or
-
-.. code-block:: console
-
-   pip install ordpy
 
 
 References
