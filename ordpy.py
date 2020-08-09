@@ -188,6 +188,9 @@ References
    Ribeiro, H. V. (2018). Characterization of Time Series via Rényi 
    Complexity-Entropy Curves. Physica A, 498, 74-85.
 
+
+List of functions
+=================
 """
 import numpy as np
 import itertools
