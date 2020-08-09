@@ -3,15 +3,70 @@ ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal N
 ===============================================================================================
 
 ``ordpy`` is pure Python module that implements data analysis methods based
-on Band and Pompe [#bandt_pompe]_ symbolic encoding scheme.
+on Band and Pompe\\ [#bandt_pompe]_ symbolic encoding scheme.
 
 If you have used ``ordpy`` in a scientific publication, we would appreciate 
-citations to the following reference [#pessa2021]_:
+citations to the following reference\\ [#pessa2021]_:
 
 - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
   analysis with permutation entropy and ordinal networks methods 
-  <https://ourpaper_url>`_, 
-  Journal ??, ???? (2021).
+  <https://ourpaper_url>`_, Journal ??, ???? (2021).
+
+
+``ordpy`` implements the following data analysis methods:
+
+- permutation entropy for time series\\ [#bandt_pompe]_ and images\\ [#ribeiro_2012]_;
+- complexity-entropy plane for time series\\ [#lopezruiz]_\\ :sup:`,`\\ [#rosso]_ and 
+  images\\ [#ribeiro_2012]_;
+- Tsallis\\ [#ribeiro2017]_ and Rényi\\ [#jauregui]_ generalized complexity-entropy
+  curves for time series and images;
+- ordinal networks for time series\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_ and images\\ [#pessa2020]_.
+- global node entropy of ordinal networks for 
+  time series\\ [#McCullough]_\\ :sup:`,`\\ [#pessa2019]_ and images\\ [#pessa2020]_.
+
+References
+----------
+
+.. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
+   Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
+
+.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2020). ordpy: A Python package
+   for data analysis with permutation entropy and ordinal networks methods. 
+   arXiv preprint arXiv:2007.03090.
+
+.. [#ribeiro_2012] Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &
+   Mendes, R. S. (2012). Complexity-Entropy Causality Plane as a Complexity
+   Measure for Two-Dimensional Patterns. PLOS ONE, 7, e40689.
+
+.. [#lopezruiz] Lopez-Ruiz, R., Mancini, H. L., & Calbet, X. (1995). A Statistical
+   Measure of Complexity. Physics Letters A, 209, 321-326.
+
+.. [#rosso] Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &
+   Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review 
+   Letters, 99, 154102.
+
+.. [#ribeiro2017] Ribeiro, H. V., Jauregui, M., Zunino, L., & Lenzi, E. K. 
+   (2017). Characterizing Time Series Via Complexity-Entropy Curves. 
+   Physical Review E, 95, 062106.
+
+.. [#jauregui] Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &
+   Ribeiro, H. V. (2018). Characterization of Time Series via Rényi 
+   Complexity-Entropy Curves. Physica A, 498, 74-85.
+
+.. [#small] Small, M. (2013). Complex Networks From Time Series: Capturing 
+   Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
+   (ISCAS2013) (pp. 2509-2512). IEEE.
+
+.. [#pessa2019] Pessa, A. A., & Ribeiro, H. V. (2019). Characterizing Stochastic 
+   Time Series With Ordinal Networks. Physical Review E, 100, 042304.
+
+.. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
+   Ordinal Networks. arXiv preprint arXiv:2007.03090.
+
+.. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
+   Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
+   Philosophical Transactions of the Royal Society A, 375, 20160292.
+
 
 Installing
 ==========
@@ -36,7 +91,7 @@ Basic usage
 
 We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
 illustrating how to use ``ordpy``. This notebook reproduces all figures of our
-article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
+article\\ [#pessa2021]_. The codes below show simple usages of ``ordpy``.
 
 **Complexity-entropy plane for logistic map and Gaussian noise**
 
@@ -142,51 +197,6 @@ article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
    :align: center    
 
 
-References
-----------
-
-.. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
-   Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
-
-.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2020). ordpy: A Python package
-   for data analysis with permutation entropy and ordinal networks methods. 
-   arXiv preprint arXiv:2007.03090.
-
-.. [#lopezruiz] Lopez-Ruiz, R., Mancini, H. L., & Calbet, X. (1995). A Statistical
-   Measure of Complexity. Physics Letters A, 209, 321-326.
-
-.. [#rosso] Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &
-   Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review 
-   Letters, 99, 154102.
-
-.. [#ribeiro_2012] Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &
-   Mendes, R. S. (2012). Complexity-Entropy Causality Plane as a Complexity
-   Measure for Two-Dimensional Patterns. PLOS ONE, 7, e40689.
-
-.. [#tsallis] Tsallis, C. (2009). Introduction to Nonextensive Statistical 
-   Mechanics: Approaching a Complex World. Springer.
-
-.. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
-   Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
-   Philosophical Transactions of the Royal Society A, 375, 20160292.
-
-.. [#pessa2019] Pessa, A. A., & Ribeiro, H. V. (2019). Characterizing Stochastic 
-   Time Series With Ordinal Networks. Physical Review E, 100, 042304.
-
-.. [#small] Small, M. (2013). Complex Networks From Time Series: Capturing 
-   Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
-   (ISCAS2013) (pp. 2509-2512). IEEE.
-
-.. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
-   Ordinal Networks. arXiv preprint arXiv:2007.03090.
-
-.. [#ribeiro2017] Ribeiro, H. V., Jauregui, M., Zunino, L., & Lenzi, E. K. 
-   (2017). Characterizing Time Series Via Complexity-Entropy Curves. 
-   Physical Review E, 95, 062106.
-
-.. [#jauregui] Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &
-   Ribeiro, H. V. (2018). Characterization of Time Series via Rényi 
-   Complexity-Entropy Curves. Physica A, 498, 74-85.
 
 
 List of functions
@@ -242,7 +252,7 @@ def np_setdiff(a, b):
 
 def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, missing=False):
     """
-    Applies the Bandt and Pompe [#bandt_pompe]_ symbolization process to extract the probability 
+    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization process to extract the probability 
     distribution of ordinal patterns (permutations) from data.
     
     Parameters
@@ -319,7 +329,7 @@ def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, missing=False):
 def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized=True, probs=False):
     """
     Calculates Shannon's entropy using the symbolic ditribution extracted from
-    data [#bandt_pompe]_ [#ribeiro_2012]_.
+    data\\ [#bandt_pompe]_\\ :sup:`,`\\ [#ribeiro_2012]_.
     
     Parameters
     ----------
@@ -382,9 +392,9 @@ def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized
 
 def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1):
     """
-    Calculates permutation entropy [#bandt_pompe]_ and statistical
-    complexity [#lopezruiz]_ (also known as the complexity-entropy
-    plane [#rosso]_ [#ribeiro_2012]_) using the symbolic ditribution extracted from data.
+    Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
+    complexity\\ [#lopezruiz]_ (also known as the complexity-entropy
+    plane [#rosso]_\\ :sup:`,`\\ [#ribeiro_2012]_) using the symbolic ditribution extracted from data.
     
     Parameters
     ----------
@@ -437,7 +447,7 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1):
 
 def logq(x, q=1):
     """
-    Calculates the `q`-logarithm of `x` [#tsallis]_.
+    Calculates the `q`-logarithm of `x`.
 
     Parameters
     ----------
@@ -453,13 +463,16 @@ def logq(x, q=1):
 
     Notes
     -----
-    The `q`-logarithm of `x` is difined as [#tsallis]_
+    The `q`-logarithm of `x` is difined as [*]_
 
     .. math::
 
        \\log_q (x) = \\frac{x^{1-q} - 1}{1-q}~~\\text{for}~~q\\neq 1
 
     and :math:`\\log_q (x) = \\log (x)` for :math:`q=1`.
+
+    .. [*] Tsallis, C. (2009). Introduction to Nonextensive Statistical 
+       Mechanics: Approaching a Complex World. Springer.
 
     Examples
     --------
@@ -478,7 +491,7 @@ def logq(x, q=1):
 
 def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
-    Calculates the normalized Tsallis's entropy [#ribeiro2017]) using the
+    Calculates the normalized Tsallis's entropy\\ [#ribeiro2017]) using the
     symbolic ditribution extracted from data.
     
     Parameters
@@ -541,7 +554,7 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
 
 def jensen_tsallis_divergence_max(n_states, q):
     """
-    Estimates the maximum value of the Jensen Tsallis divergence [#ribeiro2017]_.
+    Estimates the maximum value of the Jensen Tsallis divergence\\ [#ribeiro2017]_.
 
     Parameters
     ----------
@@ -568,7 +581,7 @@ def jensen_tsallis_divergence_max(n_states, q):
 
 def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1):
     """
-    Calculates Tsallis generalized complexity-entropy plane [#ribeiro2017]_ 
+    Calculates Tsallis generalized complexity-entropy plane\\ [#ribeiro2017]_ 
     using the symbolic ditribution extracted from data.
     
     Parameters
@@ -649,7 +662,7 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1):
 
 def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
-    Calculates the normalized Rényi's entropy [#jauregui]_ using the symbolic ditribution 
+    Calculates the normalized Rényi's entropy\\ [#jauregui]_ using the symbolic ditribution 
     extracted from data.
     
     Parameters
@@ -715,7 +728,7 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
 
 def jensen_renyi_divergence_max(n_states, alpha):
     """
-    Estimates the maximum value of the Jensen Renyi divergence [#jauregui]_.
+    Estimates the maximum value of the Jensen Renyi divergence\\ [#jauregui]_.
     
     Parameters
     ----------
@@ -743,7 +756,7 @@ def jensen_renyi_divergence_max(n_states, alpha):
 def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1):
     """
     Calculates Rényi's generalized complexity-entropy plane using a symbolic 
-    distribution obtained from data [#jauregui]_.
+    distribution obtained from data\\ [#jauregui]_.
     
     Parameters
     ----------
@@ -843,7 +856,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True,
                     overlapping=True, connections='all', char_separator='|'):
     """
     Generates the elements (nodes, edges and edge weights) necessary to obtain
-    an ordinal network from data [#small]_ [#pessa2019]_ [#pessa2020]_.
+    an ordinal network from data\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_\\ :sup:`,`\\ [#pessa2020]_.
     
     Parameters
     ----------
@@ -1015,7 +1028,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True,
 
 def global_network_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlapping=True, connections="all"):
     """
-    Calculates global node entropy [#McCullough]_ [#pessa2019]_ of an orginal
+    Calculates global node entropy\\ [#McCullough]_\\ :sup:`,`\\ [#pessa2019]_ of an orginal
     network obtained from data.
 
     Parameters
@@ -1085,7 +1098,7 @@ def global_network_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, 
 def random_ordinal_network(dx=3, dy=1):
     """
     Creates a random ordinal network representing the mapping of a random time 
-    series [#pessa2019]_ or a random bidimensional field [#pessa2020]_. The 
+    series\\ [#pessa2019]_ or a random bidimensional field\\ [#pessa2020]_. The 
     result assumes overlapping window partitions and embbeding delays unitaries.
     
     Parameters
