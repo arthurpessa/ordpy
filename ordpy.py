@@ -33,9 +33,12 @@ on Band and Pompe\\ [#bandt_pompe]_ symbolic encoding scheme.
 - permutation entropy for time series\\ [#bandt_pompe]_ and images\\ [#ribeiro_2012]_;
 - complexity-entropy plane for time series\\ [#lopezruiz]_\\ :sup:`,`\\ [#rosso]_ and 
   images\\ [#ribeiro_2012]_;
+- multiscale complexity-entropy plane for time series\\ [#zunino2012]_ and 
+  images\\ [#zunino2016]_;
 - Tsallis\\ [#ribeiro2017]_ and Rényi\\ [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- ordinal networks for time series\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_ and images\\ [#pessa2020]_.
+- ordinal networks for time series\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_ and 
+  images\\ [#pessa2020]_;
 - global node entropy of ordinal networks for 
   time series\\ [#McCullough]_\\ :sup:`,`\\ [#pessa2019]_ and images\\ [#pessa2020]_.
 
@@ -59,6 +62,14 @@ References
 .. [#rosso] Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &
    Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review 
    Letters, 99, 154102.
+
+.. [#zunino2012] Zunino, L., Soriano, M. C., & Rosso, O. A. (2012). 
+   Distinguishing Chaotic and Stochastic Dynamics from Time Series by Using 
+   a Multiscale Symbolic Approach. Physical Review E, 86, 046210.
+
+.. [#zunino2016] Zunino, L., & Ribeiro, H. V. (2016). Discriminating Image 
+   Textures with the Multiscale Two-Dimensional Complexity-Entropy Causality 
+   Plane. Chaos, Solitons & Fractals, 91, 679-688.
 
 .. [#ribeiro2017] Ribeiro, H. V., Jauregui, M., Zunino, L., & Lenzi, E. K. 
    (2017). Characterizing Time Series Via Complexity-Entropy Curves. 
