@@ -1484,7 +1484,7 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
         return np.unique(edge_array), edge_array, weight_array
 
 
-def missing_states(data, dx=3, dy=1, return_fraction=True, return_states=True):
+def missing_states(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, return_states=True):
     """
     Searches for ordinal patterns (permutations) which do not occur 
     in data\\ [#amigó]_.
@@ -1501,6 +1501,10 @@ def missing_states(data, dx=3, dy=1, return_fraction=True, return_states=True):
          Embedding dimension (horizontal axis) (default: 3)
     dy : int
          Embedding dimension (vertical axis); must be 1 for time series (default: 1).
+    tau_x : int
+            Embedding delay (horizontal axis) (default: 1).
+    tau_y : int
+            Embedding delay (vertical axis) (default: 1).
     return_fraction : boolean
                       if `True`, returns the fraction of missing ordinal patterns relative 
                       to the total number of ordinal patterns given choices of dx and dy
@@ -1553,7 +1557,7 @@ def missing_states(data, dx=3, dy=1, return_fraction=True, return_states=True):
                                 " values of the embedding dimensions.".format(dx, dy))
 
         else:
-            states, probs = symbolic_distribution(data, dx, dy, return_missing=True)
+            states, probs = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
             
         missing_args   = np.argwhere(probs==0).flatten()
         missing_states = states[missing_args]
@@ -1568,7 +1572,7 @@ def missing_states(data, dx=3, dy=1, return_fraction=True, return_states=True):
         if len(data)==2 and type(data[0])==np.ndarray:
             states, _ = data
         else:
-            states, _ = symbolic_distribution(data, dx, dy, return_missing=False)
+            states, _ = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=False)
 
         if return_fraction==True:
             n = np.math.factorial(dx*dy)
