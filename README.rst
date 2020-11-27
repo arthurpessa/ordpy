@@ -160,7 +160,7 @@ article\\ [#pessa2021]_. The codes below show simple usages of ``ordpy``.
 
     plt.legend()
 
-.. figure:: ../examples/figs/sample_fig.png
+.. figure:: https://github.com/hvribeiro/ordpy/blob/master/examples/figs/sample_fig.png
    :height: 489px
    :width: 633px
    :scale: 80 %
