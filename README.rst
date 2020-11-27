@@ -1,13 +1,13 @@
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Networks Methods
 ===============================================================================================
 
-``ordpy`` is pure Python module\\ [#pessa2021]_ that implements data analysis methods based
-on Band and Pompe\\ [#bandt_pompe]_ symbolic encoding scheme.
+``ordpy`` is pure Python module [#pessa2021]_ that implements data analysis methods based
+on Band and Pompe [#bandt_pompe]_ symbolic encoding scheme.
 
 .. note::
 
    If you have used ``ordpy`` in a scientific publication, we would appreciate 
-   citations to the following reference\\ [#pessa2021]_:
+   citations to the following reference [#pessa2021]_:
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
      analysis with permutation entropy and ordinal networks methods 
@@ -29,17 +29,17 @@ on Band and Pompe\\ [#bandt_pompe]_ symbolic encoding scheme.
 
 ``ordpy`` implements the following data analysis methods:
 
-- permutation entropy for time series\\ [#bandt_pompe]_ and images\\ [#ribeiro_2012]_;
-- complexity-entropy plane for time series\\ [#lopezruiz]_\\ :sup:`,`\\ [#rosso]_ and 
-  images\\ [#ribeiro_2012]_;
-- multiscale complexity-entropy plane for time series\\ [#zunino2012]_ and 
-  images\\ [#zunino2016]_;
-- Tsallis\\ [#ribeiro2017]_ and Rényi\\ [#jauregui]_ generalized complexity-entropy
+- permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
+- complexity-entropy plane for time series [#lopezruiz]_ :sup:`,` [#rosso]_ and 
+  images [#ribeiro_2012]_;
+- multiscale complexity-entropy plane for time series [#zunino2012]_ and 
+  images [#zunino2016]_;
+- Tsallis [#ribeiro2017]_ and Rényi [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- ordinal networks for time series\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_ and 
-  images\\ [#pessa2020]_;
+- ordinal networks for time series [#small]_ :sup:`,` [#pessa2019]_ and 
+  images [#pessa2020]_;
 - global node entropy of ordinal networks for 
-  time series\\ [#McCullough]_\\ :sup:`,`\\ [#pessa2019]_ and images\\ [#pessa2020]_.
+  time series [#McCullough]_ :sup:`,` [#pessa2019]_ and images [#pessa2020]_.
 
 References
 ----------
@@ -124,7 +124,7 @@ Basic usage
 
 We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
 illustrating how to use ``ordpy``. This notebook reproduces all figures of our
-article\\ [#pessa2021]_. The codes below show simple usages of ``ordpy``.
+article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
 
 **Complexity-entropy plane for logistic map and Gaussian noise**
 
