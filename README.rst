@@ -171,7 +171,7 @@ article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
 
 
 References
-----------
+==========
 
 .. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2020). ordpy: A Python package
    for data analysis with permutation entropy and ordinal networks methods. 
