@@ -163,7 +163,7 @@ article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
         print(label_)
         display(SVG(igplot(graph_)._repr_svg_()))
 
-.. figure:: https://github.com/hvribeiro/ordpy/blob/master/examples/figs/sample_fig.png
+.. figure:: https://github.com/hvribeiro/ordpy/blob/master/examples/figs/sample_net.png
    :height: 1648px
    :width: 795px
    :scale: 50 %
