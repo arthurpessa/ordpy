@@ -41,66 +41,6 @@ on Band and Pompe [#bandt_pompe]_ symbolic encoding scheme.
 - global node entropy of ordinal networks for 
   time series [#McCullough]_ :sup:`,` [#pessa2019]_ and images [#pessa2020]_.
 
-References
-----------
-
-.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2020). ordpy: A Python package
-   for data analysis with permutation entropy and ordinal networks methods. 
-   arXiv preprint arXiv:2007.03090.
-
-.. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
-   Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
-
-.. [#ribeiro_2012] Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &
-   Mendes, R. S. (2012). Complexity-Entropy Causality Plane as a Complexity
-   Measure for Two-Dimensional Patterns. PLOS ONE, 7, e40689.
-
-.. [#lopezruiz] Lopez-Ruiz, R., Mancini, H. L., & Calbet, X. (1995). A Statistical
-   Measure of Complexity. Physics Letters A, 209, 321-326.
-
-.. [#rosso] Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &
-   Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review 
-   Letters, 99, 154102.
-
-.. [#zunino2012] Zunino, L., Soriano, M. C., & Rosso, O. A. (2012). 
-   Distinguishing Chaotic and Stochastic Dynamics from Time Series by Using 
-   a Multiscale Symbolic Approach. Physical Review E, 86, 046210.
-
-.. [#zunino2016] Zunino, L., & Ribeiro, H. V. (2016). Discriminating Image 
-   Textures with the Multiscale Two-Dimensional Complexity-Entropy Causality 
-   Plane. Chaos, Solitons & Fractals, 91, 679-688.
-
-.. [#ribeiro2017] Ribeiro, H. V., Jauregui, M., Zunino, L., & Lenzi, E. K. 
-   (2017). Characterizing Time Series Via Complexity-Entropy Curves. 
-   Physical Review E, 95, 062106.
-
-.. [#jauregui] Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &
-   Ribeiro, H. V. (2018). Characterization of Time Series via Rényi 
-   Complexity-Entropy Curves. Physica A, 498, 74-85.
-
-.. [#small] Small, M. (2013). Complex Networks From Time Series: Capturing 
-   Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
-   (ISCAS2013) (pp. 2509-2512). IEEE.
-
-.. [#pessa2019] Pessa, A. A., & Ribeiro, H. V. (2019). Characterizing Stochastic 
-   Time Series With Ordinal Networks. Physical Review E, 100, 042304.
-
-.. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
-   Ordinal Networks. arXiv preprint arXiv:2007.03090.
-
-.. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
-   Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
-   Philosophical Transactions of the Royal Society A, 375, 20160292.
-
-.. [#amigó] Amigó, J. M., Zambrano, S., & Sanjuán, M. A. F. (2007).
-   True and False Forbidden Patterns in Deterministic and Random Dynamics.
-   Europhysics Letters, 79, 50001.
-
-.. [#rosso_curvas] Martin, M. T., Plastino, A., & Rosso, O. A. (2006). 
-   Generalized Statistical Complexity Measures: Geometrical and 
-   Analytical Properties, Physica A, 369, 439–462.
-
-
 Installing
 ==========
 
@@ -228,3 +168,63 @@ article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
    :width: 795px
    :scale: 50 %
    :align: center
+
+
+References
+----------
+
+.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2020). ordpy: A Python package
+   for data analysis with permutation entropy and ordinal networks methods. 
+   arXiv preprint arXiv:2007.03090.
+
+.. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
+   Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
+
+.. [#ribeiro_2012] Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &
+   Mendes, R. S. (2012). Complexity-Entropy Causality Plane as a Complexity
+   Measure for Two-Dimensional Patterns. PLOS ONE, 7, e40689.
+
+.. [#lopezruiz] Lopez-Ruiz, R., Mancini, H. L., & Calbet, X. (1995). A Statistical
+   Measure of Complexity. Physics Letters A, 209, 321-326.
+
+.. [#rosso] Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &
+   Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review 
+   Letters, 99, 154102.
+
+.. [#zunino2012] Zunino, L., Soriano, M. C., & Rosso, O. A. (2012). 
+   Distinguishing Chaotic and Stochastic Dynamics from Time Series by Using 
+   a Multiscale Symbolic Approach. Physical Review E, 86, 046210.
+
+.. [#zunino2016] Zunino, L., & Ribeiro, H. V. (2016). Discriminating Image 
+   Textures with the Multiscale Two-Dimensional Complexity-Entropy Causality 
+   Plane. Chaos, Solitons & Fractals, 91, 679-688.
+
+.. [#ribeiro2017] Ribeiro, H. V., Jauregui, M., Zunino, L., & Lenzi, E. K. 
+   (2017). Characterizing Time Series Via Complexity-Entropy Curves. 
+   Physical Review E, 95, 062106.
+
+.. [#jauregui] Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &
+   Ribeiro, H. V. (2018). Characterization of Time Series via Rényi 
+   Complexity-Entropy Curves. Physica A, 498, 74-85.
+
+.. [#small] Small, M. (2013). Complex Networks From Time Series: Capturing 
+   Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
+   (ISCAS2013) (pp. 2509-2512). IEEE.
+
+.. [#pessa2019] Pessa, A. A., & Ribeiro, H. V. (2019). Characterizing Stochastic 
+   Time Series With Ordinal Networks. Physical Review E, 100, 042304.
+
+.. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
+   Ordinal Networks. arXiv preprint arXiv:2007.03090.
+
+.. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
+   Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
+   Philosophical Transactions of the Royal Society A, 375, 20160292.
+
+.. [#amigó] Amigó, J. M., Zambrano, S., & Sanjuán, M. A. F. (2007).
+   True and False Forbidden Patterns in Deterministic and Random Dynamics.
+   Europhysics Letters, 79, 50001.
+
+.. [#rosso_curvas] Martin, M. T., Plastino, A., & Rosso, O. A. (2006). 
+   Generalized Statistical Complexity Measures: Geometrical and 
+   Analytical Properties, Physica A, 369, 439–462.
