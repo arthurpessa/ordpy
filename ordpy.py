@@ -228,7 +228,7 @@ article\\ [#pessa2021]_. The codes below show simple usages of ``ordpy``.
    :height: 1648px
    :width: 795px
    :scale: 50 %
-   :align: center    
+   :align: center
 
 
 
