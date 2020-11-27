@@ -241,7 +241,6 @@ import numpy as np
 import itertools
 
 
-#(Arthur): changed the name of the function from np_setdiff to setdiff. (18/08/2020)
 def setdiff(a, b):
     """
     Searches for elements (subarrays) in `a` that are not contained in `b` [*]_. 
@@ -427,7 +426,6 @@ def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized
     """
     if not probs:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=False)
-#(Arthur): added a convertion to array and a filter to remove 0's in the probability distribution
     else:
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
@@ -449,7 +447,6 @@ def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized
         return -np.sum(probabilities*np.log(probabilities))
 
 
-#(Arthur): added the 'probs' parameter. (24/08/2020)
 def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
@@ -499,7 +496,7 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     >>> complexity_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]],dx=3, dy=2)
     (0.21070701155008006, 0.20704765093242872)
     """
-#checking if 'data' is a probability distribution or not
+    #checking if 'data' is a probability distribution or not
     if probs==False:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)   
         h                = permutation_entropy(probabilities[probabilities>0], dx, dy, tau_x, tau_y, probs=True)
@@ -629,11 +626,9 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     if not probs:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y)
     else:
-#(Arthur): added a convertion to array and a filter to remove 0's in the probability distribution
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
 
-#(Arthur): changed to add tuple. (19/08/2020)
     if isinstance(q, (tuple, list, np.ndarray)):
         s = []
         for q_ in q:
@@ -649,7 +644,6 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     return s
 
 
-#(Arthur): added the 'probs' parameter. (24/08/2020)
 def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
@@ -706,7 +700,6 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
     >>> tsallis_complexity_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], q=3, dx=3, dy=2)
     array([0.93750181, 0.92972165])
     """
-#(Arthur): trouxe essa função pra dentro da função principal tsallis_complexity_entropy (25/08/2020)
     def jensen_tsallis_divergence_max(n_states, q):
         """
         Estimates the maximum value of the Jensen Tsallis divergence\\ [#ribeiro2017]_.
@@ -733,13 +726,10 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
                    ((1-q)*(2**(2-q))*n_states)
                   )
 
-##################################################################################
-
     if probs==False:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
         h_q              = tsallis_entropy(probabilities[probabilities>0], q, dx, dy, 
                                            tau_x, tau_y, probs=True)
-#(Arthur): added this conditional to check whether data is a probability distribution or not (24/08/2020)
     else:
         if len(data)==np.math.factorial(dx*dy):
             probabilities = np.asarray(data)
@@ -758,7 +748,6 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
     n             = np.math.factorial(dx*dy)
     uniform_dist  = np.full(n, 1/n)
 
-#(Arthur): changed to add tuple. (19/08/2020)
     if isinstance(q, (tuple, list, np.ndarray)):
         jt_div     = []
         jt_div_max = []
@@ -840,13 +829,12 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
     if not probs:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y)
-#(Arthur): added a conversion to array and a filter to eliminate 0's from the distribution
     else:
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
 
     smax = np.log(np.math.factorial(dx*dy))
-#(Arthur): changed to add tuple. (19/08/2020)
+
     if isinstance(alpha, (tuple, list, np.ndarray)):
         s = []
         for alpha_ in alpha:
@@ -864,7 +852,6 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     return s
 
 
-#(Arthur): added the 'probs' parameter. (24/08/2020)
 def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
@@ -921,7 +908,6 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
     >>> renyi_complexity_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], alpha=3, dx=3, dy=2)
     array([0.21070701, 0.20975673])   
     """
-#(Arthur): trouxe essa função pra dentro da função principal renyi_complexity_entropy (25/08/2020)
     def jensen_renyi_divergence_max(n_states, q):
         """
         Estimates the maximum value of the Jensen Renyi divergence\\ [#jauregui]_.
@@ -948,8 +934,6 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
                      np.log((n_states + 1.)/(2.*n_states)))/(2.*(q - 1))
                   )
 
-#############################################################################################        
-
     if probs==False:
         _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
         h_a              = renyi_entropy(probabilities, alpha, dx, dy, tau_x, tau_y, probs=True)
@@ -957,7 +941,6 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
         if len(data)==np.math.factorial(dx*dy):
             probabilities = np.asarray(data)
             h_a           = renyi_entropy(probabilities, alpha, dx, dy, tau_x, tau_y, probs=True)
-#(Arthur): added this conditional to check whether data is a probability distribution or not (24/08/2020)
         else:
             raise Exception("The data provided as input is not adequate. The length of" \
                             " the ordinal distribution array does not match the number of" \
@@ -970,7 +953,6 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
     n             = np.math.factorial(dx*dy)
     uniform_dist  = np.full(n, 1/n)
 
-#(Arthur): changed to add tuple. (19/08/2020)
     if isinstance(alpha, (tuple, list, np.ndarray)):
         jr_div = []
         jr_div_max = []
@@ -1095,7 +1077,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
             ['1|2|3|0', '0|1|3|2']], dtype='<U7'),
      array([1, 1]))
     """     
-#(Arthur): wrote this "inside" function to allow for undirected ordinal networks to be built for time series and images.
+
     def undirected_ordinal_network(unique_links, occurrences):
         """
         Removes edges that are duplicated in case edge directionality 
@@ -1143,8 +1125,6 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
         und_occurrences  = np.delete(und_occurrences, np.argwhere(und_occurrences==0))
 
         return (np.unique(und_unique_links), und_unique_links, und_occurrences)
-    
-#############################################################################################        
 
     try:
         ny, nx = np.shape(data)
@@ -1154,7 +1134,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
         ny     = 1
         data   = np.array([data])
 
-    #TIME SERIES DATA
+    #time series data
     if ny==1:
         if overlapping == True:
             partitions = np.concatenate(
@@ -1182,14 +1162,13 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
         unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator="|")
         for char in ['[', ']']:
             unique_links = np.char.replace(unique_links, char, '')     
-#
+
         if directed == True:
             return (np.unique(unique_links), unique_links, occurrences)
-
         else:                
             return undirected_ordinal_network(unique_links, occurrences)
 
-    #IMAGE DATA
+    #image data
     else:
         if overlapping == True:
             partitions = np.concatenate(
@@ -1244,10 +1223,9 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
         unique_links = np.apply_along_axis(np.array2string, 2, unique_links, separator="|")
         for char in ['[', ']']:
             unique_links = np.char.replace(unique_links, char, '')   
-#
+
         if directed == True:
             return (np.unique(unique_links), unique_links, occurrences)
-
         else:                
             return undirected_ordinal_network(unique_links, occurrences)
 
@@ -1303,7 +1281,7 @@ def global_node_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, overlapping=True, co
     if len(data)==3 and type(data[0][0])==np.str_:
         nodes, links, weights = data
     else:
-#(Arthur): Assumes 'normalized==True' and 'directed==True'.
+        #assumes 'normalized==True' and 'directed==True'.
         nodes, links, weights = ordinal_network(data, dx, dy, tau_x, tau_y, True, 
                                                 overlapping, True, connections)
 
@@ -1366,7 +1344,7 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
      array([0.25, 0.25, 0.25, 0.25]))
     """
 
-#THEORETICAL RESULTS FOR IMAGE DATA
+#theoretical results for image data
     if overlapping==True:
         if dx>1 and dy>1:
             allowed_links     = []
@@ -1441,7 +1419,7 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
 
             return vertices_names, edge_array, weight_array
         
-    #THEORETICAL RESULTS FOR TIME SERIES DATA
+    #theoretical results for time series data
         else:
             vertices_names = []
             edge_array     = []   
@@ -1466,7 +1444,6 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
             vertices_names = np.unique(edge_array)    
 
             return vertices_names, np.asarray(edge_array), np.asarray(weight_array)
-#(Arthur): added more recently the lines below to return the random ordinal network for the case of nonoverlapping partitions.
     else: #nonoverlapping partitions
         permutations = list(itertools.permutations(np.arange(dx*dy).astype('int')))
         edge_array   = [] 
@@ -1540,8 +1517,8 @@ def missing_states(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, ret
     if not return_states==False:
         if len(data)==2 and type(data[0])==np.ndarray:
             states, probs = data
-# inferring dx and dy from data. (It is not possible in the case of missing_links() for the sets of possible links are different 
-# for time series and images.
+            #inferring dx and dy from data. (It is not possible in the case of missing_links() 
+            #for the sets of possible links are different for time series and images.
             dx = len(states[0])
             dy = 1
 
@@ -1567,7 +1544,7 @@ def missing_states(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, ret
         else:
             return missing_states, len(missing_args) 
 
-#not return missing ordinal patterns.
+    #not return missing ordinal patterns.
     else:
         if len(data)==2 and type(data[0])==np.ndarray:
             states, _ = data
@@ -1658,15 +1635,15 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
         else:
             return missing_links, len(missing_links)
 
-#not return missing links
+    #not return missing links
     else:
         if len(data)==3 and type(data[0][0])==np.str_:
             _, data_links, _ = data
         else:
             _, data_links, _ = ordinal_network(data, dx, dy)
 
-#assumes dx==1 means time series data, although the algorithm works for images too
-#in this case and te results are different.
+		#assumes dx==1 means time series data, although the algorithm works
+		#for images too in this case and te results are different.
         if dy==1:
             all_links = np.math.factorial(dx)*dx
 
@@ -1675,7 +1652,7 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
             else:
                 return all_links-len(data_links)
 
-#not return missing links for image data.
+        #not return missing links for image data.
         else:
             _, all_links, _ = random_ordinal_network(dx=dx, dy=dy)
             missing_links   = setdiff(all_links, data_links)
@@ -1744,9 +1721,9 @@ def minimum_complexity_entropy(dx=3, dy=1, size=100):
     for i in range(size-1):
         probabilities    = np.full(shape=N, fill_value=(1-prob_params[i])/(N-1))
         probabilities[0] = prob_params[i]
-#                
+
         h = permutation_entropy(probabilities, dx, dy, probs=True)
-#        
+
         p_plus_u_over_2      = (uniform_dist + probabilities)/2  
         s_of_p_plus_u_over_2 = -np.sum(p_plus_u_over_2*np.log(p_plus_u_over_2))
 
@@ -1816,19 +1793,16 @@ def maximum_complexity_entropy(dx=3, dy=1, m=1):
     hlist_, clist_ = np.zeros(shape=(N-1,m)), np.zeros(shape=(N-1,m))
 
     for i in range(N-1):
-    #     print('i: ', i)
+
         p             = np.zeros(shape=N)
         uniform_dist  = np.full(N, 1/N)
         prob_params   = np.linspace(0, 1/N, num=m)
-    #
+
         for k in range(len(prob_params)):
-    #         print('\m: ', k)
             p[0] = prob_params[k]
             for j in range(1,N-i):
-    #             print('j: ', j)
                 p[j] = (1-prob_params[k])/(N-i-1)
 
-    #         print(p)
             h = permutation_entropy(p, dx, dy, probs=True)
 
             p_plus_u_over_2      = (uniform_dist + p)/2  
@@ -1844,7 +1818,7 @@ def maximum_complexity_entropy(dx=3, dy=1, m=1):
             hlist_[i, k] = h
             clist_[i, k] = h*js_div/js_div_max
             
-#flatenning the arrays and ordering the pairs of values.
+    #flatenning the arrays and ordering the pairs of values.
     hlist_ = hlist_.flatten()
     clist_ = clist_.flatten()
     args   = np.argsort(hlist_)
