@@ -1297,7 +1297,7 @@ def global_node_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, overlapping=True, co
         
         h_i            = -np.sum(renorm_weights*np.log2(renorm_weights))
         h_gn          += p_in*h_i
-        
+
     return h_gn
 
 
