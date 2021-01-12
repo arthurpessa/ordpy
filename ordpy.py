@@ -1,4 +1,4 @@
-"""
+    """
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Networks Methods
 ===============================================================================================
 
@@ -285,7 +285,7 @@ def setdiff(a, b):
     return(C)
 
 
-def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, return_missing=False):
+def ordinal_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, return_missing=False):
     """
     Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization process to extract a
     probability distribution of ordinal patterns (permutations) from data.
@@ -318,12 +318,12 @@ def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, return_missing=Fal
 
     Examples
     --------
-    >>> symbolic_distribution([4,7,9,10,6,11,3], dx=2)
+    >>> ordinal_distribution([4,7,9,10,6,11,3], dx=2)
     (array([[0, 1],
             [1, 0]]),
      array([0.66666667, 0.33333333]))
     >>>
-    >>> symbolic_distribution([4,7,9,10,6,11,3], dx=3, return_missing=True)
+    >>> ordinal_distribution([4,7,9,10,6,11,3], dx=3, return_missing=True)
     (array([[0, 1, 2],
             [1, 0, 2],
             [2, 0, 1],
@@ -332,13 +332,13 @@ def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, return_missing=Fal
             [2, 1, 0]]),
      array([0.4, 0.2, 0.4, 0. , 0. , 0. ]))
     >>>
-    >>> symbolic_distribution([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2)
+    >>> ordinal_distribution([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2)
     (array([[0, 1, 3, 2],
             [1, 0, 2, 3],
             [1, 2, 3, 0]]),
      array([0.5 , 0.25, 0.25]))
     >>>
-    >>> symbolic_distribution([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2, tau_x=2)
+    >>> ordinal_distribution([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2, tau_x=2)
     (array([[0, 1, 3, 2],
             [0, 2, 1, 3],
             [1, 3, 2, 0]]),
@@ -376,18 +376,18 @@ def symbolic_distribution(data, dx=3, dy=1, tau_x=1, tau_y=1, return_missing=Fal
         return symbols, probabilities
 
 
-def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized=True, probs=False):
+def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base=2, normalized=True, probs=False):
     """
-    Calculates Shannon's entropy using a symbolic ditribution extracted from
+    Calculates Shannon's entropy using an ordinal ditribution extracted from
     data\\ [#bandt_pompe]_\\ :sup:`,`\\ [#ribeiro_2012]_.
     
     Parameters
     ----------
-    data : array, return of :func:`ordpy.symbolic_distribution`
+    data : array, return of :func:`ordpy.ordinal_distribution`
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`
-           or the ordinal probabilities returned by :func:`ordpy.symbolic_distribution`.
+           or the ordinal probabilities returned by :func:`ordpy.ordinal_distribution`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3)
     dy : int
@@ -425,7 +425,7 @@ def permutation_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, base='e', normalized
     1.0397207708399179
     """
     if not probs:
-        _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=False)
+        _, probabilities = ordinal_distribution(data, dx, dy, tau_x, tau_y, return_missing=False)
     else:
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
@@ -451,8 +451,8 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
     complexity\\ [#lopezruiz]_ (measures which define the complexity-entropy 
-    causality plane [#rosso]_\\ :sup:`,`\\ [#ribeiro_2012]_) using a 
-    symbolic ditribution obtained from data.
+    causality plane [#rosso]_\\ :sup:`,`\\ [#ribeiro_2012]_) using an
+    ordinal ditribution obtained from data.
     
     Parameters
     ----------
@@ -483,7 +483,7 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     >>> complexity_entropy([4,7,9,10,6,11,3], dx=2)
     (0.9182958340544894, 0.06112816548804511)
     >>>
-    >>> p = symbolic_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
+    >>> p = ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
     >>> complexity_entropy(p, dx=2, probs=True)
     (0.9182958340544894, 0.06112816548804511)
     >>> 
@@ -498,7 +498,7 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
     #checking if 'data' is a probability distribution or not
     if probs==False:
-        _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)   
+        _, probabilities = ordinal_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)   
         h                = permutation_entropy(probabilities[probabilities>0], dx, dy, tau_x, tau_y, probs=True)
     else:
         if len(data)==np.math.factorial(dx*dy):
@@ -508,8 +508,8 @@ def complexity_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
             raise Exception("The data provided as input is not adequate. The length of" \
                             " the ordinal distribution array does not match the number of" \
                             " possible permutations for dx = {} and dy = {}." \
-                            " Please run symbolic_function(..., missing=True) instead of" \
-                            " symbolic_function(..., missing=False) to use part of its" \
+                            " Please run ordinal_distribution(..., return_missing=True) instead of" \
+                            " ordinal_distribution(..., return_missing=False) to use part of its" \
                             " return as input in complexity_entropy() or change the" \
                             " values of the embedding dimensions.".format(dx, dy))
 
@@ -576,17 +576,17 @@ def logq(x, q=1):
 
 def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
-    Calculates the normalized Tsallis's entropy\\ [#ribeiro2017]) using a
-    symbolic ditribution obtained from data.
+    Calculates the normalized Tsallis's entropy\\ [#ribeiro2017]) using an
+    ordinal ditribution obtained from data.
     
     Parameters
     ----------
-    data : array, return of :func:`ordpy.symbolic_distribution`
+    data : array, return of :func:`ordpy.ordinal_distribution`
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
            (:math:`n \\times m`) or the ordinal probabilities returned
-           by :func:`ordpy.symbolic_distribution`.
+           by :func:`ordpy.ordinal_distribution`.
     q : float or array
         Tsallis `q` parameter; it can be an array of values (default: 1).
     dx : int
@@ -624,7 +624,7 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     0.768 
     """
     if not probs:
-        _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y)
+        _, probabilities = ordinal_distribution(data, dx, dy, tau_x, tau_y)
     else:
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
@@ -649,7 +649,7 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
     complexity\\ [#lopezruiz]_ using Tsallis's entropy (these measures define 
     a generalized complexity-entropy causality plane\\ [#ribeiro2017]_ ) 
-    using a symbolic ditribution obtained from data.
+    using an ordinal ditribution obtained from data.
     
     Parameters
     ----------
@@ -683,7 +683,7 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
     >>> tsallis_complexity_entropy([4,7,9,10,6,11,3], dx=2)
     array([0.91829583, 0.06112817])
     >>>
-    >>> p = symbolic_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
+    >>> p = ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
     >>> tsallis_complexity_entropy(p, dx=2, probs=True)
     array([0.91829583, 0.06112817])
     >>>
@@ -727,7 +727,7 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
                   )
 
     if probs==False:
-        _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
+        _, probabilities = ordinal_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
         h_q              = tsallis_entropy(probabilities[probabilities>0], q, dx, dy, 
                                            tau_x, tau_y, probs=True)
     else:
@@ -739,8 +739,8 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
             raise Exception("The data provided as input is not adequate. The length of" \
                             " the ordinal distribution array does not match the number of" \
                             " possible permutations for dx = {} and dy = {}." \
-                            " Please run symbolic_function(..., missing=True) instead of" \
-                            " symbolic_function(..., missing=False) to use part of its" \
+                            " Please run ordinal_distribution(..., return_missing=True) instead of" \
+                            " ordinal_distribution(..., return_missing=False) to use part of its" \
                             " return as input in tsallis_complexity_entropy() or change the" \
                             " values of the embedding dimensions.".format(dx, dy))
 
@@ -781,8 +781,8 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=Fa
 
 def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     """
-    Calculates the normalized Rényi's entropy\\ [#jauregui]_ using a
-    symbolic ditribution obtained from data.
+    Calculates the normalized Rényi's entropy\\ [#jauregui]_ using an
+    ordinal ditribution obtained from data.
     
     Parameters
     ----------
@@ -828,7 +828,7 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=False):
     0.5701944178769374 
     """
     if not probs:
-        _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y)
+        _, probabilities = ordinal_distribution(data, dx, dy, tau_x, tau_y)
     else:
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
@@ -857,7 +857,7 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
     complexity\\ [#lopezruiz]_ using Rényi's entropy (these measures define 
     a generalized complexity-entropy causality plane\\ [#jauregui]_) using 
-    a symbolic ditribution obtained from data.
+    an ordinal ditribution obtained from data.
     
     Parameters
     ----------
@@ -891,7 +891,7 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
     >>> renyi_complexity_entropy([4,7,9,10,6,11,3], dx=2)
     array([0.91829583, 0.06112817])
     >>>
-    >>> p = symbolic_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
+    >>> p = ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
     >>> renyi_complexity_entropy(p, dx=2, probs=True)
     array([0.91829583, 0.06112817])
     >>>
@@ -935,7 +935,7 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
                   )
 
     if probs==False:
-        _, probabilities = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
+        _, probabilities = ordinal_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
         h_a              = renyi_entropy(probabilities, alpha, dx, dy, tau_x, tau_y, probs=True)
     else:
         if len(data)==np.math.factorial(dx*dy):
@@ -945,8 +945,8 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, tau_x=1, tau_y=1, probs=
             raise Exception("The data provided as input is not adequate. The length of" \
                             " the ordinal distribution array does not match the number of" \
                             " possible permutations for dx = {} and dy = {}." \
-                            " Please run symbolic_function(..., missing=True) instead of" \
-                            " symbolic_function(..., missing=False) to use part of its" \
+                            " Please run ordinal_distribution(..., return_missing=True) instead of" \
+                            " ordinal_distribution(..., return_missing=False) to use part of its" \
                             " return as input in renyi_complexity_entropy() or change the" \
                             " values of the embedding dimensions.".format(dx, dy))
 
@@ -1037,7 +1037,7 @@ def ordinal_network(data, dx=3, dy=1, tau_x=1, tau_y=1, normalized=True, overlap
                correspond to an undirected network.
     connections : str
                   The ordinal network is constructed using `'all'` permutation
-                  successions in symbolic sequence or only `'horizontal'` or 
+                  successions in a symbolic sequence or only `'horizontal'` or 
                   `'vertical'` successions. Parameter only valid for image data
                   (default: `'all'`). 
 
@@ -1256,7 +1256,7 @@ def global_node_entropy(data, dx=3, dy=1, tau_x=1, tau_y=1, overlapping=True, co
                   (default: True). If `False`, it does not. 
     connections : str
                   The ordinal network is constructed using `'all'` permutation
-                  successions in symbolic sequence or only `'horizontal'` or 
+                  successions in a symbolic sequence or only `'horizontal'` or 
                   `'vertical'` successions. Parameter only valid for image data
                   (default: `'all'`). 
     Returns
@@ -1461,19 +1461,19 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
         return np.unique(edge_array), edge_array, weight_array
 
 
-def missing_states(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, return_states=True):
+def missing_patterns(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, return_states=True):
     """
     Searches for ordinal patterns (permutations) which do not occur 
     in data\\ [#amigó]_.
     
     Parameters
     ----------
-    data : array, return of :func:`ordpy.symbolic_distribution`
+    data : array, return of :func:`ordpy.ordinal_distribution`
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
            (:math:`n \\times m`) or the symbols and probabilities 
-           returned by :func:`ordpy.symbolic_distribution`.
+           returned by :func:`ordpy.ordinal_distribution`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3)
     dy : int
@@ -1500,18 +1500,18 @@ def missing_states(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, ret
     
     Examples
     --------
-    >>> missing_states([4,7,9,10,6,11,3], dx=2, return_fraction=False)
+    >>> missing_patterns([4,7,9,10,6,11,3], dx=2, return_fraction=False)
     (array([], shape=(0, 2), dtype=int64), 0)
     >>>
-    >>> missing_states(symbolic_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True), dx=2)
+    >>> missing_patterns(ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True), dx=2)
     (array([], shape=(0, 2), dtype=int64), 0.0)
     >>>
-    >>> missing_states([4,7,9,10,6,11,3,5,6,2,3,1], dx=3, return_fraction=False)
+    >>> missing_patterns([4,7,9,10,6,11,3,5,6,2,3,1], dx=3, return_fraction=False)
     (array([[0, 2, 1],
             [2, 1, 0]]),
      2)
     >>>
-    >>> missing_states([4,7,9,10,6,11,3,5,6,2,3,1], dx=3, return_fraction=True, return_states=False)    
+    >>> missing_patterns([4,7,9,10,6,11,3,5,6,2,3,1], dx=3, return_fraction=True, return_states=False)    
     0.3333333333333333
     """
     if not return_states==False:
@@ -1528,13 +1528,13 @@ def missing_states(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, ret
                 raise Exception("The data provided as input is not adequate. The length of" \
                                 " the symbolic array does not match the number of" \
                                 " possible ordinal patterns for dx = {} and dy = {}." \
-                                " Please run symbolic_function(..., missing=True) instead of" \
-                                " symbolic_function(..., missing=False) to use its" \
-                                " return as input in missing_states() or change the" \
+                                " Please run ordinal_distribution(..., return_missing=True) instead of" \
+                                " ordinal_distribution(..., return_missing=False) to use its" \
+                                " return as input in missing_patterns() or change the" \
                                 " values of the embedding dimensions.".format(dx, dy))
 
         else:
-            states, probs = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
+            states, probs = ordinal_distribution(data, dx, dy, tau_x, tau_y, return_missing=True)
             
         missing_args   = np.argwhere(probs==0).flatten()
         missing_states = states[missing_args]
@@ -1549,7 +1549,7 @@ def missing_states(data, dx=3, dy=1, tau_x=1, tau_y=1, return_fraction=True, ret
         if len(data)==2 and type(data[0])==np.ndarray:
             states, _ = data
         else:
-            states, _ = symbolic_distribution(data, dx, dy, tau_x, tau_y, return_missing=False)
+            states, _ = ordinal_distribution(data, dx, dy, tau_x, tau_y, return_missing=False)
 
         if return_fraction==True:
             n = np.math.factorial(dx*dy)
