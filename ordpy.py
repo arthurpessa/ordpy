@@ -1,4 +1,4 @@
-    """
+"""
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Networks Methods
 ===============================================================================================
 
