@@ -285,6 +285,55 @@ def setdiff(a, b):
     return(C)
 
 
+def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1):
+    """
+
+    Parameters
+    ----------
+    data : array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tauy : int
+           Embedding delay (vertical axis) (default: 1).
+           
+    Returns
+    -------
+     : tuple
+       A tuple of arrays containing the permutations occurring in data 
+       and their corresponding probabilities.
+
+    Examples
+    --------
+    >>> ordinal_sequence([4,7,9,10,6,11,3], dx=2)
+    (array([[0, 1],
+        [1, 0]])
+    """
+    try:
+        ny, nx = np.shape(data)
+        data   = np.array(data)
+    except:
+        nx     = np.shape(data)[0]
+        ny     = 1
+        data   = np.array([data])
+        
+    partitions = np.concatenate(
+        [
+            [np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)] 
+            for j in range(ny-(dy-1)*tauy)
+        ]
+    )
+
+    return partitions
+
+
 def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False):
     """
     Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization process to extract a
