@@ -285,9 +285,11 @@ def setdiff(a, b):
     return(C)
 
 
-def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1):
+def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True):
     """
-
+    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to extract a
+    sequence of ordinal patterns (permutations) from data.
+    
     Parameters
     ----------
     data : array 
@@ -303,18 +305,40 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1):
            Embedding delay (horizontal axis) (default: 1).
     tauy : int
            Embedding delay (vertical axis) (default: 1).
-           
+    overlapping : boolean
+                  If `True`, data is partitioned into overlapping sliding windows
+                  (default: True). If `False`, it does not. 
     Returns
     -------
-     : tuple
-       A tuple of arrays containing the permutations occurring in data 
-       and their corresponding probabilities.
+     : array
+       An array representing the symbolic sequence 
+       corresponding to data.
 
     Examples
     --------
     >>> ordinal_sequence([4,7,9,10,6,11,3], dx=2)
-    (array([[0, 1],
-        [1, 0]])
+    array([[0, 1],
+           [0, 1],
+           [0, 1],
+           [1, 0],
+           [0, 1],
+           [1, 0]])
+    >>> 
+    >>> ordinal_sequence([4,7,9,10,6,11,3], dx=2, taux=2)
+    array([[0, 1],
+           [0, 1],
+           [1, 0],
+           [0, 1],
+           [1, 0]])
+    >>>
+    >>> ordinal_sequence([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2)
+    array([[[0, 1, 3, 2],
+            [1, 0, 2, 3],
+            [0, 1, 2, 3]],
+            
+           [[1, 2, 3, 0],
+            [0, 1, 3, 2],
+            [0, 1, 2, 3]]])
     """
     try:
         ny, nx = np.shape(data)
@@ -323,15 +347,48 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1):
         nx     = np.shape(data)[0]
         ny     = 1
         data   = np.array([data])
+    
+#TIME SERIES DATA
+    if ny==1:
+        if overlapping == True:
+            partitions = np.concatenate(
+                [
+                    [np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)] 
+                    for j in range(ny-(dy-1)*tauy)
+                ]
+            )
         
-    partitions = np.concatenate(
-        [
-            [np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)] 
-            for j in range(ny-(dy-1)*tauy)
-        ]
-    )
-
-    return partitions
+        else: #non overlapping
+            partitions = np.concatenate(
+                [
+                    [np.concatenate(data[j:j+dy*tauy:tauy, i:i+dx*taux:taux]) for i in range(0, nx-(dx-1)*taux, dx+(dx-1)*(taux-1))] 
+                    for j in range(ny-(dy-1)*tauy)
+                ]
+            )
+        #
+        symbols = np.apply_along_axis(np.argsort, 1, partitions)
+        
+#IMAGE DATA
+    else:
+        if overlapping == True:
+            partitions = np.concatenate(
+                [
+                    [[np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)]]
+                    for j in range(ny-(dy-1)*tauy)
+                ]
+            )
+            
+        else: #non overlapping
+            partitions = np.concatenate(
+                [
+                    [[np.concatenate(data[j:j+dy*tauy:tauy, i:i+dx*taux:taux]) for i in range(0, nx-(dx-1)*taux, dx+(dx-1)*(taux-1))]] 
+                    for j in range(0, ny-(dy-1)*tauy, dy+(dy-1)*(tauy-1))
+                ]
+            )            
+        #        
+        symbols = np.apply_along_axis(np.argsort, 2, partitions)
+    
+    return symbols
 
 
 def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False):
@@ -357,7 +414,7 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
     return_missing: boolean
                     If `True`, permutations that do not appear in the symbolic sequence 
                     obtained from data are shown. If `False`, they are omitted. 
-                    (default: `False`)
+                    (default: `False`)  
 
     Returns
     -------
