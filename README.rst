@@ -62,7 +62,7 @@ or
 Basic usage
 ===========
 
-We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
+We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/ordpy.ipynb>`_
 illustrating how to use ``ordpy``. This notebook reproduces all figures of our
 article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
 
