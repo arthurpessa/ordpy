@@ -1,8 +1,8 @@
-ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Networks Methods
+ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
 ===============================================================================================
 
 ``ordpy`` is pure Python module [#pessa2021]_ that implements data analysis methods based
-on Band and Pompe [#bandt_pompe]_ symbolic encoding scheme.
+on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
 .. note::
 
@@ -10,14 +10,14 @@ on Band and Pompe [#bandt_pompe]_ symbolic encoding scheme.
    citations to the following reference [#pessa2021]_:
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
-     analysis with permutation entropy and ordinal networks methods 
+     analysis with permutation entropy and ordinal network methods 
      <https://ourpaper_url>`_, ????, ??-?? (2021).
 
     .. code-block:: bibtex
 
        @article{pessa2021ordpy,
          title    = {ordpy: A Python Package for Data Analysis with Permutation 
-                     Entropy and Ordinal Networks Methods},
+                     Entropy and Ordinal Network Methods},
          author   = {Pessa, Arthur A. B. and Ribeiro, Haroldo V.},
          journal  = {?},
          volume   = {?},
@@ -44,7 +44,7 @@ on Band and Pompe [#bandt_pompe]_ symbolic encoding scheme.
 Installing
 ==========
 
-To install the ordpy use
+To install ordpy use
 
 .. code-block:: console
 
@@ -64,7 +64,7 @@ Basic usage
 
 We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/ordpy.ipynb>`_
 illustrating how to use ``ordpy``. This notebook reproduces all figures of our
-article [#pessa2021]_. The codes below show simple usages of ``ordpy``.
+article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
 
 **Complexity-entropy plane for logistic map and Gaussian noise**
 
