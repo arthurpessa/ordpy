@@ -35,8 +35,8 @@ release = '1.0'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinx.ext.githubpages',
     'sphinx_search.extension',
+    'sphinx.ext.githubpages',
     'sphinx.ext.linkcode',
 ]
 
