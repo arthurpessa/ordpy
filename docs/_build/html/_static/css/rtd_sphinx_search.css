@@ -159,6 +159,12 @@
     background-color: rgb(245, 245, 245);
 }
 
+.search__error__box {
+    color: black;
+    min-width: 300px;
+    font-weight: 700;
+}
+
 .outer_div_page_results {
     margin: 5px 0px;
     overflow: auto;

@@ -1,14 +1,15 @@
 const MAX_SUGGESTIONS = 50;
 const MAX_SECTION_RESULTS = 3;
 const MAX_SUBSTRING_LIMIT = 100;
+const ANIMATION_TIME = 200;
+const FETCH_RESULTS_DELAY = 250;
+const CLEAR_RESULTS_DELAY = 300;
 
 // Possible states of search modal
 const SEARCH_MODAL_OPENED = "opened";
 const SEARCH_MODAL_CLOSED = "closed";
 
 let SEARCH_MODAL_STATE = SEARCH_MODAL_CLOSED;
-let TOTAL_PAGE_RESULTS = 0;
-let SEARCH_QUERY = "";
 
 // this is used to store the total result counts,
 // which includes all the sections and domains of all the pages.
@@ -81,6 +82,7 @@ const convertObjToUrlParams = obj => {
     }
 };
 
+
 /**
  * Adds/removes "rtd_search" url parameter to the url.
  */
@@ -89,10 +91,10 @@ const updateUrl = () => {
     let path = window.location.pathname;
     let url_params = $.getQueryParameters();
     let hash = window.location.hash;
-
-    // SEARCH_QUERY should not be an empty string
-    if (_is_string(SEARCH_QUERY)) {
-        url_params.rtd_search = SEARCH_QUERY;
+    let search_query = getSearchTerm();
+    // search_query should not be an empty string
+    if (search_query.length > 0) {
+        url_params.rtd_search = search_query;
     } else {
         delete url_params.rtd_search;
     }
@@ -111,6 +113,16 @@ const updateUrl = () => {
     // update url
     window.history.pushState({}, null, url);
 };
+
+
+/*
+ * Keeps in sync the original search bar with the input from the modal.
+ */
+const updateSearchBar = () => {
+  let search_bar = getInputField();
+  search_bar.value = getSearchTerm();
+};
+
 
 /**
  * Create and return DOM nodes
@@ -178,24 +190,18 @@ const get_section_html = (sectionData, page_link) => {
         </a> \
         <br class="br-for-hits">';
 
-    let section_subheading = sectionData._source.title;
-    let highlight = sectionData.highlight;
-    if (getHighlightListData(highlight, "sections.title")) {
-        section_subheading = getHighlightListData(
-            highlight,
-            "sections.title"
-        )[0];
+    let section_subheading = sectionData.title;
+    let highlights = sectionData.highlights;
+    if (highlights.title.length) {
+        section_subheading = highlights.title[0];
     }
 
     let section_content = [
-        sectionData._source.content.substring(0, MAX_SUBSTRING_LIMIT) + " ..."
+        sectionData.content.substring(0, MAX_SUBSTRING_LIMIT) + " ..."
     ];
 
-    if (getHighlightListData(highlight, "sections.content")) {
-        let highlight_content = getHighlightListData(
-            highlight,
-            "sections.content"
-        );
+    if (highlights.content.length) {
+        let highlight_content = highlights.content;
         section_content = [];
         for (
             let j = 0;
@@ -206,7 +212,7 @@ const get_section_html = (sectionData, page_link) => {
         }
     }
 
-    let section_link = `${page_link}#${sectionData._source.id}`;
+    let section_link = `${page_link}#${sectionData.id}`;
 
     let section_id = "hit__" + COUNT;
 
@@ -218,22 +224,6 @@ const get_section_html = (sectionData, page_link) => {
     });
 
     return section_html;
-};
-
-/**
- * Returns value of the corresponding key (if present),
- * else returns false.
- *
- * @param {Object} data object containing the data used for highlighting
- * @param {String} key key whose values is to be returned
- * @return {Array|Boolean} if key is present, it will return its value. Otherwise, return false
- */
-const getHighlightListData = (data, key) => {
-    if (_is_array(data[key])) {
-        return data[key];
-    } else {
-        return false;
-    }
 };
 
 /**
@@ -258,30 +248,20 @@ const get_domain_html = (domainData, page_link) => {
         </a> \
         <br class="br-for-hits">';
 
-    let domain_link = `${page_link}#${domainData._source.anchor}`;
-    let domain_role_name = domainData._source.role_name;
-    let domain_name = domainData._source.name;
-    let domain_docstrings =
-        domainData._source.docstrings.substr(0, MAX_SUBSTRING_LIMIT) + " ...";
+    let domain_link = `${page_link}#${domainData.id}`;
+    let domain_role_name = domainData.role;
+    let domain_name = domainData.name;
+    let domain_content =
+        domainData.content.substr(0, MAX_SUBSTRING_LIMIT) + " ...";
 
-    // take values from highlighted fields (if present)
-    if (domainData.highlight !== undefined && domainData.highlight !== null) {
-        let highlight = domainData.highlight;
-
-        let name = getHighlightListData(highlight, "domains.name");
-        let docstrings = getHighlightListData(highlight, "domains.docstrings");
-
-        if (name) {
-            domain_name = name[0];
-        }
-
-        if (docstrings) {
-            domain_docstrings = docstrings[0];
-        }
+    let highlights = domainData.highlights;
+    if (highlights.name.length) {
+        domain_name = highlights.name[0];
+    }
+    if (highlights.content.length) {
+        domain_content = highlights.content[0];
     }
 
-    let domain_subheading = domain_name;
-    let domain_content = domain_docstrings;
     let domain_id = "hit__" + COUNT;
     domain_role_name = "[" + domain_role_name + "]";
 
@@ -289,7 +269,7 @@ const get_domain_html = (domainData, page_link) => {
         domain_link: domain_link,
         domain_id: domain_id,
         domain_content: domain_content,
-        domain_subheading: domain_subheading,
+        domain_subheading: domain_name,
         domain_role_name: domain_role_name
     });
 
@@ -312,17 +292,12 @@ const generateSingleResult = (resultData, projectName) => {
             </h2> \
         </a>';
 
-    let page_link = resultData.link;
+    let page_link = resultData.path;
     let page_title = resultData.title;
+    let highlights = resultData.highlights;
 
-    // if title is present in highlighted field, use that.
-    if (resultData.highlight !== undefined && resultData.highlight !== null) {
-        if (
-            resultData.highlight.title !== undefined &&
-            resultData.highlight.title !== null
-        ) {
-            page_title = resultData.highlight.title;
-        }
+    if (highlights.title.length) {
+        page_title = highlights.title[0];
     }
 
     // if result is not from the same project,
@@ -347,19 +322,19 @@ const generateSingleResult = (resultData, projectName) => {
         page_title: page_title
     });
 
-    for (let i = 0; i < resultData.inner_hits.length; ++i) {
-        const type = resultData.inner_hits[i].type;
+    for (let i = 0; i < resultData.blocks.length; ++i) {
+        let block = resultData.blocks[i];
         COUNT += 1;
         let html_structure = "";
 
-        if (type === "sections") {
+        if (block.type === "section") {
             html_structure = get_section_html(
-                resultData.inner_hits[i],
+                block,
                 page_link
             );
-        } else if (type === "domains") {
+        } else if (block.type === "domain") {
             html_structure = get_domain_html(
-                resultData.inner_hits[i],
+                block,
                 page_link
             );
         }
@@ -380,7 +355,8 @@ const generateSuggestionsList = (data, projectName) => {
         class: "search__result__box"
     });
 
-    for (let i = 0; i < TOTAL_PAGE_RESULTS; ++i) {
+    let max_results = Math.min(MAX_SUGGESTIONS, data.results.length);
+    for (let i = 0; i < max_results; ++i) {
         let search_result_single = createDomNode("div", {
             class: "search__result__single"
         });
@@ -439,9 +415,9 @@ const getInputField = () => {
     // in that case, use the other query to select
     // the input field
     try {
-        inputField = document.querySelector("div[role='search'] input");
+        inputField = document.querySelector("[role='search'] input");
         if (inputField === undefined || inputField === null) {
-            throw "'div[role='search'] input' not found";
+            throw "'[role='search'] input' not found";
         }
     } catch (err) {
         inputField = document.querySelector("input[name='q']");
@@ -449,6 +425,17 @@ const getInputField = () => {
 
     return inputField;
 };
+
+/*
+ * Returns the current search term from the modal.
+ */
+const getSearchTerm = () => {
+  let search_outer_input = document.querySelector(".search__outer__input");
+  if (search_outer_input !== null) {
+      return search_outer_input.value || "";
+  }
+  return "";
+}
 
 /**
  * Removes all results from the search modal.
@@ -469,8 +456,7 @@ const removeResults = () => {
  */
 const getErrorDiv = err_msg => {
     let err_div = createDomNode("div", {
-        class: "search__result__box",
-        style: "color: black; min-width: 300px; font-weight: 700"
+        class: "search__result__box search__error__box"
     });
     err_div.innerHTML = err_msg;
     return err_div;
@@ -497,6 +483,10 @@ const fetchAndGenerateResults = (search_url, projectName) => {
     search_outer.appendChild(search_loding);
 
     let ajaxFunc = () => {
+        // Update URL just before fetching the results
+        updateUrl();
+        updateSearchBar();
+
         $.ajax({
             url: search_url,
             crossDomain: true,
@@ -509,10 +499,6 @@ const fetchAndGenerateResults = (search_url, projectName) => {
                     typeof resp.responseJSON !== "undefined"
                 ) {
                     if (resp.responseJSON.results.length > 0) {
-                        TOTAL_PAGE_RESULTS =
-                            MAX_SUGGESTIONS <= resp.responseJSON.results.length
-                                ? MAX_SUGGESTIONS
-                                : resp.responseJSON.results.length;
                         let search_result_box = generateSuggestionsList(
                             resp.responseJSON,
                             projectName
@@ -528,19 +514,19 @@ const fetchAndGenerateResults = (search_url, projectName) => {
                         });
                     } else {
                         removeResults();
-                        let err_div = getErrorDiv("No Results Found");
+                        let err_div = getErrorDiv("No results found");
                         search_outer.appendChild(err_div);
                     }
                 }
             },
             error: (resp, status_code, error) => {
                 removeResults();
-                let err_div = getErrorDiv("Error Occurred. Please try again.");
+                let err_div = getErrorDiv("There was an error. Please try again.");
                 search_outer.appendChild(err_div);
             }
         });
     };
-    ajaxFunc = debounce(ajaxFunc, 500);
+    ajaxFunc = debounce(ajaxFunc, FETCH_RESULTS_DELAY);
     return ajaxFunc;
 };
 
@@ -576,7 +562,9 @@ const generateAndReturnInitialHtml = () => {
 /**
  * Opens the search modal.
  *
- * @param {String} custom_query if a custom query is provided, initialise the value of input field with it
+ * @param {String} custom_query if a custom query is provided,
+ * initialize the value of input field with it, or fallback to the
+ * value from the original search bar.
  */
 const showSearchModal = custom_query => {
     // removes previous results (if there are any).
@@ -589,7 +577,7 @@ const showSearchModal = custom_query => {
     let search_bar = getInputField();
     search_bar.blur();
 
-    $(".search__outer__wrapper").fadeIn(400, () => {
+    $(".search__outer__wrapper").fadeIn(ANIMATION_TIME, () => {
         // sets the value of the input field to empty string and focus it.
         let search_outer_input = document.querySelector(
             ".search__outer__input"
@@ -600,8 +588,9 @@ const showSearchModal = custom_query => {
                 _is_string(custom_query)
             ) {
                 search_outer_input.value = custom_query;
+                search_bar.value = custom_query;
             } else {
-                search_outer_input.value = "";
+                search_outer_input.value = search_bar.value;
             }
             search_outer_input.focus();
         }
@@ -615,6 +604,8 @@ const removeSearchModal = () => {
     // removes previous results before closing
     removeResults();
 
+    updateSearchBar();
+
     SEARCH_MODAL_STATE = SEARCH_MODAL_CLOSED;
 
     // sets the value of input field to empty string and remove the focus.
@@ -624,13 +615,10 @@ const removeSearchModal = () => {
         search_outer_input.blur();
     }
 
-    // reset SEARCH_QUERY
-    SEARCH_QUERY = "";
-
     // update url (remove 'rtd_search' param)
     updateUrl();
 
-    $(".search__outer__wrapper").fadeOut(400);
+    $(".search__outer__wrapper").fadeOut(ANIMATION_TIME);
 };
 
 window.addEventListener("DOMContentLoaded", evt => {
@@ -666,22 +654,22 @@ window.addEventListener("DOMContentLoaded", evt => {
         });
 
         search_outer_input.addEventListener("input", e => {
-            SEARCH_QUERY = e.target.value;
+            let search_query = getSearchTerm();
             COUNT = 0;
 
             let search_params = {
-                q: SEARCH_QUERY,
+                q: search_query,
                 project: project,
                 version: version,
-                language: language
+                language: language,
             };
 
             const search_url =
                 api_host +
-                "/api/v2/docsearch/?" +
+                "/api/v2/search/?" +
                 convertObjToUrlParams(search_params);
 
-            if (typeof SEARCH_QUERY === "string" && SEARCH_QUERY.length > 0) {
+            if (search_query.length > 0) {
                 if (current_request !== null) {
                     // cancel previous ajax request.
                     current_request.cancel();
@@ -693,11 +681,13 @@ window.addEventListener("DOMContentLoaded", evt => {
                 // the suggestions list is generated even if there
                 // is no query. To prevent that, this function
                 // is debounced here.
-                debounce(removeResults, 600)();
+                let func = () => {
+                  removeResults();
+                  updateUrl();
+                };
+                debounce(func, CLEAR_RESULTS_DELAY)();
+                updateUrl();
             }
-
-            // update URL
-            updateUrl();
         });
 
         search_outer_input.addEventListener("keydown", e => {
@@ -740,7 +730,7 @@ window.addEventListener("DOMContentLoaded", evt => {
                     const input_field = getInputField();
                     const form = input_field.parentElement;
 
-                    search_bar.value = SEARCH_QUERY || "";
+                    search_bar.value = getSearchTerm();
                     form.submit();
                 }
             }
@@ -771,14 +761,11 @@ window.addEventListener("DOMContentLoaded", evt => {
 
         // open search modal if "forward slash" button is pressed
         document.addEventListener("keydown", e => {
-            if (e.keyCode === 191) {
+            if (e.keyCode === 191 && SEARCH_MODAL_STATE !== SEARCH_MODAL_OPENED) {
 
                 // prevent opening "Quick Find" in Firefox
                 e.preventDefault();
-
-                if (SEARCH_MODAL_STATE !== SEARCH_MODAL_OPENED) {
-                    showSearchModal();
-                }
+                showSearchModal();
             }
         });
 

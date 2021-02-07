@@ -30,16 +30,16 @@ on Bandt and Pompe's\\ [#bandt_pompe]_ symbolic encoding scheme.
 
 ``ordpy`` implements the following data analysis methods:
 
-- permutation entropy for time series\\ [#bandt_pompe]_ and images\\ [#ribeiro_2012]_;
-- complexity-entropy plane for time series\\ [#lopezruiz]_\\ :sup:`,`\\ [#rosso]_ and 
+- Permutation entropy for time series\\ [#bandt_pompe]_ and images\\ [#ribeiro_2012]_;
+- Complexity-entropy plane for time series\\ [#lopezruiz]_\\ :sup:`,`\\ [#rosso]_ and 
   images\\ [#ribeiro_2012]_;
-- multiscale complexity-entropy plane for time series\\ [#zunino2012]_ and 
+- Multiscale complexity-entropy plane for time series\\ [#zunino2012]_ and 
   images\\ [#zunino2016]_;
 - Tsallis\\ [#ribeiro2017]_ and Rényi\\ [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- ordinal networks for time series\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_ and 
+- Ordinal networks for time series\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_ and 
   images\\ [#pessa2020]_;
-- global node entropy of ordinal networks for 
+- Global node entropy of ordinal networks for 
   time series\\ [#McCullough]_\\ :sup:`,`\\ [#pessa2019]_ and images\\ [#pessa2020]_.
 
 References
@@ -105,13 +105,13 @@ References
 Installing
 ==========
 
-To install ordpy use
+Ordpy can be installed via the command line
 
 .. code-block:: console
 
    pip install ordpy
 
-or
+or you can directly clone its git repository
 
 .. code-block:: console
 
@@ -124,8 +124,8 @@ Basic usage
 ===========
 
 We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
-illustrating how to use ``ordpy``. This notebook reproduces all figures of our
-article\\ [#pessa2021]_. The code below shows simple aplications of ``ordpy``.
+illustrating how to use ``ordpy``. This notebook reproduces all figures of the article which
+introduces the package\\ [#pessa2021]_. The code below shows simple aplications of ``ordpy``.
 
 **Complexity-entropy plane for logistic map and Gaussian noise**
 
@@ -557,7 +557,7 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False):
     """
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
     complexity\\ [#lopezruiz]_ (measures which define the complexity-entropy 
-    causality plane [#rosso]_\\ :sup:`,`\\ [#ribeiro_2012]_) using an
+    causality plane\\ [#rosso]_\\ :sup:`,`\\ [#ribeiro_2012]_) using an
     ordinal ditribution obtained from data.
     
     Parameters
@@ -565,8 +565,7 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False):
     data : array 
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
-           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
-           (:math:`n \\times m`).
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3).
     dy : int
@@ -582,7 +581,7 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False):
     Returns
     -------
      : tuple
-       Values of the normalized permutation entropy and statistical complexity.
+       Normalized values of permutation entropy and statistical complexity.
     
     Examples
     --------
@@ -1341,16 +1340,15 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
 def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, connections="all"):
     """
     Calculates global node entropy\\ [#McCullough]_\\ :sup:`,`\\ [#pessa2019]_ for an ordinal
-    network obtained from data. (Assumes directed )
+    network obtained from data. (Assumes directed and weighted edges).
 
     Parameters
     ----------
     data : array or return of :func:`ordpy.ordinal_network`
-           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
-           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]` or
+           :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
-           (:math:`n \\times m`) or ordinal network returned by 
-           :func:`ordpy.ordinal_network`.
+           or ordinal network returned by :func:`ordpy.ordinal_network`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3)
     dy : int
@@ -1370,7 +1368,7 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
     Returns
     -------
      : float
-       The value of global node entropy.
+       Global node entropy value.
 
     Examples
     --------
