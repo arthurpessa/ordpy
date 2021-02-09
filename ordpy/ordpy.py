@@ -241,50 +241,6 @@ import numpy as np
 import itertools
 
 
-def setdiff(a, b):
-    """
-    Searches for elements (subarrays) in `a` that are not contained in `b` [*]_. 
-
-    Parameters
-    ----------    
-    a : tuples, lists or arrays
-        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
-        \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
-    b : tuples, lists or arrays
-        Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
-        \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
-    
-    Returns
-    -------
-      : array
-        An array containing the elements in `a` that are not contained in `b`.
-
-    Notes
-    -----
-    .. [*] This function was adapted from https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
-
-    Examples
-    --------
-    >>> a = ((0,1,2), (0,1,2), (1,0,2), (2,0,1))
-    >>> b = [[0,2,1], [0,1,2], [0,1,2]] 
-    >>> setdiff(a, b)
-    array([[1, 0, 2],
-           [2, 0, 1]])
-    """
-    a = np.asarray(a)
-    b = np.asarray(b)
-
-    _, ncols = a.shape
-
-    dtype={'names':['f{}'.format(i) for i in range(ncols)],
-           'formats':ncols * [a.dtype]}
-
-    C = np.setdiff1d(a.view(dtype), b.view(dtype))
-    C = C.view(a.dtype).reshape(-1, ncols)
-
-    return(C)
-
-
 def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True):
     """
     Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to extract a
@@ -306,8 +262,8 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True):
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     overlapping : boolean
-                  If `True`, data is partitioned into overlapping sliding windows
-                  (default: True). If `False`, it does not. 
+                  If `True`, data are partitioned into overlapping sliding windows
+                  (default: True). If `False`, otherwise. 
     Returns
     -------
      : array
@@ -450,6 +406,51 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
             [1, 3, 2, 0]]),
      array([0.5 , 0.25, 0.25]))
     """
+    def setdiff(a, b):
+        """
+        Searches for elements (subarrays) in `a` that are not contained in `b` [*]_. 
+
+        Parameters
+        ----------    
+        a : tuples, lists or arrays
+            Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+        b : tuples, lists or arrays
+            Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+        
+        Returns
+        -------
+        : array
+            An array containing the elements in `a` that are not contained in `b`.
+
+        Notes
+        -----
+        .. [*] This function was adapted from https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
+
+        Examples
+        --------
+        >>> a = ((0,1,2), (0,1,2), (1,0,2), (2,0,1))
+        >>> b = [[0,2,1], [0,1,2], [0,1,2]] 
+        >>> setdiff(a, b)
+        array([[1, 0, 2],
+            [2, 0, 1]])
+        """
+        a = np.asarray(a)
+        b = np.asarray(b)
+
+        _, ncols = a.shape
+
+        dtype={'names':['f{}'.format(i) for i in range(ncols)],
+            'formats':ncols * [a.dtype]}
+
+        C = np.setdiff1d(a.view(dtype), b.view(dtype))
+        C = C.view(a.dtype).reshape(-1, ncols)
+
+        return(C)
+
+
+
     try:
         ny, nx = np.shape(data)
         data   = np.array(data)
@@ -506,7 +507,7 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
            Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 'e').
     normalized: boolean
                 If `True`, permutation entropy is normalized by its maximum value.
-                If `False`, it does not (default: `True`).
+                If `False`, it is not (default: `True`).
     probs : boolean
             If `True`, assumes data input to be an ordinal probability
             distribution (default: `False`). 
@@ -1135,8 +1136,8 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
                  between permutations; if `False`, edge weights are transition
                  counts.
     overlapping : boolean
-                  If `True`, data is partitioned into overlapping sliding windows 
-                  (default: `True`); if `False`, it does not. 
+                  If `True`, data are partitioned into overlapping sliding windows 
+                  (default: `True`); if `False`, otherwise. 
     directed : boolean
                If `True`, ordinal network links are directed (default: `True`); if `False`, edges
                correspond to an undirected network.
@@ -1358,8 +1359,8 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     overlapping : boolean
-                  If `True`, data is partitioned into overlapping sliding windows
-                  (default: True). If `False`, it does not. 
+                  If `True`, data are partitioned into overlapping sliding windows
+                  (default: True). If `False`, otherwise. 
     connections : str
                   The ordinal network is constructed using `'all'` permutation
                   successions in a symbolic sequence or only `'horizontal'` or 
@@ -1422,8 +1423,8 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
     dy : int
          Vertical embedding dimension (default: 1 [time series data])
     overlapping : boolean
-                  If `True`, data is partitioned into overlapping sliding windows
-                  (default: True). If `False`, it does not. 
+                  If `True`, data are partitioned into overlapping sliding windows
+                  (default: True). If `False`, otherwise. 
     
     Returns
     -------
@@ -1727,6 +1728,51 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
     ----------
     For notation or context, please see: Citar o paper aqui.
     """
+    def setdiff(a, b):
+        """
+        Searches for elements (subarrays) in `a` that are not contained in `b` [*]_. 
+
+        Parameters
+        ----------    
+        a : tuples, lists or arrays
+            Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+        b : tuples, lists or arrays
+            Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+        
+        Returns
+        -------
+        : array
+            An array containing the elements in `a` that are not contained in `b`.
+
+        Notes
+        -----
+        .. [*] This function was adapted from https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
+
+        Examples
+        --------
+        >>> a = ((0,1,2), (0,1,2), (1,0,2), (2,0,1))
+        >>> b = [[0,2,1], [0,1,2], [0,1,2]] 
+        >>> setdiff(a, b)
+        array([[1, 0, 2],
+            [2, 0, 1]])
+        """
+        a = np.asarray(a)
+        b = np.asarray(b)
+
+        _, ncols = a.shape
+
+        dtype={'names':['f{}'.format(i) for i in range(ncols)],
+            'formats':ncols * [a.dtype]}
+
+        C = np.setdiff1d(a.view(dtype), b.view(dtype))
+        C = C.view(a.dtype).reshape(-1, ncols)
+
+        return(C)
+
+
+
     if not return_links==False:
         if len(data)==3 and type(data[0][0])==np.str_:
             _, data_links, _ = data
