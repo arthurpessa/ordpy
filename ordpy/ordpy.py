@@ -349,7 +349,7 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True):
 
 def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False):
     """
-    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization process to extract a
+    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to extract a
     probability distribution of ordinal patterns (permutations) from data.
     
     Parameters
@@ -357,8 +357,7 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
     data : array 
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
-           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
-           (:math:`n \\times m`).
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3).
     dy : int
@@ -369,14 +368,14 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
            Embedding delay (vertical axis) (default: 1).
     return_missing: boolean
                     If `True`, permutations that do not appear in the symbolic sequence 
-                    obtained from data are shown. If `False`, they are omitted. 
-                    (default: `False`)  
+                    obtained from **data** are shown. If `False`, they are omitted
+                    (default: `False`).
 
     Returns
     -------
      : tuple
-       A tuple of arrays containing the permutations occurring in data 
-       and their corresponding probabilities.
+       A tuple containing two arrays, one with the ordinal patterns occurring in data 
+       and another with their corresponding probabilities.
 
     Examples
     --------
@@ -414,10 +413,10 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
         ----------    
         a : tuples, lists or arrays
             Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
-            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]`.
         b : tuples, lists or arrays
             Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
-            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]`.
         
         Returns
         -------
@@ -449,7 +448,7 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
 
         return(C)
 
-
+#####################################################################################
 
     try:
         ny, nx = np.shape(data)
@@ -559,14 +558,15 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False):
     Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
     complexity\\ [#lopezruiz]_ (measures which define the complexity-entropy 
     causality plane\\ [#rosso]_\\ :sup:`,`\\ [#ribeiro_2012]_) using an
-    ordinal ditribution obtained from data.
+    ordinal distribution obtained from data.
     
     Parameters
     ----------
-    data : array 
+    data : array or return of :func:`ordpy.ordinal_distribution`
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
-           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`.
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` or the
+           ordinal distribution returned by :func:`ordpy.ordinal_distribution`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3).
     dy : int
@@ -577,7 +577,7 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False):
            Embedding delay (vertical axis) (default: 1).
     probs: boolean
            If `True`, assumes the data input to be an ordinal probability distribution
-           (default: `False`)
+           (default: `False`).
     
     Returns
     -------
@@ -653,7 +653,7 @@ def logq(x, q=1):
 
     Notes
     -----
-    The `q`-logarithm of `x` is difined as [*]_
+    The `q`-logarithm of `x` is defined as\\ [*]_
 
     .. math::
 
@@ -1568,7 +1568,7 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
         return np.unique(edge_array), edge_array, weight_array
 
 
-def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, return_states=True):
+def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, return_missing=True):
     """
     Searches for ordinal patterns (permutations) which do not occur 
     in data\\ [#amigó]_.
@@ -1579,7 +1579,7 @@ def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, ret
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
-           (:math:`n \\times m`) or the symbols and probabilities 
+           or the ordinal patterns and probabilities 
            returned by :func:`ordpy.ordinal_distribution`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3)
@@ -1591,19 +1591,18 @@ def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, ret
            Embedding delay (vertical axis) (default: 1).
     return_fraction : boolean
                       if `True`, returns the fraction of missing ordinal patterns relative 
-                      to the total number of ordinal patterns given choices of dx and dy
+                      to the total number of ordinal patterns given choices of **dx** and **dy**
                       (default: `True`); if `False`, returns the raw number of missing 
-                      states.
-    return_states : boolean 
-                    if `True`, returns the missing ordinal patterns not found in data
-                    (default: `True`); if `False`, it only returns the fraction/number 
-                    of these missing states.
+                      patterns.
+    return_missing : boolean 
+                     if `True`, returns the missing ordinal patterns not found in data
+                     (default: `True`); if `False`, it only returns the fraction/number 
+                     of these missing states.
     Returns
     -------
      : tuple
        A tuple containing an array indicating missing ordinal patterns
-       and the relative faction (or raw number) of these missing patterns 
-       in data.
+       and their relative fraction (or raw number).
     
     Examples
     --------
@@ -1613,15 +1612,15 @@ def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, ret
     >>> missing_patterns(ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True), dx=2)
     (array([], shape=(0, 2), dtype=int64), 0.0)
     >>>
-    >>> missing_patterns([4,7,9,10,6,11,3,5,6,2,3,1], dx=3, return_fraction=False)
+    >>> missing_patterns(ordinal_distribution([4,7,9,10,6,11,3], dx=3, return_missing=True))
     (array([[0, 2, 1],
             [2, 1, 0]]),
      2)
     >>>
-    >>> missing_patterns([4,7,9,10,6,11,3,5,6,2,3,1], dx=3, return_fraction=True, return_states=False)    
+    >>> missing_patterns([4,7,9,10,6,11,3,5,6,2,3,1], dx=3, return_fraction=True, return_missing=False)    
     0.3333333333333333
     """
-    if not return_states==False:
+    if not return_missing==False:
         if len(data)==2 and type(data[0])==np.ndarray:
             states, probs = data
             #inferring dx and dy from data. (It is not possible in the case of missing_links() 
@@ -1665,13 +1664,14 @@ def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, ret
             return np.math.factorial(dx*dy)-len(states)
 
 
-def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
+def missing_links(data, dx=3, dy=1, return_fraction=True, return_missing=True):
     """
-    Searches for successions between ordinal patterns (permutations) 
-    which do not occur in data. (These successions correspond 
-    to directed links in ordinal networks\\ [#pessa2019]_.) Assumes 
-    overlapping windows, taux = tauy = 1. In case dx>1 and dy>1, 
-    'horizontal' and 'vertical' connections are considered.
+    Searches for transitions between ordinal patterns (permutations) 
+    which do not occur in data. (These transtitions correspond 
+    to directed edges in ordinal networks\\ [#pessa2019]_.) Assumes 
+    overlapping windows and unitary embedding delay. In case dx>1 and dy>1, 
+    'horizontal' and 'vertical' connections are considered (see 
+    :func:`ordpy.ordinal_network`).
     
     Parameters
     ----------
@@ -1679,7 +1679,7 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
-           (:math:`n \\times m`) or the nodes, edges and edge weights
+           or the nodes, edges and edge weights
            returned by :func:`ordpy.ordinal_network`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3)
@@ -1688,19 +1688,18 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
     return_fraction : boolean
                       if `True`, returns the fraction of missing links between ordinal 
                       patterns relative to the total number of possible links 
-                      (successions) given choices of dx and dy (default: True). If 
+                      (transitions) given choices of **dx** and **dy** (default: True). If 
                       `False`, returns the raw number of missing links.
-    return_links : boolean 
-                   if True, returns the missing links between ordinal patterns not found 
-                   in data; if False, it only returns the fraction/number of these
-                    missing links.
+    return_missing : boolean 
+                     if True, returns the missing links between ordinal patterns not found 
+                     in data; if False, it only returns the fraction/number of these
+                     missing links.
 
     Returns
     -------
      : tuple
-       A tuple containing an array indicating missing links (successions) 
-       between ordinal patterns and the relative faction (or raw number) 
-       of these missing links in data.
+       A tuple containing an array indicating missing links 
+       between ordinal patterns and their relative fraction (or raw number).
     
     Examples
     --------
@@ -1723,10 +1722,6 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
         ['2|1|0', '1|2|0'],
         ['2|1|0', '2|1|0']], dtype='<U5'),
      11)
-
-    References
-    ----------
-    For notation or context, please see: Citar o paper aqui.
     """
     def setdiff(a, b):
         """
@@ -1736,10 +1731,10 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
         ----------    
         a : tuples, lists or arrays
             Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
-            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]`.
         b : tuples, lists or arrays
             Array in the format :math:`[[x_{21}, x_{22}, x_{23}, \\ldots, x_{2m}], 
-            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]` (:math:`n \\times m`).
+            \\ldots, [x_{n1}, x_{n2}, x_{n3}, ..., x_{nm}]]`.
         
         Returns
         -------
@@ -1771,9 +1766,9 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
 
         return(C)
 
+#####################################################################################
 
-
-    if not return_links==False:
+    if not return_missing==False:
         if len(data)==3 and type(data[0][0])==np.str_:
             _, data_links, _ = data
         else:
@@ -1817,8 +1812,10 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_links=True):
 
 def minimum_complexity_entropy(dx=3, dy=1, size=100):
     """
-    Generates data corresponding to the lower bound limit curve of
-    the complexity-entropy causality plane\\ [#rosso_curvas]_ [*]_.
+    Generates data corresponding to values of 
+    statistical complexity and permutation entropy
+    which delimit the lower boundary in the complexity-entropy 
+    causality plane\\ [#rosso_curvas]_:sup:`,`\\ [*]_.
     
     Parameters
     ----------
@@ -1827,21 +1824,21 @@ def minimum_complexity_entropy(dx=3, dy=1, size=100):
     dy : int
          Embedding dimension (vertical axis); must be 1 for time series (default: 1).
     size : int
-           number of returned pairs of values of permutation entropy and 
-           statistical complexity.    
+           The length of the array returned containing pairs of values of 
+           permutation entropy and statistical complexity.    
            
     Returns
     -------
      : array
-       Pairs of values of permutation entropy and statistical complexity 
-       which delimit the lower boundary in the complexity-entropy 
+       Values of permutation entropy and statistical complexity 
+       belonging to the lower limiting curve in the complexity-entropy 
        causality plane.
 
     Notes
     -----
     .. [*] This function was adapted from Sebastian Sippel et al., 
-    statcomp: Statistical Complexity and Information Measures for 
-    Time Series Analysis, version 0.1.0. (Computer software in R).
+           statcomp: Statistical Complexity and Information Measures for 
+           Time Series Analysis, version 0.1.0. (Computer software in R).
     
     Examples
     --------
@@ -1893,8 +1890,10 @@ def minimum_complexity_entropy(dx=3, dy=1, size=100):
 
 def maximum_complexity_entropy(dx=3, dy=1, m=1):
     """
-    Generates data corresponding to the upper bound limit curve of
-    the complexity-entropy causality plane\\ [#rosso_curvas]_ [*]_.
+    Generates data corresponding to values of 
+    statistical complexity and permutation entropy
+    which delimit the upper boundary in the complexity-entropy 
+    causality plane\\ [#rosso_curvas]_:sup:`,`\\ [*]_.
     
     Parameters
     ----------
@@ -1903,21 +1902,22 @@ def maximum_complexity_entropy(dx=3, dy=1, m=1):
     dy : int
          Embedding dimension (vertical axis); must be 1 for time series (default: 1).
     m : int
-        The number of pairs of values of permutation entropy and statistical 
-        complexity is equal to :math: `[(d_x \\times d_y)!-1] \\times m`.
+        The length of the returned array containing values of permutation entropy
+        and statistical complexity is given by 
+        :math:`[(d_x \\times d_y)!-1] \\times m`. 
            
     Returns
     -------
      : array
-       Pairs of values of permutation entropy and statistical complexity 
-       which delimit the upper boundary in the complexity-entropy 
+       Values of permutation entropy and statistical complexity 
+       belonging to the upper limiting curve in the complexity-entropy 
        causality plane.
 
     Notes
     -----
     .. [*] This function was adapted from Sebastian Sippel et al., 
-    statcomp: Statistical Complexity and Information Measures for 
-    Time Series Analysis, version 0.1.0. (Computer software in R).
+           statcomp: Statistical Complexity and Information Measures for 
+           Time Series Analysis, version 0.1.0. (Computer software in R).
     
     Examples
     --------
