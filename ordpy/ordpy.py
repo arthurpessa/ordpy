@@ -243,7 +243,7 @@ import itertools
 
 def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True):
     """
-    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to extract a
+    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to obtain a
     sequence of ordinal patterns (permutations) from data.
     
     Parameters
@@ -290,8 +290,7 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True):
     >>> ordinal_sequence([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2)
     array([[[0, 1, 3, 2],
             [1, 0, 2, 3],
-            [0, 1, 2, 3]],
-            
+            [0, 1, 2, 3]], 
            [[1, 2, 3, 0],
             [0, 1, 3, 2],
             [0, 1, 2, 3]]])
@@ -349,7 +348,7 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True):
 
 def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False):
     """
-    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to extract a
+    Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to obtain a
     probability distribution of ordinal patterns (permutations) from data.
     
     Parameters
@@ -374,7 +373,7 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
     Returns
     -------
      : tuple
-       A tuple containing two arrays, one with the ordinal patterns occurring in data 
+       Tuple containing two arrays, one with the ordinal patterns occurring in data 
        and another with their corresponding probabilities.
 
     Examples
@@ -484,7 +483,7 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False)
 
 def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=True, probs=False):
     """
-    Calculates Shannon's entropy using an ordinal ditribution extracted from
+    Calculates Shannon's entropy using an ordinal ditribution obtained from
     data\\ [#bandt_pompe]_\\ :sup:`,`\\ [#ribeiro_2012]_.
     
     Parameters
@@ -505,16 +504,17 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
     base : str, int
            Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 'e').
     normalized: boolean
-                If `True`, permutation entropy is normalized by its maximum value.
-                If `False`, it is not (default: `True`).
+                If `True`, permutation entropy is normalized by its maximum value 
+                (default: `True`). If `False`, it is not.
     probs : boolean
-            If `True`, assumes data input to be an ordinal probability
-            distribution (default: `False`). 
+            If `True`, assumes **data** is an ordinal probability
+            distribution returned by :func:`ordpy.ordinal_distribution`. 
+            If `False`, otherwise (default: `False`). 
 
     Returns
     -------
      : float
-       The value of permutation entropy.
+       Value of permutation entropy.
     
     Examples
     --------
@@ -527,7 +527,7 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
     >>> permutation_entropy([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2, base=2, normalized=True)
     0.32715643797829735
     >>>
-    >>> permutation_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2, taux=2, normalized=False)
+    >>> permutation_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2, taux=2, base='e', normalized=False)
     1.0397207708399179
     """
     if not probs:
@@ -562,7 +562,7 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False):
     
     Parameters
     ----------
-    data : array or return of :func:`ordpy.ordinal_distribution`
+    data : array, return of :func:`ordpy.ordinal_distribution`
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` or the
@@ -576,8 +576,9 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False):
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs: boolean
-           If `True`, assumes the data input to be an ordinal probability distribution
-           (default: `False`).
+           If `True`, assumes **data** is an ordinal probability
+           distribution returned by :func:`ordpy.ordinal_distribution`. 
+           If `False`, otherwise (default: `False`). 
     
     Returns
     -------
@@ -704,8 +705,10 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=False):
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs: boolean
-           If `True`, assumes the data input to be an ordinal probability distribution
-           (default: `False`)
+           If `True`, assumes **data** is an ordinal probability
+           distribution returned by :func:`ordpy.ordinal_distribution`. 
+           If `False`, otherwise (default: `False`). 
+
 
     Returns
     -------
@@ -775,8 +778,9 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs: boolean
-           If `True`, assumes the data input to be an ordinal probability distribution
-           (default: `False`)
+           If `True`, assumes **data** is an ordinal probability
+           distribution returned by :func:`ordpy.ordinal_distribution`. 
+           If `False`, otherwise (default: `False`). 
 
     Returns
     -------
@@ -908,8 +912,9 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=False):
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs: boolean
-           If `True`, assumes the data input to be an ordinal probability distribution
-           (default: `False`)
+           If `True`, assumes **data** is an ordinal probability
+           distribution returned by :func:`ordpy.ordinal_distribution`. 
+           If `False`, otherwise (default: `False`). 
 
     Returns
     -------
@@ -960,44 +965,45 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=False):
 
 def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=False):
     """
-    Calculates permutation entropy\\ [#bandt_pompe]_ and statistical
-    complexity\\ [#lopezruiz]_ using Rényi's entropy (these measures define 
-    a generalized complexity-entropy causality plane\\ [#jauregui]_) using 
-    an ordinal ditribution obtained from data.
+    Calculates Rényi's permutation entropy and statistical
+    complexity\\ [#jauregui]_ using an ordinal distribution obtained from 
+    data.
     
     Parameters
     ----------
-    data : array 
+    data : array, return of :func:`ordpy.ordinal_distribution`
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
-           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
-           (:math:`n \\times m`).
-    alpha : float
-            Rényi `alpha` parameter; it can be an array of values (default: 1).
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` or the
+           ordinal distribution returned by :func:`ordpy.ordinal_distribution`.
+    alpha : float, array
+            Rényi's `alpha(s)` parameter.
     dx : int
          Embedding dimension (horizontal axis) (default: 3).
     dy : int
-         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
+         Embedding dimension (vertical axis); it must be 1 for time series 
+         (default: 1).
     taux : int
             Embedding delay (horizontal axis) (default: 1).
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs: boolean
-           If `True`, assumes the data input to be an ordinal probability distribution
-           (default: `False`)
+           If `True`, assumes **data** is an ordinal probability
+           distribution returned by :func:`ordpy.ordinal_distribution`. 
+           If `False`, otherwise (default: `False`). 
 
     Returns
     -------
      : array
-       Values of Rényi's generalized normalized permutation entropy and 
-       Rényi's generalized statistical complexity for each parameter alpha.
+       Value(s) of Rényi's normalized permutation entropy and 
+       statistical complexity for parameter(s) **alpha**.
 
     Examples
     --------
     >>> renyi_complexity_entropy([4,7,9,10,6,11,3], dx=2)
     array([0.91829583, 0.06112817])
     >>>
-    >>> p = ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
+    >>> p = ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=False)[1]
     >>> renyi_complexity_entropy(p, dx=2, probs=True)
     array([0.91829583, 0.06112817])
     >>>
@@ -1039,6 +1045,8 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=Fa
                     (np.log(((n_states + 1.)**(1. - q) + n_states - 1.)/(2.**(1. - q)*n_states)) + (1. - q)*
                      np.log((n_states + 1.)/(2.*n_states)))/(2.*(q - 1))
                   )
+
+###########################
 
     if probs==False:
         _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=True)
@@ -1112,17 +1120,15 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=Fa
 
 def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlapping=True, directed=True, connections="all"):
     """
-    Generates the elements (nodes, edges and edge weights) necessary to obtain
-    an ordinal network from data\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_\\ :sup:`,`\\ [#pessa2020]_.
+    Maps data into the elements (nodes, edges and edge weights) of its 
+    ordinal network representation\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_\\ :sup:`,`\\ [#pessa2020]_.
     
     Parameters
     ----------
-    data : array, return of :func:`ordpy.ordinal_network`
+    data : array
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
-           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
-           (:math:`n \\times m`) or the nodes, edges and edge weights 
-           returned by :func:`ordpy.ordinal_network`.
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`.
     dx : int
          Embedding dimension (horizontal axis) (default: 3)
     dy : int
@@ -1133,7 +1139,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
            Embedding delay (vertical axis) (default: 1).
     normalized : boolean
                  If `True`, edge weights represent transition probabilities 
-                 between permutations; if `False`, edge weights are transition
+                 between permutations (default: `True`). If `False`, edge weights are transition
                  counts.
     overlapping : boolean
                   If `True`, data are partitioned into overlapping sliding windows 
@@ -1150,8 +1156,8 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
     Returns
     -------
      : tuple
-       A tuple of arrays containing the nodes, edges and edge weights corresponding
-       to an ordinal network mapped from data.
+       Tuple containing three arrays corresponding to nodes, edges and edge weights 
+       of an ordinal network.
     
     Examples
     --------
@@ -1199,7 +1205,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
         Returns
         -------
          : tuple
-           A tuple of arrays containing the nodes, edges and edge weights
+           Tuple of arrays containing the nodes, edges and edge weights
            corresponding to an UNDIRECTED ordinal network mapped from data.
         """
         rev_links    = unique_links[:,[1,0]]
@@ -1232,7 +1238,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
 
         return (np.unique(und_unique_links), und_unique_links, und_occurrences)
 
-
+###########################
 
     try:
         ny, nx = np.shape(data)
@@ -1345,7 +1351,7 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
 
     Parameters
     ----------
-    data : array or return of :func:`ordpy.ordinal_network`
+    data : array, return of :func:`ordpy.ordinal_network`
            Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]` or
            :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
@@ -1410,18 +1416,17 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
 
 def random_ordinal_network(dx=3, dy=1, overlapping=True):
     """
-    Generates the elements (nodes, edges and edge weights) necessary to obtain
-    a random ordinal network, that is, a  network representing the mapping of a 
-    random time series\\ [#pessa2019]_ or a random bidimensional field\\ 
-    [#pessa2020]_. Assumes directed links and unitary embbeding 
-    delays.
+    Generates the nodes, edges and edge weights of a random ordinal network, 
+    a network representing the mapping of a random time series\\ [#pessa2019]_ 
+    or a random bidimensional field\\ [#pessa2020]_. (Assumes directed 
+    edges and unitary embbeding delays.)
     
     Parameters
     ----------
     dx : int
-         Horizontal embedding dimension (default: 3).
+         Embedding dimension (horizontal axis) (default: 3)
     dy : int
-         Vertical embedding dimension (default: 1 [time series data])
+         Embedding dimension (vertical axis); it must be 1 for time series (default: 1).
     overlapping : boolean
                   If `True`, data are partitioned into overlapping sliding windows
                   (default: True). If `False`, otherwise. 
@@ -1429,8 +1434,8 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
     Returns
     -------
      : tuple
-       A tuple of arrays containing the nodes, edges and edge weights of a
-       random ordinal network.
+       Tuple containing three arrays corresponding to nodes, edges and edge weights 
+       of a random ordinal network.
 
     Examples
     --------
@@ -1601,9 +1606,9 @@ def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, ret
     Returns
     -------
      : tuple
-       A tuple containing an array indicating missing ordinal patterns
-       and their relative fraction (or raw number).
-    
+       Tuple containing an array and a float indicating missing 
+       ordinal patterns and their relative fraction (or raw number).
+       
     Examples
     --------
     >>> missing_patterns([4,7,9,10,6,11,3], dx=2, return_fraction=False)
@@ -1698,8 +1703,8 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_missing=True):
     Returns
     -------
      : tuple
-       A tuple containing an array indicating missing links 
-       between ordinal patterns and their relative fraction (or raw number).
+       Tuple containing an array and a float indicating missing links between 
+       ordinal patterns and their relative fraction (or raw number).
     
     Examples
     --------
