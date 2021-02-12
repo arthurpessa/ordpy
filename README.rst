@@ -38,7 +38,7 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
   images [#zunino2016]_;
 - Tsallis [#ribeiro2017]_ and Rényi [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- Ordinal networks for time series [#small]_ :sup:`,` [#pessa2019]_ and 
+- Ordinal networks for time series [#small]_, [#pessa2019]_ and 
   images [#pessa2020]_;
 - Global node entropy of ordinal networks for 
   time series [#McCullough]_, [#pessa2019]_ and images [#pessa2020]_.
@@ -56,7 +56,7 @@ or you can directly clone its git repository:
 
 .. code-block:: console
 
-   git clone https://gitlab.com/hvribeiro/ordpy.git
+   git clone https://gitlab.com/arthurpessa/ordpy.git
    cd ordpy
    pip install -e .
 
