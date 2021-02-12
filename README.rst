@@ -1,19 +1,18 @@
 [![Github All Releases](https://img.shields.io/github/downloads/hvribeiro/ordpy/total.svg)]()
 
-"""
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
 ===============================================================================================
 
-``ordpy`` is a pure Python module\\ [#pessa2021]_ that implements data analysis methods based
-on Bandt and Pompe's\\ [#bandt_pompe]_ symbolic encoding scheme.
+``ordpy`` is a pure Python module [#pessa2021]_ that implements data analysis methods based
+on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
 .. note::
 
    If you have used ``ordpy`` in a scientific publication, we would appreciate 
-   citations to the following reference\\ [#pessa2021]_:
+   citations to the following reference [#pessa2021]_:
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
-     analysis with permutation entropy and ordinal networks methods 
+     analysis with permutation entropy and ordinal network methods 
      <https://ourpaper_url>`_, ????, ??-?? (2021).
 
     .. code-block:: bibtex
@@ -32,77 +31,17 @@ on Bandt and Pompe's\\ [#bandt_pompe]_ symbolic encoding scheme.
 
 ``ordpy`` implements the following data analysis methods:
 
-- Permutation entropy for time series\\ [#bandt_pompe]_ and images\\ [#ribeiro_2012]_;
-- Complexity-entropy plane for time series\\ [#lopezruiz]_\\ :sup:`,`\\ [#rosso]_ and 
-  images\\ [#ribeiro_2012]_;
-- Multiscale complexity-entropy plane for time series\\ [#zunino2012]_ and 
-  images\\ [#zunino2016]_;
-- Tsallis\\ [#ribeiro2017]_ and Rényi\\ [#jauregui]_ generalized complexity-entropy
+- Permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
+- Complexity-entropy plane for time series [#lopezruiz]_ :sup:`,` [#rosso]_ and 
+  images [#ribeiro_2012]_;
+- <ultiscale complexity-entropy plane for time series [#zunino2012]_ and 
+  images [#zunino2016]_;
+- Tsallis [#ribeiro2017]_ and Rényi [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- Ordinal networks for time series\\ [#small]_\\ :sup:`,`\\ [#pessa2019]_ and 
-  images\\ [#pessa2020]_;
+- Ordinal networks for time series [#small]_ :sup:`,` [#pessa2019]_ and 
+  images [#pessa2020]_;
 - Global node entropy of ordinal networks for 
-  time series\\ [#McCullough]_\\ :sup:`,`\\ [#pessa2019]_ and images\\ [#pessa2020]_.
-
-References
-----------
-
-.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2021). ordpy: A Python package
-   for data analysis with permutation entropy and ordinal networks methods. 
-   arXiv preprint arXiv:2007.03090.
-
-.. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
-   Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
-
-.. [#ribeiro_2012] Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &
-   Mendes, R. S. (2012). Complexity-Entropy Causality Plane as a Complexity
-   Measure for Two-Dimensional Patterns. PLOS ONE, 7, e40689.
-
-.. [#lopezruiz] Lopez-Ruiz, R., Mancini, H. L., & Calbet, X. (1995). A Statistical
-   Measure of Complexity. Physics Letters A, 209, 321-326.
-
-.. [#rosso] Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &
-   Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review 
-   Letters, 99, 154102.
-
-.. [#zunino2012] Zunino, L., Soriano, M. C., & Rosso, O. A. (2012). 
-   Distinguishing Chaotic and Stochastic Dynamics from Time Series by Using 
-   a Multiscale Symbolic Approach. Physical Review E, 86, 046210.
-
-.. [#zunino2016] Zunino, L., & Ribeiro, H. V. (2016). Discriminating Image 
-   Textures with the Multiscale Two-Dimensional Complexity-Entropy Causality 
-   Plane. Chaos, Solitons & Fractals, 91, 679-688.
-
-.. [#ribeiro2017] Ribeiro, H. V., Jauregui, M., Zunino, L., & Lenzi, E. K. 
-   (2017). Characterizing Time Series Via Complexity-Entropy Curves. 
-   Physical Review E, 95, 062106.
-
-.. [#jauregui] Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &
-   Ribeiro, H. V. (2018). Characterization of Time Series via Rényi 
-   Complexity-Entropy Curves. Physica A, 498, 74-85.
-
-.. [#small] Small, M. (2013). Complex Networks From Time Series: Capturing 
-   Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
-   (ISCAS2013) (pp. 2509-2512). IEEE.
-
-.. [#pessa2019] Pessa, A. A., & Ribeiro, H. V. (2019). Characterizing Stochastic 
-   Time Series With Ordinal Networks. Physical Review E, 100, 042304.
-
-.. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
-   Ordinal Networks. Physical Review E, 102, 052312.
-
-.. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
-   Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
-   Philosophical Transactions of the Royal Society A, 375, 20160292.
-
-.. [#amigó] Amigó, J. M., Zambrano, S., & Sanjuán, M. A. F. (2007).
-   True and False Forbidden Patterns in Deterministic and Random Dynamics.
-   Europhysics Letters, 79, 50001.
-
-.. [#rosso_curvas] Martin, M. T., Plastino, A., & Rosso, O. A. (2006). 
-   Generalized Statistical Complexity Measures: Geometrical and 
-   Analytical Properties, Physica A, 369, 439–462.
-
+  time series [#McCullough]_ :sup:`,` [#pessa2019]_ and images [#pessa2020]_.
 
 Installing
 ==========
@@ -125,9 +64,9 @@ or you can directly clone its git repository:
 Basic usage
 ===========
 
-We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
-illustrating how to use ``ordpy``. This notebook reproduces all figures of the article that
-introduces the package\\ [#pessa2021]_. The code below shows simple applications of ``ordpy``.
+We provide a `notebook <https://github.com/arthurpessa/ordpy/blob/master/examples/ordpy.ipynb>`_
+illustrating how to use ``ordpy``. This notebook reproduces all figures of our
+article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
 
 .. code-block:: python
 
@@ -240,10 +179,11 @@ introduces the package\\ [#pessa2021]_. The code below shows simple applications
    :align: center
 
 
+
 References
 ==========
 
-.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2020). ordpy: A Python package
+.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2021). ordpy: A Python package
    for data analysis with permutation entropy and ordinal networks methods. 
    arXiv preprint arXiv:2007.03090.
 
@@ -285,7 +225,7 @@ References
    Time Series With Ordinal Networks. Physical Review E, 100, 042304.
 
 .. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
-   Ordinal Networks. arXiv preprint arXiv:2007.03090.
+   Ordinal Networks. Physical Review E, 102, 052312.
 
 .. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
    Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
