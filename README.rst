@@ -1,5 +1,7 @@
 .. image:: https://img.shields.io/pypi/v/ordpy?style=plastic   :alt: PyPI
+   :width: 50 %
 .. image:: https://img.shields.io/github/license/arthurpessa/ordpy?style=plastic   :alt: GitHub
+   :width: 50 %
 
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
 ===============================================================================================
