@@ -102,13 +102,11 @@ article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
 
     ax.legend()
 
-.. figure:: ../examples/figs/sample_fig.png
+.. figure:: https://github.com/hvribeiro/ordpy/blob/master/examples/figs/sample_fig.png
    :height: 489px
    :width: 633px
    :scale: 80 %
    :align: center
-
-
 
 .. code-block:: python
 
@@ -172,7 +170,7 @@ article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
         print(label_)
         display(SVG(igplot(graph_)._repr_svg_()))
 
-.. figure:: ../examples/figs/sample_net.png
+.. figure:: https://github.com/hvribeiro/ordpy/blob/master/examples/figs/sample_net.png
    :height: 1648px
    :width: 795px
    :scale: 50 %
