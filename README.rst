@@ -32,7 +32,7 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 ``ordpy`` implements the following data analysis methods:
 
 - Permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
-- Complexity-entropy plane for time series [#lopezruiz]_ :sup:`,` [#rosso]_ and 
+- Complexity-entropy plane for time series [#lopezruiz]_, [#rosso]_ and 
   images [#ribeiro_2012]_;
 - Multiscale complexity-entropy plane for time series [#zunino2012]_ and 
   images [#zunino2016]_;
@@ -41,7 +41,7 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 - Ordinal networks for time series [#small]_ :sup:`,` [#pessa2019]_ and 
   images [#pessa2020]_;
 - Global node entropy of ordinal networks for 
-  time series [#McCullough]_ :sup:`,` [#pessa2019]_ and images [#pessa2020]_.
+  time series [#McCullough]_, [#pessa2019]_ and images [#pessa2020]_.
 
 Installing
 ==========
