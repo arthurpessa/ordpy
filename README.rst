@@ -1,3 +1,4 @@
+.. image:: https://img.shields.io/pypi/v/ordpy?style=plastic   :alt: PyPI
 .. image:: https://img.shields.io/github/license/arthurpessa/ordpy?style=plastic   :alt: GitHub
 
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
@@ -102,7 +103,7 @@ article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
 
     ax.legend()
 
-.. figure:: https://github.com/hvribeiro/ordpy/blob/master/examples/figs/sample_fig.png
+.. figure:: https://github.com/arthurpessa/ordpy/blob/master/examples/figs/sample_fig.png
    :height: 489px
    :width: 633px
    :scale: 80 %
@@ -170,7 +171,7 @@ article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
         print(label_)
         display(SVG(igplot(graph_)._repr_svg_()))
 
-.. figure:: https://github.com/hvribeiro/ordpy/blob/master/examples/figs/sample_net.png
+.. figure:: https://github.com/arthurpessa/ordpy/blob/master/examples/figs/sample_net.png
    :height: 1648px
    :width: 795px
    :scale: 50 %
