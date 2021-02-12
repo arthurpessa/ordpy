@@ -56,7 +56,7 @@ or you can directly clone its git repository:
 
 .. code-block:: console
 
-   git clone https://gitlab.com/arthurpessa/ordpy.git
+   git clone https://github.com/arthurpessa/ordpy.git
    cd ordpy
    pip install -e .
 
