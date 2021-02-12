@@ -1,4 +1,4 @@
-[![Github All Releases](https://img.shields.io/github/downloads/hvribeiro/ordpy/total.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/arthurpessa/ordpy/total.svg)]()
 
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
 ===============================================================================================
