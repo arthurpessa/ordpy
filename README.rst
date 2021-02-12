@@ -34,7 +34,7 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 - Permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
 - Complexity-entropy plane for time series [#lopezruiz]_ :sup:`,` [#rosso]_ and 
   images [#ribeiro_2012]_;
-- <ultiscale complexity-entropy plane for time series [#zunino2012]_ and 
+- Multiscale complexity-entropy plane for time series [#zunino2012]_ and 
   images [#zunino2016]_;
 - Tsallis [#ribeiro2017]_ and Rényi [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
