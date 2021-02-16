@@ -16,8 +16,7 @@ ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal N
 ``ordpy`` is a pure Python module [#pessa2021]_ that implements data analysis methods based
 on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
-   If you have used ``ordpy`` in a scientific publication, we would appreciate 
-   citations to the following reference [#pessa2021]_:
+If you have used ``ordpy`` in a scientific publication, we would appreciate citations to the following reference [#pessa2021]_:
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
      analysis with permutation entropy and ordinal network methods 
