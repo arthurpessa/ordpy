@@ -2,52 +2,48 @@
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
 ===============================================================================================
 
-``ordpy`` is a pure Python module\\ [#pessa2021]_ that implements data analysis methods based
-on Bandt and Pompe's\\ [#bandt_pompe]_ symbolic encoding scheme.
+``ordpy`` is a pure Python module [#pessa2021]_ that implements data analysis methods based
+on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
 .. note::
 
    If you have used ``ordpy`` in a scientific publication, we would appreciate 
-   citations to the following reference\\ [#pessa2021]_:
+   citations to the following reference [#pessa2021]_:
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
-     analysis with permutation entropy and ordinal networks methods 
-     <https://ourpaper_url>`_, ????, ??-?? (2021).
+     analysis with permutation entropy and ordinal network methods 
+     <https://arxiv.org/abs/2102.06786>`_, arXiv: 2102.06786 (2021).
 
     .. code-block:: bibtex
-
-       @article{pessa2021ordpy,
-         title    = {ordpy: A Python Package for Data Analysis with Permutation 
-                     Entropy and Ordinal Network Methods},
-         author   = {Pessa, Arthur A. B. and Ribeiro, Haroldo V.},
-         journal  = {?},
-         volume   = {?},
-         number   = {?},
-         pages    = {?},
-         year     = {2021},
-         doi      = {?}
+    
+       @misc{pessa2021ordpy,
+         title         = {ordpy: A Python module implementing permutation entropy and ordinal network methods for data analysis}, 
+         author        = {Arthur A. B. Pessa and Haroldo V. Ribeiro},
+         year          = {2021},
+         eprint        = {2102.06786},
+         archivePrefix = {arXiv},
        }
 
 ``ordpy`` implements the following data analysis methods:
 
-- Permutation entropy for time series\\ [#bandt_pompe]_ and images\\ [#ribeiro_2012]_;
-- Complexity-entropy plane for time series\\ [#lopezruiz]_\\, \\ [#rosso]_ and 
-  images\\ [#ribeiro_2012]_;
-- Multiscale complexity-entropy plane for time series\\ [#zunino2012]_ and 
-  images\\ [#zunino2016]_;
-- Tsallis\\ [#ribeiro2017]_ and Rényi\\ [#jauregui]_ generalized complexity-entropy
+- Permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
+- Complexity-entropy plane for time series [#lopezruiz]_, [#rosso]_ and 
+  images [#ribeiro_2012]_;
+- Multiscale complexity-entropy plane for time series [#zunino2012]_ and 
+  images [#zunino2016]_;
+- Tsallis [#ribeiro2017]_ and Rényi [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- Ordinal networks for time series\\ [#small]_\\, \\ [#pessa2019]_ and 
-  images\\ [#pessa2020]_;
+- Ordinal networks for time series [#small]_, [#pessa2019]_ and 
+  images [#pessa2020]_;
 - Global node entropy of ordinal networks for 
-  time series\\ [#McCullough]_\\, \\ [#pessa2019]_ and images\\ [#pessa2020]_.
+  time series [#McCullough]_, [#pessa2019]_ and images [#pessa2020]_.
 
 References
 ----------
 
 .. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2021). ordpy: A Python package
    for data analysis with permutation entropy and ordinal networks methods. 
-   arXiv preprint arXiv:2007.03090.
+   arXiv: 2102.06786.
 
 .. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
    Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
@@ -102,6 +98,7 @@ References
    Analytical Properties, Physica A, 369, 439–462.
 
 
+
 Installing
 ==========
 
@@ -115,7 +112,7 @@ or you can directly clone its git repository:
 
 .. code-block:: console
 
-   git clone https://gitlab.com/arthurpessa/ordpy.git
+   git clone https://github.com/arthurpessa/ordpy.git
    cd ordpy
    pip install -e .
 
@@ -123,9 +120,9 @@ or you can directly clone its git repository:
 Basic usage
 ===========
 
-We provide a `notebook <https://github.com/hvribeiro/ordpy/blob/master/examples/sample_notebook.ipynb>`_
-illustrating how to use ``ordpy``. This notebook reproduces all figures of the article that
-introduces the package\\ [#pessa2021]_. The code below shows simple applications of ``ordpy``.
+We provide a `notebook <https://github.com/arthurpessa/ordpy/blob/master/examples/ordpy.ipynb>`_
+illustrating how to use ``ordpy``. This notebook reproduces all figures of our
+article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
 
 .. code-block:: python
 
@@ -161,13 +158,11 @@ introduces the package\\ [#pessa2021]_. The code below shows simple applications
 
     ax.legend()
 
-.. figure:: ../examples/figs/sample_fig.png
+.. figure:: https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_fig.png
    :height: 489px
    :width: 633px
    :scale: 80 %
    :align: center
-
-
 
 .. code-block:: python
 
@@ -231,7 +226,7 @@ introduces the package\\ [#pessa2021]_. The code below shows simple applications
         print(label_)
         display(SVG(igplot(graph_)._repr_svg_()))
 
-.. figure:: ../examples/figs/sample_net.png
+.. figure:: https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_net.png
    :height: 1648px
    :width: 795px
    :scale: 50 %
