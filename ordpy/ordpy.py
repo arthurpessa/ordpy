@@ -27,16 +27,18 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 ``ordpy`` implements the following data analysis methods:
 
 - Permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
-- Complexity-entropy plane for time series [#lopezruiz]_, [#rosso]_ and 
+- Complexity-entropy plane for time series [#lopezruiz]_:sup:`,` [#rosso]_ and 
   images [#ribeiro_2012]_;
 - Multiscale complexity-entropy plane for time series [#zunino2012]_ and 
   images [#zunino2016]_;
 - Tsallis [#ribeiro2017]_ and Rényi [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- Ordinal networks for time series [#small]_, [#pessa2019]_ and 
+- Ordinal networks for time series [#small]_:sup:`,` [#pessa2019]_ and 
   images [#pessa2020]_;
 - Global node entropy of ordinal networks for 
-  time series [#McCullough]_, [#pessa2019]_ and images [#pessa2020]_.
+  time series [#McCullough]_:sup:`,` [#pessa2019]_ and images [#pessa2020]_.
+- Missing ordinal patterns [#amigo]_ and missing transitions between ordinal
+  patterns [#pessa2019]_ for time series and images.
 
 References
 ----------
@@ -89,7 +91,7 @@ References
    Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
    Philosophical Transactions of the Royal Society A, 375, 20160292.
 
-.. [#amigó] Amigó, J. M., Zambrano, S., & Sanjuán, M. A. F. (2007).
+.. [#amigo] Amigó, J. M., Zambrano, S., & Sanjuán, M. A. F. (2007).
    True and False Forbidden Patterns in Deterministic and Random Dynamics.
    Europhysics Letters, 79, 50001.
 

@@ -16,8 +16,6 @@ ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal N
 ``ordpy`` is a pure Python module [#pessa2021]_ that implements data analysis methods based
 on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
-.. note::
-
    If you have used ``ordpy`` in a scientific publication, we would appreciate 
    citations to the following reference [#pessa2021]_:
 
@@ -48,6 +46,11 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
   images [#pessa2020]_;
 - Global node entropy of ordinal networks for 
   time series [#McCullough]_, [#pessa2019]_ and images [#pessa2020]_.
+- Missing ordinal patterns [#amigo]_ and missing transitions between ordinal
+  patterns [#pessa2019]_ for time series and images.
+
+For more detailed information about the methods implemented in ``ordpy``, please 
+consult its `documentation <https://arthurpessa.github.io/ordpy/_build/html/index.html>`_.
 
 Installing
 ==========
@@ -235,7 +238,7 @@ References
    Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
    Philosophical Transactions of the Royal Society A, 375, 20160292.
 
-.. [#amigó] Amigó, J. M., Zambrano, S., & Sanjuán, M. A. F. (2007).
+.. [#amigo] Amigó, J. M., Zambrano, S., & Sanjuán, M. A. F. (2007).
    True and False Forbidden Patterns in Deterministic and Random Dynamics.
    Europhysics Letters, 79, 50001.
 
