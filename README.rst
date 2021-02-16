@@ -19,7 +19,7 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 If you have used ``ordpy`` in a scientific publication, we would appreciate citations to the following reference [#pessa2021]_:
 
 - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data analysis with permutation entropy and ordinal 
-network methods <https://arxiv.org/abs/2102.06786>`_, arXiv: 2102.06786 (2021).
+  network methods <https://arxiv.org/abs/2102.06786>`_, arXiv: 2102.06786 (2021).
 
 .. code-block:: bibtex
     
