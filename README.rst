@@ -1,6 +1,14 @@
-.. image:: https://img.shields.io/pypi/v/ordpy?style=plastic   :alt: PyPI :width: 50 %
-.. image:: https://img.shields.io/github/license/arthurpessa/ordpy?style=plastic   :alt: GitHub :width: 50 %
-    
+.. |logo1| image:: https://img.shields.io/pypi/v/ordpy?style=plastic   :alt: PyPI 
+   :target: https://pypi.org/project/ordpy/
+   :scale: 100%
+.. |logo2| image:: https://img.shields.io/github/license/arthurpessa/ordpy?style=plastic   :alt: GitHub 
+   :target: https://github.com/arthurpessa/ordpy/blob/master/LICENSE
+   :scale: 100%
+.. |logo3| image:: https://img.shields.io/pypi/dm/ordpy?style=plastic   :alt: PyPI - Downloads
+   :target: https://pypi.org/project/ordpy/
+   :scale: 100%
+
+|logo1| |logo2| |logo3|
 
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
 ===============================================================================================
@@ -15,20 +23,16 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
      analysis with permutation entropy and ordinal network methods 
-     <https://ourpaper_url>`_, ????, ??-?? (2021).
+     <https://arxiv.org/abs/2102.06786>`_, arXiv: 2102.06786 (2021).
 
     .. code-block:: bibtex
-
-       @article{pessa2021ordpy,
-         title    = {ordpy: A Python Package for Data Analysis with Permutation 
-                     Entropy and Ordinal Network Methods},
-         author   = {Pessa, Arthur A. B. and Ribeiro, Haroldo V.},
-         journal  = {?},
-         volume   = {?},
-         number   = {?},
-         pages    = {?},
-         year     = {2021},
-         doi      = {?}
+    
+       @misc{pessa2021ordpy,
+         title         = {ordpy: A Python module implementing permutation entropy and ordinal network methods for data analysis}, 
+         author        = {Arthur A. B. Pessa and Haroldo V. Ribeiro},
+         year          = {2021},
+         eprint        = {2102.06786},
+         archivePrefix = {arXiv},
        }
 
 ``ordpy`` implements the following data analysis methods:
@@ -185,7 +189,7 @@ References
 
 .. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2021). ordpy: A Python package
    for data analysis with permutation entropy and ordinal networks methods. 
-   arXiv preprint arXiv:2007.03090.
+   arXiv: 2102.06786.
 
 .. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
    Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
