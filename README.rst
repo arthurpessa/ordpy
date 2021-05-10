@@ -187,7 +187,10 @@ article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
    :scale: 50 %
    :align: center
 
+Contributing
+============
 
+Pull requests addressing errors or adding new functionalities are always welcome.
 
 References
 ==========
