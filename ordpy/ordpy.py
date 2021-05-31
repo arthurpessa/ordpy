@@ -450,8 +450,8 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
         array([[1, 0, 2],
             [2, 0, 1]])
         """
-        a = np.asarray(a)
-        b = np.asarray(b)
+        a = np.asarray(a).astype('int64')
+        b = np.asarray(b).astype('int64')
 
         _, ncols = a.shape
 
