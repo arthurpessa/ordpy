@@ -198,7 +198,7 @@ Pull requests addressing errors or adding new functionalities are always welcome
 References
 ==========
 
-.. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2021). ordpy: A Python package
+.. [#pessa2021] Pessa, A. A. B., & Ribeiro, H. V. (2021). ordpy: A Python package
    for data analysis with permutation entropy and ordinal networks methods. 
    Chaos, 31, 063110.
 
@@ -236,10 +236,10 @@ References
    Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
    (ISCAS2013) (pp. 2509-2512). IEEE.
 
-.. [#pessa2019] Pessa, A. A., & Ribeiro, H. V. (2019). Characterizing Stochastic 
+.. [#pessa2019] Pessa, A. A. B., & Ribeiro, H. V. (2019). Characterizing Stochastic 
    Time Series With Ordinal Networks. Physical Review E, 100, 042304.
 
-.. [#pessa2020] Pessa, A. A., & Ribeiro, H. V. (2020). Mapping Images Into
+.. [#pessa2020] Pessa, A. A. B., & Ribeiro, H. V. (2020). Mapping Images Into
    Ordinal Networks. Physical Review E, 102, 052312.
 
 .. [#McCullough] McCullough, M., Small, M., Iu, H. H. C., & Stemler, T. (2017).
