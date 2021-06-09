@@ -23,16 +23,19 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 If you have used ``ordpy`` in a scientific publication, we would appreciate citations to the following reference [#pessa2021]_:
 
 - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data analysis with permutation entropy and ordinal 
-  network methods <https://arxiv.org/abs/2102.06786>`_, arXiv: 2102.06786 (2021).
+  network methods <https://doi.org/10.1063/5.0049901>`_, Chaos 31, 063110 (2021).
 
 .. code-block:: bibtex
     
    @misc{pessa2021ordpy,
-    title         = {ordpy: A Python module implementing permutation entropy and ordinal network methods for data analysis}, 
+    title         = {ordpy: A Python package for data analysis with permutation entropy and ordinal network methods}, 
     author        = {Arthur A. B. Pessa and Haroldo V. Ribeiro},
+    journal       = {Chaos: An Interdisciplinary Journal of Nonlinear Science},
+    volume        = {31},
+    number        = {6},
+    pages         = {063110},
     year          = {2021},
-    eprint        = {2102.06786},
-    archivePrefix = {arXiv},
+    doi           = {10.1063/5.0049901},
    }
 
 ``ordpy`` implements the following data analysis methods:
@@ -197,7 +200,7 @@ References
 
 .. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2021). ordpy: A Python package
    for data analysis with permutation entropy and ordinal networks methods. 
-   arXiv: 2102.06786.
+   Chaos, 31, 063110.
 
 .. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
    Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
