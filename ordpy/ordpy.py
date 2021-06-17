@@ -12,17 +12,20 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
      analysis with permutation entropy and ordinal network methods 
-     <https://arxiv.org/abs/2102.06786>`_, arXiv: 2102.06786 (2021).
+     <https://doi.org/10.1063/5.0049901>`_, Chaos 31, 063110 (2021).
 
     .. code-block:: bibtex
     
        @misc{pessa2021ordpy,
-         title         = {ordpy: A Python module implementing permutation entropy and ordinal network methods for data analysis}, 
+         title         = {ordpy: A Python package for data analysis with permutation entropy and ordinal network methods}, 
          author        = {Arthur A. B. Pessa and Haroldo V. Ribeiro},
+         journal       = {Chaos: An Interdisciplinary Journal of Nonlinear Science},
+         volume        = {31},
+         number        = {6},
+         pages         = {063110},
          year          = {2021},
-         eprint        = {2102.06786},
-         archivePrefix = {arXiv},
-       }
+         doi           = {10.1063/5.0049901},
+        }
 
 ``ordpy`` implements the following data analysis methods:
 

@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods &mdash; ordpy 1.0 documentation</title>
@@ -161,7 +162,7 @@
             
   <div class="toctree-wrapper compound">
 </div>
-<span class="target" id="module-ordpy"></span><div class="section" id="ordpy-a-python-package-for-data-analysis-with-permutation-entropy-and-ordinal-network-methods">
+<span class="target" id="module-ordpy"></span><section id="ordpy-a-python-package-for-data-analysis-with-permutation-entropy-and-ordinal-network-methods">
 <h1>ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods<a class="headerlink" href="#ordpy-a-python-package-for-data-analysis-with-permutation-entropy-and-ordinal-network-methods" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">ordpy</span></code> is a pure Python module <a class="footnote-reference brackets" href="#pessa2021" id="id1">1</a> that implements data analysis methods based
 on Bandt and Pompe’s <a class="footnote-reference brackets" href="#bandt-pompe" id="id2">2</a> symbolic encoding scheme.</p>
@@ -170,17 +171,20 @@ on Bandt and Pompe’s <a class="footnote-reference brackets" href="#bandt-pompe
 <p>If you have used <code class="docutils literal notranslate"><span class="pre">ordpy</span></code> in a scientific publication, we would appreciate
 citations to the following reference <a class="footnote-reference brackets" href="#pessa2021" id="id3">1</a>:</p>
 <ul class="simple">
-<li><p>A. A. B. Pessa, H. V. Ribeiro, <a class="reference external" href="https://arxiv.org/abs/2102.06786">ordpy: A Python package for data
-analysis with permutation entropy and ordinal network methods</a>, arXiv: 2102.06786 (2021).</p></li>
+<li><p>A. A. B. Pessa, H. V. Ribeiro, <a class="reference external" href="https://doi.org/10.1063/5.0049901">ordpy: A Python package for data
+analysis with permutation entropy and ordinal network methods</a>, Chaos 31, 063110 (2021).</p></li>
 </ul>
 <blockquote>
 <div><div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@misc</span><span class="p">{</span><span class="nl">pessa2021ordpy</span><span class="p">,</span>
-  <span class="na">title</span>         <span class="p">=</span> <span class="s">{ordpy: A Python module implementing permutation entropy and ordinal network methods for data analysis}</span><span class="p">,</span>
+  <span class="na">title</span>         <span class="p">=</span> <span class="s">{ordpy: A Python package for data analysis with permutation entropy and ordinal network methods}</span><span class="p">,</span>
   <span class="na">author</span>        <span class="p">=</span> <span class="s">{Arthur A. B. Pessa and Haroldo V. Ribeiro}</span><span class="p">,</span>
+  <span class="na">journal</span>       <span class="p">=</span> <span class="s">{Chaos: An Interdisciplinary Journal of Nonlinear Science}</span><span class="p">,</span>
+  <span class="na">volume</span>        <span class="p">=</span> <span class="s">{31}</span><span class="p">,</span>
+  <span class="na">number</span>        <span class="p">=</span> <span class="s">{6}</span><span class="p">,</span>
+  <span class="na">pages</span>         <span class="p">=</span> <span class="s">{063110}</span><span class="p">,</span>
   <span class="na">year</span>          <span class="p">=</span> <span class="s">{2021}</span><span class="p">,</span>
-  <span class="na">eprint</span>        <span class="p">=</span> <span class="s">{2102.06786}</span><span class="p">,</span>
-  <span class="na">archivePrefix</span> <span class="p">=</span> <span class="s">{arXiv}</span><span class="p">,</span>
-<span class="p">}</span>
+  <span class="na">doi</span>           <span class="p">=</span> <span class="s">{10.1063/5.0049901}</span><span class="p">,</span>
+ <span class="p">}</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -275,8 +279,8 @@ Generalized Statistical Complexity Measures: Geometrical and
 Analytical Properties, Physica A, 369, 439–462.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="installing">
+</section>
+<section id="installing">
 <h1>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h1>
 <p>Ordpy can be installed via the command line using</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install ordpy</span>
@@ -288,8 +292,8 @@ Analytical Properties, Physica A, 369, 439–462.</p>
 <span class="go">pip install -e .</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="basic-usage">
+</section>
+<section id="basic-usage">
 <h1>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h1>
 <p>We provide a <a class="reference external" href="https://github.com/arthurpessa/ordpy/blob/master/examples/ordpy.ipynb">notebook</a>
 illustrating how to use <code class="docutils literal notranslate"><span class="pre">ordpy</span></code>. This notebook reproduces all figures of our
@@ -327,9 +331,9 @@ article <a class="footnote-reference brackets" href="#pessa2021" id="id22">1</a>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_fig.png"><img alt="https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_fig.png" src="https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_fig.png" style="width: 506.40000000000003px; height: 391.20000000000005px;" /></a>
-</div>
+</figure>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Ordinal networks for logistic map and Gaussian noise.</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -391,15 +395,15 @@ article <a class="footnote-reference brackets" href="#pessa2021" id="id22">1</a>
     <span class="n">display</span><span class="p">(</span><span class="n">SVG</span><span class="p">(</span><span class="n">igplot</span><span class="p">(</span><span class="n">graph_</span><span class="p">)</span><span class="o">.</span><span class="n">_repr_svg_</span><span class="p">()))</span>
 </pre></div>
 </div>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_net.png"><img alt="https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_net.png" src="https://raw.githubusercontent.com/arthurpessa/ordpy/master/examples/figs/sample_net.png" style="width: 397.5px; height: 824.0px;" /></a>
-</div>
-</div>
-<div class="section" id="list-of-functions">
+</figure>
+</section>
+<section id="list-of-functions">
 <h1>List of functions<a class="headerlink" href="#list-of-functions" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="ordpy.complexity_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L563-L644"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.complexity_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L583-L661"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.complexity_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates permutation entropy<a class="footnote-reference brackets" href="#bandt-pompe" id="id23">2</a> and statistical
 complexity<a class="footnote-reference brackets" href="#lopezruiz" id="id24">4</a><sup>,</sup><a class="footnote-reference brackets" href="#rosso" id="id25">5</a> using an ordinal
 distribution obtained from data.</p>
@@ -419,6 +423,8 @@ or an ordinal probability distribution (such as the ones returned by
 <li><p><strong>probs</strong> (<em>boolean</em>) – If <cite>True</cite>, assumes <strong>data</strong> is an ordinal probability distribution. If
 <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dimensional
 array (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -450,7 +456,7 @@ array (default: <cite>False</cite>).</p></li>
 
 <dl class="py function">
 <dt id="ordpy.global_node_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">global_node_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connections</span><span class="o">=</span><span class="default_value">'all'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1366-L1448"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.global_node_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">global_node_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connections</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1387-L1472"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.global_node_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates global node entropy<a class="footnote-reference brackets" href="#pessa2019" id="id26">11</a><sup>,</sup><a class="footnote-reference brackets" href="#mccullough" id="id27">13</a> for an
 ordinal network obtained from data. (Assumes directed and weighted edges).</p>
 <dl class="field-list simple">
@@ -466,12 +472,14 @@ or an ordinal network returned by <a class="reference internal" href="#ordpy.ord
 <li><p><strong>taux</strong> (<em>int</em>) – Embedding delay (horizontal axis) (default: 1).</p></li>
 <li><p><strong>tauy</strong> (<em>int</em>) – Embedding delay (vertical axis) (default: 1).</p></li>
 <li><p><strong>overlapping</strong> (<em>boolean</em>) – If <cite>True</cite>, <strong>data</strong> is partitioned into overlapping sliding
-windows (default: True). If <cite>False</cite>, adjacent partitions are
+windows (default: <cite>True</cite>). If <cite>False</cite>, adjacent partitions are
 non-overlapping.</p></li>
 <li><p><strong>connections</strong> (<em>str</em>) – The ordinal network is constructed using <cite>‘all’</cite> permutation
 successions in a symbolic sequence or only <cite>‘horizontal’</cite> or
 <cite>‘vertical’</cite> successions. Parameter only valid for image data
 (default: <cite>‘all’</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -513,7 +521,7 @@ successions in a symbolic sequence or only <cite>‘horizontal’</cite> or
 
 <dl class="py function">
 <dt id="ordpy.logq">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">logq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">q</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L647-L689"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.logq" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">logq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">q</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L664-L706"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.logq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the <cite>q</cite>-logarithm of x.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -552,7 +560,7 @@ Mechanics: Approaching a Complex World. Springer.</p>
 
 <dl class="py function">
 <dt id="ordpy.maximum_complexity_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">maximum_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">m</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1931-L2018"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.maximum_complexity_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">maximum_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">m</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1944-L2031"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.maximum_complexity_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates data corresponding to values of normalized permutation entropy and
 statistical complexity which delimit the upper boundary in the
 complexity-entropy  causality plane<a class="footnote-reference brackets" href="#rosso-curvas" id="id32">15</a><sup>,</sup><a class="footnote-reference brackets" href="#id34" id="id33">‡</a>.</p>
@@ -609,7 +617,7 @@ Time Series Analysis, version 0.1.0. (Computer Software in R).</p>
 
 <dl class="py function">
 <dt id="ordpy.minimum_complexity_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">minimum_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1853-L1928"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.minimum_complexity_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">minimum_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1866-L1941"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.minimum_complexity_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates data corresponding to values of normalized permutation entropy and
 statistical complexity which delimit the lower boundary in the
 complexity-entropy causality plane<a class="footnote-reference brackets" href="#rosso-curvas" id="id35">15</a><sup>,</sup><a class="footnote-reference brackets" href="#id37" id="id36">§</a>.</p>
@@ -665,7 +673,7 @@ Time Series Analysis, version 0.1.0. (Computer Software in R).</p>
 
 <dl class="py function">
 <dt id="ordpy.missing_links">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">missing_links</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">return_fraction</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">return_missing</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1708-L1850"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.missing_links" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">missing_links</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">return_fraction</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">return_missing</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1718-L1863"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.missing_links" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identifies transitions between ordinal patterns (permutations) not occurring
 in data. (These transtitions correspond to directed edges in ordinal
 networks<a class="footnote-reference brackets" href="#pessa2019" id="id38">11</a>.) Assumes overlapping windows and unitary embedding
@@ -685,10 +693,12 @@ returned by <a class="reference internal" href="#ordpy.ordinal_network" title="o
 <li><p><strong>return_fraction</strong> (<em>boolean</em>) – if <cite>True</cite>, returns the fraction of missing links among
 ordinal patterns relative to the total number of possible
 links (transitions) for given values of <strong>dx</strong> and <strong>dy</strong>
-(default: True). If <cite>False</cite>, returns the raw number of
+(default: <cite>True</cite>). If <cite>False</cite>, returns the raw number of
 missing links.</p></li>
 <li><p><strong>return_missing</strong> (<em>boolean</em>) – if True, returns the missing links in <strong>data</strong>; if False, it
 only returns the fraction/number of these missing links.</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -724,7 +734,7 @@ relative fraction (or raw number).</p>
 
 <dl class="py function">
 <dt id="ordpy.missing_patterns">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">missing_patterns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">return_fraction</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">return_missing</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1612-L1705"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.missing_patterns" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">missing_patterns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">return_fraction</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">return_missing</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1636-L1715"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.missing_patterns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identifies ordinal patterns (permutations) not occurring in data<a href="#id54"><span class="problematic" id="id39">[#amigó]_</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -733,7 +743,7 @@ relative fraction (or raw number).</p>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
 \ldots, [x_{n1}, x_{n2}, x_{n3}, \ldots, x_{nm}]]\)</span>
 or the ordinal patterns and probabilities
-returned by <a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>.</p></li>
+returned by <a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a> with <cite>return_missing=True</cite>.</p></li>
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
 <li><p><strong>dy</strong> (<em>int</em>) – Embedding dimension (vertical axis); must be 1 for time series
 (default: 1).</p></li>
@@ -746,6 +756,12 @@ returns the raw number of missing patterns.</p></li>
 <li><p><strong>return_missing</strong> (<em>boolean</em>) – if <cite>True</cite>, returns the missing ordinal patterns in <strong>data</strong>
 (default: <cite>True</cite>); if <cite>False</cite>, it only returns the
 fraction/number of these missing patterns.</p></li>
+<li><p><strong>probs</strong> (<em>boolean</em>) – If <cite>True</cite>, assumes <strong>data</strong> to be the return of
+<a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a> with <cite>return_missing=True</cite>.
+If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dimensional
+array (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -760,23 +776,23 @@ ordinal patterns and their relative fraction (or raw number).</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">missing_patterns</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_fraction</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">(array([], shape=(0, 2), dtype=int64), 0)</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">missing_patterns</span><span class="p">(</span><span class="n">ordinal_distribution</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">missing_patterns</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">return_fraction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">0.3333333333333333</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">missing_patterns</span><span class="p">(</span><span class="n">ordinal_distribution</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(array([], shape=(0, 2), dtype=int64), 0.0)</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">missing_patterns</span><span class="p">(</span><span class="n">ordinal_distribution</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">return_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">missing_patterns</span><span class="p">(</span><span class="n">ordinal_distribution</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">return_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">dx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(array([[0, 2, 1],</span>
 <span class="go">        [1, 2, 0],</span>
 <span class="go">        [2, 1, 0]]), 0.5)</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">missing_patterns</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">return_fraction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">0.3333333333333333</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt id="ordpy.ordinal_distribution">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">ordinal_distribution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">return_missing</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L352-L486"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.ordinal_distribution" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">ordinal_distribution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">return_missing</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L364-L503"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.ordinal_distribution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Bandt and Pompe<a class="footnote-reference brackets" href="#bandt-pompe" id="id40">2</a> symbolization approach to obtain
 a probability distribution of ordinal patterns (permutations) from data.</p>
 <dl class="field-list simple">
@@ -794,6 +810,8 @@ or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldot
 symbolic sequence obtained from <strong>data</strong> are shown. If <cite>False</cite>,
 these missing patterns (permutations) are omitted
 (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -836,7 +854,7 @@ and another with their corresponding probabilities.</p>
 
 <dl class="py function">
 <dt id="ordpy.ordinal_network">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">ordinal_network</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">directed</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connections</span><span class="o">=</span><span class="default_value">'all'</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1137-L1363"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.ordinal_network" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">ordinal_network</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">directed</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">connections</span><span class="o">=</span><span class="default_value">'all'</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1152-L1384"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.ordinal_network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maps a data set into the elements (nodes, edges and edge weights) of its
 corresponding ordinal network representation<a class="footnote-reference brackets" href="#small" id="id41">10</a><sup>,</sup><a class="footnote-reference brackets" href="#pessa2019" id="id42">11</a><sup>,</sup><a class="footnote-reference brackets" href="#pessa2020" id="id43">12</a>.</p>
 <dl class="field-list simple">
@@ -854,7 +872,7 @@ or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldot
 permutations (default: <cite>True</cite>). If <cite>False</cite>, edge weights are
 transition counts.</p></li>
 <li><p><strong>overlapping</strong> (<em>boolean</em>) – If <cite>True</cite>, <strong>data</strong> is partitioned into overlapping sliding
-windows (default: True). If <cite>False</cite>, adjacent partitions are
+windows (default: <cite>True</cite>). If <cite>False</cite>, adjacent partitions are
 non-overlapping.</p></li>
 <li><p><strong>directed</strong> (<em>boolean</em>) – If <cite>True</cite>, ordinal network edges are directed (default: <cite>True</cite>). If
 <cite>False</cite>, edges are undirected.</p></li>
@@ -862,6 +880,8 @@ non-overlapping.</p></li>
 successions in a symbolic sequence or only <cite>‘horizontal’</cite> or
 <cite>‘vertical’</cite> successions. Parameter only valid for image data
 (default: <cite>‘all’</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -906,7 +926,7 @@ of an ordinal network.</p>
 
 <dl class="py function">
 <dt id="ordpy.ordinal_sequence">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">ordinal_sequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L245-L349"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.ordinal_sequence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">ordinal_sequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L248-L361"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.ordinal_sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Bandt and Pompe<a class="footnote-reference brackets" href="#bandt-pompe" id="id44">2</a> symbolization approach to obtain
 a sequence of ordinal patterns (permutations) from data.</p>
 <dl class="field-list simple">
@@ -922,8 +942,10 @@ or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldot
 <li><p><strong>taux</strong> (<em>int</em>) – Embedding delay (horizontal axis) (default: 1).</p></li>
 <li><p><strong>tauy</strong> (<em>int</em>) – Embedding delay (vertical axis) (default: 1).</p></li>
 <li><p><strong>overlapping</strong> (<em>boolean</em>) – If <cite>True</cite>, <strong>data</strong> is partitioned into overlapping sliding
-windows (default: True). If <cite>False</cite>, adjacent partitions are
+windows (default: <cite>True</cite>). If <cite>False</cite>, adjacent partitions are
 non-overlapping.</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -956,23 +978,29 @@ non-overlapping.</p></li>
 <span class="go">       [[1, 2, 3, 0],</span>
 <span class="go">        [0, 1, 3, 2],</span>
 <span class="go">        [0, 1, 2, 3]]])</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ordinal_sequence</span><span class="p">([</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">ordinal_sequence</span><span class="p">([</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">tie_precision</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">(array([[1, 0]]), array([[0, 1]]))</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt id="ordpy.permutation_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">permutation_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">base</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L489-L560"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.permutation_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">permutation_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">base</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L506-L580"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.permutation_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Shannon entropy using an ordinal distribution obtained from
 data<a class="footnote-reference brackets" href="#bandt-pompe" id="id45">2</a><sup>,</sup><a class="footnote-reference brackets" href="#ribeiro-2012" id="id46">3</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
-or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
+<li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
+<dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
 \ldots, [x_{n1}, x_{n2}, x_{n3}, \ldots, x_{nm}]]\)</span>
-or an ordinal probability distribution (such as the ones returned by
-<a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p></li>
+or an ordinal probability distribution (such as the ones returned by</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p>
+</p></li>
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
 <li><p><strong>dy</strong> (<em>int</em>) – Embedding dimension (vertical axis); it must be 1 for time series
 (default: 1).</p></li>
@@ -984,6 +1012,8 @@ or an ordinal probability distribution (such as the ones returned by
 <li><p><strong>probs</strong> (<em>boolean</em>) – If <cite>True</cite>, assumes <strong>data</strong> is an ordinal probability distribution. If
 <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dimensional
 array (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1011,7 +1041,7 @@ array (default: <cite>False</cite>).</p></li>
 
 <dl class="py function">
 <dt id="ordpy.random_ordinal_network">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">random_ordinal_network</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1451-L1609"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.random_ordinal_network" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">random_ordinal_network</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">overlapping</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1475-L1633"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.random_ordinal_network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates the nodes, edges and edge weights of a random ordinal network: the
 theoretically expected network representation of a random time series<a class="footnote-reference brackets" href="#pessa2019" id="id47">11</a> or a random two-dimensional array<a class="footnote-reference brackets" href="#pessa2020" id="id48">12</a>.
 (Assumes directed edges and unitary embbeding delays.)</p>
@@ -1022,7 +1052,7 @@ theoretically expected network representation of a random time series<a class="f
 <li><p><strong>dy</strong> (<em>int</em>) – Embedding dimension (vertical axis); it must be 1 for time series
 (default: 1).</p></li>
 <li><p><strong>overlapping</strong> (<em>boolean</em>) – If <cite>True</cite>, <strong>data</strong> is partitioned into overlapping sliding
-windows (default: True). If <cite>False</cite>, adjacent partitions are
+windows (default: <cite>True</cite>). If <cite>False</cite>, adjacent partitions are
 non-overlapping.</p></li>
 </ul>
 </dd>
@@ -1056,18 +1086,21 @@ of the random ordinal network.</p>
 
 <dl class="py function">
 <dt id="ordpy.renyi_complexity_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">renyi_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L980-L1134"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.renyi_complexity_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">renyi_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L999-L1149"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.renyi_complexity_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Rényi normalized permutation entropy and statistical
 complexity<a class="footnote-reference brackets" href="#jauregui" id="id49">9</a> using an ordinal distribution obtained from
 data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
-or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
+<li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
+<dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
 \ldots, [x_{n1}, x_{n2}, x_{n3}, \ldots, x_{nm}]]\)</span>
-or an ordinal probability distribution (such as the ones returned by
-<a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p></li>
+or an ordinal probability distribution (such as the ones returned by</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p>
+</p></li>
 <li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>array</em>) – Rényi’s <cite>alpha</cite> parameter (default: 1); an array of values is also
 accepted for this parameter.</p></li>
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
@@ -1078,6 +1111,8 @@ accepted for this parameter.</p></li>
 <li><p><strong>probs</strong> (<em>boolean</em>) – If <cite>True</cite>, assumes <strong>data</strong> is an ordinal probability distribution. If
 <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dimensional
 array (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1114,17 +1149,20 @@ Rényi’s formalism.</p>
 
 <dl class="py function">
 <dt id="ordpy.renyi_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">renyi_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L903-L977"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.renyi_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">renyi_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L919-L996"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.renyi_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the normalized Rényi permutation entropy<a class="footnote-reference brackets" href="#jauregui" id="id50">9</a> using an
 ordinal distribution obtained from data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
-or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
+<li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
+<dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
 \ldots, [x_{n1}, x_{n2}, x_{n3}, \ldots, x_{nm}]]\)</span>
-or an ordinal probability distribution (such as the ones returned by
-<a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p></li>
+or an ordinal probability distribution (such as the ones returned by</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p>
+</p></li>
 <li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>array</em>) – Rényi’s <cite>alpha</cite> parameter (default: 1); an array of values is also
 accepted for this parameter.</p></li>
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
@@ -1135,6 +1173,8 @@ accepted for this parameter.</p></li>
 <li><p><strong>probs</strong> (<em>boolean</em>) – If <cite>True</cite>, assumes <strong>data</strong> is an ordinal probability distribution. If
 <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dimensional
 array (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1165,18 +1205,21 @@ array (default: <cite>False</cite>).</p></li>
 
 <dl class="py function">
 <dt id="ordpy.tsallis_complexity_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">tsallis_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">q</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L765-L900"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.tsallis_complexity_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">tsallis_complexity_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">q</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L785-L916"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.tsallis_complexity_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Tsallis normalized permutation entropy and statistical
 complexity<a class="footnote-reference brackets" href="#ribeiro2017" id="id51">8</a> using an ordinal distribution obtained from
 data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
-or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
+<li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
+<dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
 \ldots, [x_{n1}, x_{n2}, x_{n3}, \ldots, x_{nm}]]\)</span>
-or an ordinal probability distribution (such as the ones returned by
-<a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p></li>
+or an ordinal probability distribution (such as the ones returned by</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p>
+</p></li>
 <li><p><strong>q</strong> (<em>float</em><em>, </em><em>array</em>) – Tsallis’s <cite>q</cite> parameter (default: 1); an array of values is also
 accepted for this parameter.</p></li>
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
@@ -1187,6 +1230,8 @@ accepted for this parameter.</p></li>
 <li><p><strong>probs</strong> (<em>boolean</em>) – If <cite>True</cite>, assumes <strong>data</strong> is an ordinal probability distribution. If
 <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dimensional
 array (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1223,17 +1268,20 @@ Tsallis’s formalism.</p>
 
 <dl class="py function">
 <dt id="ordpy.tsallis_entropy">
-<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">tsallis_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">q</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L692-L762"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.tsallis_entropy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ordpy.</code><code class="sig-name descname">tsallis_entropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">q</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">dy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">taux</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tauy</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tie_precision</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L709-L782"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ordpy.tsallis_entropy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the normalized Tsallis permutation entropy<a class="footnote-reference brackets" href="#ribeiro2017" id="id52">8</a> using
 an ordinal distribution obtained from data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
-or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
+<li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
+<dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
 \ldots, [x_{n1}, x_{n2}, x_{n3}, \ldots, x_{nm}]]\)</span>
-or an ordinal probability distribution (such as the ones returned by
-<a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p></li>
+or an ordinal probability distribution (such as the ones returned by</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>).</p>
+</p></li>
 <li><p><strong>q</strong> (<em>float</em><em> or </em><em>array</em>) – Tsallis’s <cite>q</cite> parameter (default: 1); an array of values is also
 accepted for this parameter.</p></li>
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
@@ -1244,6 +1292,8 @@ accepted for this parameter.</p></li>
 <li><p><strong>probs</strong> (<em>boolean</em>) – If <cite>True</cite>, assumes <strong>data</strong> is an ordinal probability distribution. If
 <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dimensional
 array (default: <cite>False</cite>).</p></li>
+<li><p><strong>tie_precision</strong> (<em>int</em>) – If not <cite>None</cite>, <strong>data</strong> is rounded with <cite>tie_precision</cite>
+number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1272,13 +1322,13 @@ array (default: <cite>False</cite>).</p></li>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="indices">
+</section>
+<section id="indices">
 <h1>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 </ul>
-</div>
+</section>
 
 
            </div>
