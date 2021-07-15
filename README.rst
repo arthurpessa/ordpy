@@ -27,7 +27,7 @@ If you have used ``ordpy`` in a scientific publication, we would appreciate cita
 
 .. code-block:: bibtex
     
-   @misc{pessa2021ordpy,
+   @article{pessa2021ordpy,
     title         = {ordpy: A Python package for data analysis with permutation entropy and ordinal network methods}, 
     author        = {Arthur A. B. Pessa and Haroldo V. Ribeiro},
     journal       = {Chaos: An Interdisciplinary Journal of Nonlinear Science},
