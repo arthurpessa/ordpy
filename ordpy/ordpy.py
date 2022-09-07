@@ -564,18 +564,17 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
         probabilities = probabilities[probabilities>0]
 
     if normalized==True and base in [2, '2']:        
-        smax = np.log2(np.math.factorial(dx*dy))
+        smax = np.log2(float(np.math.factorial(dx*dy)))
         s    = -np.sum(probabilities*np.log2(probabilities))
         return s/smax
          
     elif normalized==True and base=='e':        
-        smax = np.log(np.math.factorial(dx*dy))
+        smax = np.log(float(np.math.factorial(dx*dy)))
         s    = -np.sum(probabilities*np.log(probabilities))
         return s/smax
     
     elif normalized==False and base in [2, '2']:
         return -np.sum(probabilities*np.log2(probabilities))
-    
     else:
         return -np.sum(probabilities*np.log(probabilities))
 
@@ -634,24 +633,23 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precis
     >>> complexity_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]],dx=3, dy=2)
     (0.21070701155008006, 0.20704765093242872)
     """
-    #checking if 'data' is a probability distribution or not
 
-    n = np.math.factorial(dx*dy)
+    n = float(np.math.factorial(dx*dy)) 
 
     if probs==False:
-        _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=True, tie_precision=tie_precision)   
-        h                = permutation_entropy(probabilities[probabilities>0], dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
+        _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)   
+        h                = permutation_entropy(probabilities, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
     else:
         probabilities = np.asarray(data)
-        probabilities = np.hstack([probabilities, np.zeros(shape=n-len(probabilities))])
-        h             = permutation_entropy(probabilities[probabilities>0], dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
+        probabilities = probabilities[probabilities>0]
+        h             = permutation_entropy(probabilities, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
 
-    uniform_dist = np.full(n, 1/n)
+    n_states_not_occuring = n-len(probabilities)
+    uniform_dist          = 1/n
 
     p_plus_u_over_2      = (uniform_dist + probabilities)/2  
-    s_of_p_plus_u_over_2 = -np.sum(p_plus_u_over_2*np.log(p_plus_u_over_2))
+    s_of_p_plus_u_over_2 = -np.sum(p_plus_u_over_2*np.log(p_plus_u_over_2)) - (0.5*uniform_dist)*np.log(0.5*uniform_dist)*n_states_not_occuring
 
-    probabilities = probabilities[probabilities!=0]
     s_of_p_over_2 = -np.sum(probabilities*np.log(probabilities))/2
     s_of_u_over_2 = np.log(n)/2.
 
@@ -770,13 +768,13 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_prec
     if isinstance(q, (tuple, list, np.ndarray)):
         s = []
         for q_ in q:
-            smax          = logq(np.math.factorial(dx*dy),q_)
-            lnq_1_over_p  = logq(1./probabilities,q_)
-            s             += [np.sum(probabilities*lnq_1_over_p)/smax]
+            smax          = logq(float(np.math.factorial(dx*dy)), q_)
+            lnq_1_over_p  = logq(1./probabilities, q_)
+            s            += [np.sum(probabilities*lnq_1_over_p)/smax]
         s = np.asarray(s)
     else:
-        smax          = logq(np.math.factorial(dx*dy),q)
-        lnq_1_over_p  = logq(1./probabilities,q)
+        smax          = logq(float(np.math.factorial(dx*dy)), q)
+        lnq_1_over_p  = logq(1./probabilities, q)
         s             = np.sum(probabilities*lnq_1_over_p)/smax
 
     return s
@@ -869,21 +867,21 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
                    ((2**(2-q))*n_states - (1+n_states)**(1-q) - n_states*(1+1/n_states)**(1-q) - n_states + 1)/ 
                    ((1-q)*(2**(2-q))*n_states)
                   )
+##############################################
 
-    n = np.math.factorial(dx*dy)
+    n = float(np.math.factorial(dx*dy))
 
     if probs==False:
-        _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=True, tie_precision=tie_precision)
-        h_q              = tsallis_entropy(probabilities[probabilities>0], q, dx, dy, 
-                                           taux, tauy, probs=True, tie_precision=tie_precision)
+        _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)
+        h_q              = tsallis_entropy(probabilities, q, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
     else:
         probabilities = np.asarray(data)      
-        probabilities = np.hstack([probabilities, np.zeros(shape=n-len(probabilities))])
-        h_q           = tsallis_entropy(probabilities[probabilities>0], q, dx, dy, 
-                                        taux, tauy, probs=True, tie_precision=tie_precision)
+        probabilities = probabilities[probabilities!=0]
+        h_q           = tsallis_entropy(probabilities, q, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
 
-    p             = probabilities[probabilities!=0]
-    uniform_dist  = np.full(n, 1/n)
+    n_states_not_occur = n-len(probabilities)
+    uniform_dist       = 1/n
+    p                  = probabilities
 
     if isinstance(q, (tuple, list, np.ndarray)):
         jt_div     = []
@@ -891,11 +889,11 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
         for q_ in q:
             #first and second terms of Jensen-Tsallis divergence: 
             #equation 10 of Physical Review E 95, 062106 (2017).
-            first_term  = (uniform_dist[:len(p)] + p)/(2*p)
+            first_term  = (uniform_dist + p)/(2*p)
             first_term  = -0.5*np.sum(p*logq(first_term, q_)) 
 
-            second_term = n*(uniform_dist + probabilities)/2
-            second_term = -(0.5/n)*np.sum(logq(second_term, q_))
+            second_term = n*(uniform_dist + p)/2
+            second_term = -(0.5/n) * ( np.sum(logq(second_term, q_)) + logq(0.5, q_)*n_states_not_occur )
 
             jt_div      += [first_term + second_term]
             jt_div_max  += [jensen_tsallis_divergence_max(n,q_)]
@@ -904,11 +902,11 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
         jt_div_max = np.asarray(jt_div_max)
 
     else:
-        first_term  = (uniform_dist[:len(p)] + p)/(2*p)
+        first_term  = (uniform_dist + p)/(2*p)
         first_term  = -0.5*np.sum(p*logq(first_term, q)) 
 
-        second_term = n*(uniform_dist + probabilities)/2
-        second_term = -(0.5/n)*np.sum(logq(second_term, q))
+        second_term = n*(uniform_dist + p)/2
+        second_term = -(0.5/n) * ( np.sum(logq(second_term, q)) + logq(0.5, q)*n_states_not_occur )
 
         jt_div      = first_term + second_term
         jt_div_max  = jensen_tsallis_divergence_max(n,q)
@@ -977,12 +975,12 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_pr
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
 
-    smax = np.log(np.math.factorial(dx*dy))
+    smax = np.log(float(np.math.factorial(dx*dy)))
 
     if isinstance(alpha, (tuple, list, np.ndarray)):
         s = []
         for alpha_ in alpha:
-            if alpha_ !=1:
+            if alpha_!=1:
                 s += [(1/(1-alpha_))*np.log(np.sum(probabilities**alpha_))/smax]
             else:
                 s += [-np.sum(probabilities*np.log(probabilities))/smax]
@@ -1086,63 +1084,60 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=Fa
 
 ###########################
 
-    n = np.math.factorial(dx*dy)
+    n = float(np.math.factorial(dx*dy))
 
     if probs==False:
-        _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=True, tie_precision=tie_precision)
+        _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)
         h_a              = renyi_entropy(probabilities, alpha, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
     else:
         probabilities = np.asarray(data)
-        probabilities = np.hstack([probabilities, np.zeros(shape=n-len(probabilities))])
+        probabilities = probabilities[probabilities!=0]
         h_a           = renyi_entropy(probabilities, alpha, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
 
-    uniform_dist  = np.full(n, 1/n)
-
+    n_states_not_occur = n - len(probabilities)
+    uniform_dist       = 1/n
+    p                  = probabilities
+    
     if isinstance(alpha, (tuple, list, np.ndarray)):
-        jr_div = []
+        jr_div     = []
         jr_div_max = []
         for alpha_ in alpha:
-            if alpha_==1:
-                p_plus_u_over_2      = (uniform_dist + probabilities)/2  
-                s_of_p_plus_u_over_2 = -np.sum(p_plus_u_over_2*np.log(p_plus_u_over_2))
+            if alpha_==1: #limit of Shannon entropy
+                p_plus_u_over_2      = (uniform_dist + p)/2
+                s_of_p_plus_u_over_2 = -np.sum(p_plus_u_over_2*np.log(p_plus_u_over_2)) - (0.5*uniform_dist)*np.log(0.5*uniform_dist)*n_states_not_occur
 
-                probabilities = probabilities[probabilities!=0]
-                s_of_p_over_2 = -np.sum(probabilities*np.log(probabilities))/2
+                s_of_p_over_2 = -np.sum(p*np.log(p))/2
                 s_of_u_over_2 = np.log(n)/2.
 
                 jr_div       += [s_of_p_plus_u_over_2 - s_of_p_over_2 - s_of_u_over_2]
             else:
                 # Equation 4 in Physica A 498 (2018) 74-85.
-                first_term  = ((probabilities + uniform_dist)/2)**(1-alpha_)
-                second_term = (1/(n**alpha_))*first_term
-
-                first_term  = np.log(np.sum(first_term*probabilities**alpha_))
-                second_term = np.log(np.sum(second_term))
-
+                first_term  = ((p + uniform_dist)/2)**(1-alpha_)
+                first_term  = np.log(np.sum(first_term * p**alpha_))
+                second_term = np.log(np.sum((1/(n**alpha_)) * ((p + uniform_dist)/2)**(1-alpha_)) + ( n_states_not_occur * (1/n**alpha_) * (1/(2*n))**(1-alpha_) ))
+                
                 jr_div     += [(1/(2*(alpha_-1)))*(first_term + second_term)]
 
             jr_div_max += [jensen_renyi_divergence_max(n, alpha_)]
 
-        jr_div = np.asarray(jr_div)
+        jr_div     = np.asarray(jr_div)
         jr_div_max = np.asarray(jr_div_max)
+
     else:
         if alpha==1:
-            p_plus_u_over_2      = (uniform_dist + probabilities)/2  
-            s_of_p_plus_u_over_2 = -np.sum(p_plus_u_over_2*np.log(p_plus_u_over_2))
+            p_plus_u_over_2      = (uniform_dist + p)/2  
+            s_of_p_plus_u_over_2 = -np.sum(p_plus_u_over_2*np.log(p_plus_u_over_2)) - (0.5*uniform_dist)*np.log(0.5*uniform_dist)*n_states_not_occur
 
-            probabilities = probabilities[probabilities!=0]
-            s_of_p_over_2 = -np.sum(probabilities*np.log(probabilities))/2
+            s_of_p_over_2 = -np.sum(p*np.log(p))/2
             s_of_u_over_2 = np.log(n)/2.
 
             jr_div        = s_of_p_plus_u_over_2 - s_of_p_over_2 - s_of_u_over_2
         else:
-            first_term  = ((probabilities + uniform_dist)/2)**(1-alpha)
-            second_term = (1/(n**alpha))*first_term
-
-            first_term  = np.log(np.sum(first_term*probabilities**alpha))
-            second_term = np.log(np.sum(second_term))
-
-            jr_div      = (1/(2*(alpha-1)))*(first_term + second_term)
+            first_term  = ((p + uniform_dist)/2)**(1-alpha)
+            first_term  = np.log(np.sum(first_term * p**alpha))    
+            second_term = np.log(np.sum((1/(n**alpha)) * ((p + uniform_dist)/2)**(1-alpha)) + ( n_states_not_occur * (1/n**alpha) * (1/(2*n))**(1-alpha) ))
+        
+            jr_div = (1/(2*(alpha-1)))*(first_term + second_term)
             
         jr_div_max = jensen_renyi_divergence_max(n, alpha)
 
