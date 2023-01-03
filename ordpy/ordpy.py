@@ -564,19 +564,19 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
         probabilities = probabilities[probabilities>0]
 
     if normalized==True and base in [2, '2']:        
-        smax = np.log2(float(np.math.factorial(dx*dy)))
-        s    = -np.sum(probabilities*np.log2(probabilities))
+        smax = math.log2(float(np.math.factorial(dx*dy)))
+        s    = -np.sum(probabilities*math.log2(probabilities))
         return s/smax
          
     elif normalized==True and base=='e':        
-        smax = np.log(float(np.math.factorial(dx*dy)))
-        s    = -np.sum(probabilities*np.log(probabilities))
+        smax = math.log(float(np.math.factorial(dx*dy)))
+        s    = -np.sum(probabilities*math.log(probabilities))
         return s/smax
     
     elif normalized==False and base in [2, '2']:
-        return -np.sum(probabilities*np.log2(probabilities))
+        return -np.sum(probabilities*math.log2(probabilities))
     else:
-        return -np.sum(probabilities*np.log(probabilities))
+        return -np.sum(probabilities*math.log(probabilities))
 
 
 def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precision=None):
