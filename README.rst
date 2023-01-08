@@ -261,10 +261,6 @@ References
    True and False Forbidden Patterns in Deterministic and Random Dynamics.
    Europhysics Letters, 79, 50001.
 
-.. [#rosso_curvas] Martin, M. T., Plastino, A., & Rosso, O. A. (2006). 
-   Generalized Statistical Complexity Measures: Geometrical and 
-   Analytical Properties, Physica A, 369, 439–462.
-
 .. [#fadlallah] Fadlallah B., Chen, B., Keil A. & Príncipe, José (2013). 
    Weighted-permutation entropy: a complexity measure for time series 
    incorporating amplitude information. Physical Review E, 97, 022911.
