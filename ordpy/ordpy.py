@@ -109,7 +109,7 @@ References
    True and False Forbidden Patterns in Deterministic and Random Dynamics.
    Europhysics Letters, 79, 50001.
 
-.. [#fadlallah] Fadlallah B., Chen, B., Keil A. & Príncipe, José (2013). 
+.. [#fadlallah] Fadlallah B., Chen, B., Keil A. & Príncipe, J. (2013). 
    Weighted-permutation entropy: a complexity measure for time series 
    incorporating amplitude information. Physical Review E, 97, 022911.
 
