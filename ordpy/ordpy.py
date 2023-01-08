@@ -12,7 +12,7 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
    - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data 
      analysis with permutation entropy and ordinal network methods 
-     <https://doi.org/10.1063/5.0049901>`_, Chaos 31, 063110 (2021).
+     <https://doi.org/10.1063/5.0049901>`_, Chaos 31, 063110 (2021). `arXiv:2102.06786 <https://arxiv.org/abs/2102.06786>`_
 
     .. code-block:: bibtex
     
@@ -29,26 +29,37 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 
 ``ordpy`` implements the following data analysis methods:
 
+Released on version 1.0.0 (February 2021):
+
 - Permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
-- Complexity-entropy plane for time series [#lopezruiz]_:sup:`,` [#rosso]_ and 
+- Complexity-entropy plane for time series [#lopezruiz]_, [#rosso]_ and 
   images [#ribeiro_2012]_;
 - Multiscale complexity-entropy plane for time series [#zunino2012]_ and 
   images [#zunino2016]_;
 - Tsallis [#ribeiro2017]_ and Rényi [#jauregui]_ generalized complexity-entropy
   curves for time series and images;
-- Ordinal networks for time series [#small]_:sup:`,` [#pessa2019]_ and 
+- Ordinal networks for time series [#small]_, [#pessa2019]_ and 
   images [#pessa2020]_;
 - Global node entropy of ordinal networks for 
-  time series [#McCullough]_:sup:`,` [#pessa2019]_ and images [#pessa2020]_.
+  time series [#McCullough]_, [#pessa2019]_ and images [#pessa2020]_.
 - Missing ordinal patterns [#amigo]_ and missing transitions between ordinal
   patterns [#pessa2019]_ for time series and images.
+
+Released on version 1.1.0 (January 2023):
+
+- Weighted permutation entropy for time series [#fadlallah]_ and images;
+- Fisher-Shannon plane for time series [#olivares]_ and images;
+- Permutation Jensen-Shannon distance for time series [#zunino2022]_ and images;
+- Four pattern permutation contrasts (up-down balance, persistence, 
+  rotational-asymmetry, and up-down scaling.) for time series [#bandt]_; 
+- Smoothness-structure plane for images [#bandt_wittfeld]_.
 
 References
 ----------
 
 .. [#pessa2021] Pessa, A. A., & Ribeiro, H. V. (2021). ordpy: A Python package
    for data analysis with permutation entropy and ordinal networks methods. 
-   arXiv: 2102.06786.
+   Chaos, 31, 063110.
 
 .. [#bandt_pompe] Bandt, C., & Pompe, B. (2002). Permutation entropy: A Natural 
    Complexity Measure for Time Series. Physical Review Letters, 88, 174102.
@@ -98,11 +109,27 @@ References
    True and False Forbidden Patterns in Deterministic and Random Dynamics.
    Europhysics Letters, 79, 50001.
 
+.. [#fadlallah] Fadlallah B., Chen, B., Keil A. & Príncipe, José (2013). 
+   Weighted-permutation entropy: a complexity measure for time series 
+   incorporating amplitude information. Physical Review E, 97, 022911.
+
+.. [#olivares] Olivares, F., Plastino, A., & Rosso, O. A. (2012). 
+   Contrasting chaos with noise via local versus global 
+   information quantifiers. Physics Letters A, 376, 1577–1583.
+
+.. [#zunino2022] Zunino L., Olivares, F., Ribeiro H. V. & Rosso, O. A. (2022). 
+   Permutation Jensen-Shannon distance: A versatile and fast symbolic tool
+   for complex time-series analysis. Physical Review E, 105, 045310.
+
+.. [#bandt] Bandt, C. (2022). Statistics and modelling of order patterns in
+   univariate series. arXiv:2212.14386.
+
+.. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2022). Two new parameters for 
+   the ordinal analysis of images. arXiv:2212.14643.
+
 .. [#rosso_curvas] Martin, M. T., Plastino, A., & Rosso, O. A. (2006). 
    Generalized Statistical Complexity Measures: Geometrical and 
    Analytical Properties, Physica A, 369, 439–462.
-
-
 
 Installing
 ==========
@@ -241,8 +268,11 @@ article [#pessa2021]_. The code below shows simple applications of ``ordpy``.
 List of functions
 =================
 """
-import numpy as np
 import itertools
+import math
+import warnings
+
+import numpy as np
 
 
 def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_precision=None):
@@ -270,7 +300,7 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_pre
                   If `True`, **data** is partitioned into overlapping sliding 
                   windows (default: `True`). If `False`, adjacent partitions are
                   non-overlapping.
-    tie_precision : int
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
                     number of decimals (default: `None`).
 
@@ -315,19 +345,18 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_pre
         ny     = 1
         data   = np.array([data])
 
-    if tie_precision is not None:
+    if tie_precision is not None: 
         data = np.round(data, tie_precision)
     
-#TIME SERIES DATA
-    if ny==1:
+    if ny==1: #time series
         if overlapping == True:
-            partitions = np.concatenate(
-                [
-                    [np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)] 
-                    for j in range(ny-(dy-1)*tauy)
-                ]
-            )
-        
+            partitions = np.apply_along_axis(func1d       = np.lib.stride_tricks.sliding_window_view, 
+                                             axis         = 1, 
+                                             arr          = data, 
+                                             window_shape = (dx+(dx-1)*(taux-1),)
+                                            )
+            partitions = partitions[::, ::, ::taux].reshape(-1, dx) 
+                                                                    
         else: #non overlapping
             partitions = np.concatenate(
                 [
@@ -335,19 +364,16 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_pre
                     for j in range(ny-(dy-1)*tauy)
                 ]
             )
-        #
         symbols = np.apply_along_axis(np.argsort, 1, partitions)
         
-#IMAGE DATA
-    else:
+    else: #image
         if overlapping == True:
-            partitions = np.concatenate(
-                [
-                    [[np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)]]
-                    for j in range(ny-(dy-1)*tauy)
-                ]
-            )
-            
+            partitions        = np.lib.stride_tricks.sliding_window_view(x            = data, 
+                                                                         window_shape = (dy+(dy-1)*(tauy-1), dx+(dx-1)*(taux-1))
+                                                                        )
+            rows, columns, *_ = np.shape(partitions)
+            partitions        = partitions[::,::,::tauy,::taux].reshape(rows, columns, dx*dy)
+
         else: #non overlapping
             partitions = np.concatenate(
                 [
@@ -355,7 +381,6 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_pre
                     for j in range(0, ny-(dy-1)*tauy, dy+(dy-1)*(tauy-1))
                 ]
             )            
-        #        
         symbols = np.apply_along_axis(np.argsort, 2, partitions)
     
     return symbols
@@ -383,12 +408,11 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
            Embedding delay (vertical axis) (default: 1).
     return_missing: boolean
                     If `True`, it returns ordinal patterns not appearing in the 
-                    symbolic sequence obtained from **data** are shown. If `False`,
-                    these missing patterns (permutations) are omitted 
-                    (default: `False`).
-    tie_precision : int
+                    symbolic sequence obtained from **data**. If `False`, these
+                    missing patterns (permutations) are omitted (default: `False`).
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
     Returns
     -------
      : tuple
@@ -458,46 +482,31 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
 
         _, ncols = a.shape
 
-        dtype={'names':['f{}'.format(i) for i in range(ncols)],
-            'formats':ncols * [a.dtype]}
+        dtype={'names':['f{}'.format(i) for i in range(ncols)], 'formats':ncols * [a.dtype]}
 
         C = np.setdiff1d(a.view(dtype), b.view(dtype))
         C = C.view(a.dtype).reshape(-1, ncols)
 
         return(C)
 
-#####################################################################################
 
-    try:
-        ny, nx = np.shape(data)
-        data   = np.array(data)
-    except:
-        nx     = np.shape(data)[0]
-        ny     = 1
-        data   = np.array([data])
+    symbols = ordinal_sequence(data, dx=dx, dy=dy, taux=taux, tauy=tauy, overlapping=True, tie_precision=tie_precision)
 
-    if tie_precision is not None:
-        data = np.round(data, tie_precision)
-
-    partitions = np.concatenate(
-        [
-            [np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)] 
-            for j in range(ny-(dy-1)*tauy)
-        ]
-    )
-
-    symbols = np.apply_along_axis(np.argsort, 1, partitions)
+    if np.shape(symbols).__len__() == 3:
+        symbols = symbols.reshape(-1, dx*dy) #we reshape the symbols array to facilitate the application of np.unique below.
+    else:
+        pass
+    
     symbols, symbols_count = np.unique(symbols, return_counts=True, axis=0)
-
-    probabilities = symbols_count/len(partitions)
+    probabilities          = symbols_count/symbols_count.sum()
 
     if return_missing==False:
         return symbols, probabilities
     
     else:
-        all_symbols   = list(map(list,list(itertools.permutations(np.arange(dx*dy)))))
+        all_symbols   = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
         miss_symbols  = setdiff(all_symbols, symbols)
-        symbols       = np.concatenate((symbols, miss_symbols))
+        symbols       = np.concatenate((symbols, miss_symbols)).astype('int')
         probabilities = np.concatenate((probabilities, np.zeros(miss_symbols.__len__())))
         
         return symbols, probabilities
@@ -515,7 +524,7 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`
            or an ordinal probability distribution (such as the ones returned by 
-       :func:`ordpy.ordinal_distribution`).
+           :func:`ordpy.ordinal_distribution`).
     dx : int
          Embedding dimension (horizontal axis) (default: 3).
     dy : int
@@ -531,12 +540,12 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
                 If `True`, permutation entropy is normalized by its maximum value 
                 (default: `True`). If `False`, it is not.
     probs : boolean
-            If `True`, assumes **data** is an ordinal probability distribution. If 
-            `False`, **data** is expected to be a one- or two-dimensional 
-            array (default: `False`). 
-    tie_precision : int
+            If `True`, it assumes **data** is an ordinal probability distribution.
+            If `False`, **data** is expected to be a one- or two-dimensional array
+            (default: `False`). 
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -560,23 +569,17 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=Tru
     if not probs:
         _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)
     else:
-        probabilities = np.asarray(data)
-        probabilities = probabilities[probabilities>0]
+        probabilities    = np.asarray(data)
+        probabilities    = probabilities[probabilities>0]
 
-    if normalized==True and base in [2, '2']:        
-        smax = np.log2(float(np.math.factorial(dx*dy)))
-        s    = -np.sum(probabilities*np.log2(probabilities))
+    logfunc = np.log if base=='e' else np.log2
+    s       = -np.sum(probabilities*logfunc(probabilities))
+
+    if normalized==True:        
+        smax = logfunc(float(math.factorial(dx*dy)))
         return s/smax
-         
-    elif normalized==True and base=='e':        
-        smax = np.log(float(np.math.factorial(dx*dy)))
-        s    = -np.sum(probabilities*np.log(probabilities))
-        return s/smax
-    
-    elif normalized==False and base in [2, '2']:
-        return -np.sum(probabilities*np.log2(probabilities))
     else:
-        return -np.sum(probabilities*np.log(probabilities))
+        return s 
 
 
 def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precision=None):
@@ -603,12 +606,12 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precis
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs : boolean
-            If `True`, assumes **data** is an ordinal probability distribution. If 
-            `False`, **data** is expected to be a one- or two-dimensional 
-            array (default: `False`). 
-    tie_precision : int
+            If `True`, it assumes **data** is an ordinal probability distribution.
+            If `False`, **data** is expected to be a one- or two-dimensional array
+            (default: `False`). 
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -634,7 +637,7 @@ def complexity_entropy(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precis
     (0.21070701155008006, 0.20704765093242872)
     """
 
-    n = float(np.math.factorial(dx*dy)) 
+    n = float(math.factorial(dx*dy)) 
 
     if probs==False:
         _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)   
@@ -679,11 +682,11 @@ def logq(x, q=1):
     -----
     The `q`-logarithm of `x` is defined as\\ [*]_
 
-    .. math::
+        .. math::
 
-       \\log_q (x) = \\frac{x^{1-q} - 1}{1-q}~~\\text{for}~~q\\neq 1
+        \\log_q (x) = \\frac{x^{1-q} - 1}{1-q}~~\\text{for}~~q\\neq 1
 
-    and :math:`\\log_q (x) = \\log (x)` for :math:`q=1`.
+        and :math:`\\log_q (x) = \\log (x)` for :math:`q=1`.
 
     .. [*] Tsallis, C. (2009). Introduction to Nonextensive Statistical 
        Mechanics: Approaching a Complex World. Springer.
@@ -730,12 +733,12 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_prec
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs : boolean
-            If `True`, assumes **data** is an ordinal probability distribution. If 
-            `False`, **data** is expected to be a one- or two-dimensional 
-            array (default: `False`).
-    tie_precision : int
+            If `True`, it assumes **data** is an ordinal probability distribution.
+            If `False`, **data** is expected to be a one- or two-dimensional array
+            (default: `False`). 
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -768,12 +771,12 @@ def tsallis_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_prec
     if isinstance(q, (tuple, list, np.ndarray)):
         s = []
         for q_ in q:
-            smax          = logq(float(np.math.factorial(dx*dy)), q_)
+            smax          = logq(float(math.factorial(dx*dy)), q_)
             lnq_1_over_p  = logq(1./probabilities, q_)
             s            += [np.sum(probabilities*lnq_1_over_p)/smax]
         s = np.asarray(s)
     else:
-        smax          = logq(float(np.math.factorial(dx*dy)), q)
+        smax          = logq(float(math.factorial(dx*dy)), q)
         lnq_1_over_p  = logq(1./probabilities, q)
         s             = np.sum(probabilities*lnq_1_over_p)/smax
 
@@ -807,12 +810,12 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs : boolean
-            If `True`, assumes **data** is an ordinal probability distribution. If 
-            `False`, **data** is expected to be a one- or two-dimensional 
-            array (default: `False`).
-    tie_precision : int
+            If `True`, it assumes **data** is an ordinal probability distribution.
+            If `False`, **data** is expected to be a one- or two-dimensional array
+            (default: `False`). 
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -850,7 +853,7 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
         ----------
     
         n_states : int
-                  Number of ordinal states.
+                   Number of ordinal states.
         q : float
             Renyi `alpha` parameter.
         
@@ -867,9 +870,9 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
                    ((2**(2-q))*n_states - (1+n_states)**(1-q) - n_states*(1+1/n_states)**(1-q) - n_states + 1)/ 
                    ((1-q)*(2**(2-q))*n_states)
                   )
-##############################################
 
-    n = float(np.math.factorial(dx*dy))
+
+    n = float(math.factorial(dx*dy))
 
     if probs==False:
         _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)
@@ -887,8 +890,7 @@ def tsallis_complexity_entropy(data, q=1, dx=3, dy=1, taux=1, tauy=1, probs=Fals
         jt_div     = []
         jt_div_max = []
         for q_ in q:
-            #first and second terms of Jensen-Tsallis divergence: 
-            #equation 10 of Physical Review E 95, 062106 (2017).
+            #first and second terms of Jensen-Tsallis divergence: equation 10 of Physical Review E 95, 062106 (2017).
             first_term  = (uniform_dist + p)/(2*p)
             first_term  = -0.5*np.sum(p*logq(first_term, q_)) 
 
@@ -918,7 +920,7 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_pr
     """
     Calculates the normalized Rényi permutation entropy\\ [#jauregui]_ using an 
     ordinal distribution obtained from data.
-    
+
     Parameters
     ----------
     data : array
@@ -940,12 +942,12 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_pr
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs : boolean
-            If `True`, assumes **data** is an ordinal probability distribution. If 
-            `False`, **data** is expected to be a one- or two-dimensional 
-            array (default: `False`).
-    tie_precision : int
+            If `True`, it assumes **data** is an ordinal probability distribution.
+            If `False`, **data** is expected to be a one- or two-dimensional array
+            (default: `False`). 
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -975,7 +977,7 @@ def renyi_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_pr
         probabilities = np.asarray(data)
         probabilities = probabilities[probabilities>0]
 
-    smax = np.log(float(np.math.factorial(dx*dy)))
+    smax = np.log(float(math.factorial(dx*dy)))
 
     if isinstance(alpha, (tuple, list, np.ndarray)):
         s = []
@@ -999,7 +1001,7 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=Fa
     Calculates the Rényi normalized permutation entropy and statistical
     complexity\\ [#jauregui]_ using an ordinal distribution obtained from 
     data.
-    
+
     Parameters
     ----------
     data : array
@@ -1007,7 +1009,7 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=Fa
            or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
            \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`
            or an ordinal probability distribution (such as the ones returned by 
-       :func:`ordpy.ordinal_distribution`).
+           :func:`ordpy.ordinal_distribution`).
     alpha : float, array
             Rényi's `alpha` parameter (default: 1); an array of values is also 
             accepted for this parameter.
@@ -1017,16 +1019,16 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=Fa
          Embedding dimension (vertical axis); it must be 1 for time series 
          (default: 1).
     taux : int
-            Embedding delay (horizontal axis) (default: 1).
+           Embedding delay (horizontal axis) (default: 1).
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     probs : boolean
-            If `True`, assumes **data** is an ordinal probability distribution. If 
-            `False`, **data** is expected to be a one- or two-dimensional 
-            array (default: `False`). 
-    tie_precision : int
+            If `True`, it assumes **data** is an ordinal probability distribution.
+            If `False`, **data** is expected to be a one- or two-dimensional array
+            (default: `False`). 
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -1082,9 +1084,9 @@ def renyi_complexity_entropy(data, alpha=1, dx=3, dy=1, taux=1, tauy=1, probs=Fa
                      np.log((n_states + 1.)/(2.*n_states)))/(2.*(q - 1))
                   )
 
-###########################
 
-    n = float(np.math.factorial(dx*dy))
+
+    n = float(math.factorial(dx*dy))
 
     if probs==False:
         _, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)
@@ -1181,9 +1183,9 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
                   successions in a symbolic sequence or only `'horizontal'` or 
                   `'vertical'` successions. Parameter only valid for image data
                   (default: `'all'`). 
-    tie_precision : int
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -1270,7 +1272,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
 
         return (np.unique(und_unique_links), und_unique_links, und_occurrences)
 
-###########################
+
 
     try:
         ny, nx = np.shape(data)
@@ -1283,23 +1285,23 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
     if tie_precision is not None:
         data = np.round(data, tie_precision)
 
-    #time series data
-    if ny==1:
-        if overlapping == True:
-            partitions = np.concatenate(
-                [
-                    [np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)] 
-                    for j in range(ny-(dy-1)*tauy)
-                ]
-            )
-        
-        else: #non overlapping
-            partitions = np.concatenate(
-                [
-                    [np.concatenate(data[j:j+dy*tauy:tauy, i:i+dx*taux:taux]) for i in range(0, nx-(dx-1)*taux, dx+(dx-1)*(taux-1))] 
-                    for j in range(ny-(dy-1)*tauy)
-                ]
-            )
+    if ny==1: #time series
+        if ny==1:
+            if overlapping == True:
+                partitions = np.apply_along_axis(func1d       = np.lib.stride_tricks.sliding_window_view, 
+                                                axis         = 1, 
+                                                arr          = data, 
+                                                window_shape = (dx+(dx-1)*(taux-1),)
+                                                )
+                partitions = partitions[::, ::, ::taux].reshape(-1, dx) 
+                                                                        
+            else: #non overlapping
+                partitions = np.concatenate(
+                    [
+                        [np.concatenate(data[j:j+dy*tauy:tauy, i:i+dx*taux:taux]) for i in range(0, nx-(dx-1)*taux, dx+(dx-1)*(taux-1))] 
+                        for j in range(ny-(dy-1)*tauy)
+                    ]
+                )
 
         states = np.apply_along_axis(np.argsort, 1, partitions)
         links  = np.concatenate([states[i:(i-1) or None, None] for i in range(2)], axis=1)
@@ -1317,16 +1319,14 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
         else:                
             return undirected_ordinal_network(unique_links, occurrences)
 
-    #image data
-    else:
+    else: #image
         if overlapping == True:
-            partitions = np.concatenate(
-                [
-                    [[np.concatenate(data[j:j+dy*tauy:tauy,i:i+dx*taux:taux]) for i in range(nx-(dx-1)*taux)]]
-                    for j in range(ny-(dy-1)*tauy)
-                ]
-            )
-            
+            partitions        = np.lib.stride_tricks.sliding_window_view(x            = data, 
+                                                                         window_shape = (dy+(dy-1)*(tauy-1), dx+(dx-1)*(taux-1))
+                                                                        )
+            rows, columns, *_ = np.shape(partitions)
+            partitions        = partitions[::,::,::tauy,::taux].reshape(rows, columns, dx*dy)
+
         else: #non overlapping
             partitions = np.concatenate(
                 [
@@ -1334,16 +1334,18 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
                     for j in range(0, ny-(dy-1)*tauy, dy+(dy-1)*(tauy-1))
                 ]
             )            
-            
+
         #horizontal and vertical successions        
         if not connections in ["horizontal", "vertical"]:
             states = np.apply_along_axis(np.argsort, 2, partitions)
-        #horizontal successions of permutation states
+            #horizontal successions of permutation states
             hlinks = np.concatenate([[row[i:i+2]] for row in states for i in range(len(row)-1)])
-        #vertical successions of permutation states
+            
+            #vertical successions of permutation states
             states = states.transpose(1,0,2)
             vlinks = np.concatenate([[column[i:i+2]] for column in states for i in range(len(column)-1)])
-        #all occurring transitions
+            
+            #all occurring transitions
             links  = np.concatenate((hlinks, vlinks))
 
             unique_links, occurrences = np.unique(links, return_counts=True, axis=0)
@@ -1409,9 +1411,9 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
                   successions in a symbolic sequence or only `'horizontal'` or 
                   `'vertical'` successions. Parameter only valid for image data
                   (default: `'all'`). 
-    tie_precision : int
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -1422,7 +1424,7 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
     -----
     .. [*] In case **data** is an ordinal network returned by 
            :func:`ordpy.ordinal_network`, the parameters of 
-           :func:`ordpy.global_node_entropy` are infered from the network.
+           :func:`ordpy.global_node_entropy` are inferred from the network.
 
     Examples
     --------
@@ -1448,8 +1450,8 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
         nodes, links, weights = data
     else:
         #assumes 'normalized==True' and 'directed==True'.
-        nodes, links, weights = ordinal_network(data, dx, dy, taux, tauy, True, 
-                                                overlapping, True, connections, tie_precision=tie_precision)
+        nodes, links, weights = ordinal_network(data, dx, dy, taux, tauy, True, overlapping, True,
+                                                connections, tie_precision=tie_precision)
 
     links_source = links.transpose()[0]
     links_target = links.transpose()[1]
@@ -1472,7 +1474,7 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
     Generates the nodes, edges and edge weights of a random ordinal network: the 
     theoretically expected network representation of a random time series\\ 
     [#pessa2019]_ or a random two-dimensional array\\ [#pessa2020]_. 
-    (Assumes directed edges and unitary embbeding delays.)
+    (Assumes directed edges and unitary embedding delays.)
     
     Parameters
     ----------
@@ -1511,14 +1513,13 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
      array([0.25, 0.25, 0.25, 0.25]))
     """
 
-#theoretical results for image data
-    if overlapping==True:
+    if overlapping==True: #theoretical results for image
         if dx>1 and dy>1:
             allowed_links     = []
             theoretical_probs = []
 
-        #this loop has the job of finding all allowed transitions starting from an ordinal pattern and calculating 
-        #the expected probability of such transitions for a random bidimensional scalar field.
+            #this loop finds all allowed transitions starting from an ordinal pattern and calculates the 
+            #expected probability of such transitions for a random bidimensional scalar field.
             for pattern in itertools.permutations(np.arange(dx*dy).astype('int')):  
                 pattern            = list(pattern)
                 hlinks, vlinks     = pattern.copy(), pattern.copy()
@@ -1571,9 +1572,9 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
                 unique_links, frequencies = np.unique(hlinks+vlinks, axis=0, return_counts=True)
                 links                     = np.concatenate((np.tile(pattern,len(unique_links)).reshape(-1,dx*dy),
                                                             unique_links), axis=1).reshape(len(unique_links),2,-1)
-                frequencies               = frequencies/frequencies.sum()/np.math.factorial(dx*dy)
+                frequencies               = frequencies/frequencies.sum()/math.factorial(dx*dy)
 
-        #transforming lists of permutations to strings to save the transitions        
+                #transforming lists of permutations to strings to save the transitions        
                 links = np.apply_along_axis(np.array2string, 2, links, separator='|')
                 for char in ['[', ']']:
                     links = np.char.replace(links, char, '')    
@@ -1586,8 +1587,7 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
 
             return vertices_names, edge_array, weight_array
         
-    #theoretical results for time series data
-        else:
+        else: #theoretical results for time series
             vertices_names = []
             edge_array     = []   
             weight_array   = []
@@ -1602,15 +1602,16 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
                     target = '|'.join(map(str, np.insert(sub_perm, k, dx-1)))
 
                     if not target.find(str(dx-1)) == index:
-                        weight_array.append(1/((dx+1)*np.math.factorial(dx)))
+                        weight_array.append(1/((dx+1)*math.factorial(dx)))
                     else:
-                        weight_array.append(2/((dx+1)*np.math.factorial(dx)))
+                        weight_array.append(2/((dx+1)*math.factorial(dx)))
 
                     edge_array.append([source, target])
             
             vertices_names = np.unique(edge_array)    
 
             return vertices_names, np.asarray(edge_array), np.asarray(weight_array)
+
     else: #nonoverlapping partitions
         permutations = list(itertools.permutations(np.arange(dx*dy).astype('int')))
         edge_array   = [] 
@@ -1630,8 +1631,8 @@ def random_ordinal_network(dx=3, dy=1, overlapping=True):
 
 def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, return_missing=True, probs=False, tie_precision=None):
     """
-    Identifies ordinal patterns (permutations) not occurring in data\\ [#amigó]_.
-    
+    Identifies ordinal patterns (permutations) not occurring in data\\ [#amigo]_.
+
     Parameters
     ----------
     data : array, return of :func:`ordpy.ordinal_distribution`
@@ -1663,9 +1664,9 @@ def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, ret
             :func:`ordpy.ordinal_distribution` with `return_missing=True`.
             If `False`, **data** is expected to be a one- or two-dimensional 
             array (default: `False`). 
-    tie_precision : int
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -1700,9 +1701,9 @@ def missing_patterns(data, dx=3, dy=1, taux=1, tauy=1, return_fraction=True, ret
 
     if return_fraction==True:
         if return_missing:
-            return missing_states, len(missing_args)/np.math.factorial(dx*dy)
+            return missing_states, len(missing_args)/math.factorial(dx*dy)
         else:
-            return len(missing_args)/np.math.factorial(dx*dy)
+            return len(missing_args)/math.factorial(dx*dy)
     else:
         if return_missing:
             return missing_states, len(missing_args)
@@ -1740,9 +1741,9 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_missing=True, t
     return_missing : boolean 
                      if True, returns the missing links in **data**; if False, it 
                      only returns the fraction/number of these missing links.
-    tie_precision : int
+    tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
-                    number of decimals (default: `None`).
+                    decimal numbers (default: `None`).
 
     Returns
     -------
@@ -1814,7 +1815,7 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_missing=True, t
 
         return(C)
 
-#####################################################################################
+
 
     if not return_missing==False:
         if len(data)==3 and type(data[0][0])==np.str_:
@@ -1830,8 +1831,7 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_missing=True, t
         else:
             return missing_links, len(missing_links)
 
-    #not return missing links
-    else:
+    else: #not return missing links
         if len(data)==3 and type(data[0][0])==np.str_:
             _, data_links, _ = data
         else:
@@ -1840,15 +1840,14 @@ def missing_links(data, dx=3, dy=1, return_fraction=True, return_missing=True, t
         #assumes dx==1 means time series data, although the algorithm works
         #for images too in this case and te results are different.
         if dy==1:
-            all_links = np.math.factorial(dx)*dx
+            all_links = math.factorial(dx)*dx
 
             if return_fraction==True:
                 return (all_links-len(data_links))/all_links
             else:
                 return all_links-len(data_links)
 
-        #not return missing links for image data.
-        else:
+        else: #not return missing links for image
             _, all_links, _ = random_ordinal_network(dx=dx, dy=dy)
             missing_links   = setdiff(all_links, data_links)
 
@@ -1910,7 +1909,7 @@ def minimum_complexity_entropy(dx=3, dy=1, size=100):
            [ 1.00000000e+00, -3.66606083e-16]])
     """
     size        += 1
-    N            = np.math.factorial(dx*dy)
+    N            = math.factorial(dx*dy)
     prob_params  = np.linspace(1/N, 1, num=size-1)
     uniform_dist = np.full(N, 1/N)
     
@@ -1989,7 +1988,7 @@ def maximum_complexity_entropy(dx=3, dy=1, m=1):
            [ 1.        ,  0.        ]])
     """
     
-    N              = np.math.factorial(dx*dy)
+    N              = math.factorial(dx*dy)
     hlist_, clist_ = np.zeros(shape=(N-1,m)), np.zeros(shape=(N-1,m))
 
     for i in range(N-1):
@@ -2025,18 +2024,391 @@ def maximum_complexity_entropy(dx=3, dy=1, m=1):
     
     return np.asarray((hlist_[args], clist_[args])).T
 
-#     ranges_      = np.linspace(0,1,m+1)
-#     final_hlist_ = []
-#     final_clist_ = []
 
-#     for i in range(m+1)[:-1]:
-#         try:
-#             x, y = np.argwhere((hlist_>ranges_[i]) & (hlist_<ranges_[i+1]))[0]
-#     #         print('location: ', x, y)
-#             final_hlist_.append(hlist_[x, y])
-#     #         print(hlist_[x, y])
-#             final_clist_.append(clist_[x, y])
-#         except IndexError:
-#             pass
+def weighted_permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=True, tie_precision=None):
+    """
+    Calculates Shannon entropy using a weighted ordinal distribution
+    obtained from data\\ [#fadlallah]_.
+    
+    Parameters
+    ----------
+    data : array
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`.
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); must be 1 for time series 
+         (default: 1).
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tauy : int
+           Embedding delay (vertical axis) (default: 1).
+    base : str, int
+           Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 'e').
+    normalized: boolean
+                If `True`, weighted permutation entropy is normalized by its 
+                maximum value. If `False`, it does not (default: `True`).
+    tie_precision : None, int
+                    If not `None`, **data** is rounded with `tie_precision`
+                    decimal numbers (default: `None`).
+    Returns
+    -------
+     : float
+       The value of weighted permutation entropy.
+    
+    Examples
+    --------
+    >>> weighted_permutation_entropy([4,7,9,10,6,11,3], dx=2, base=2, normalized=False)
+    0.9125914261094841
+    >>>
+    >>> weighted_permutation_entropy([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2, base=2)
+    0.2613186822347165
+    >>>
+    >>> weighted_permutation_entropy([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=2, dy=2, taux=2, base='e')
+    0.22725901135766047
+    """
+    try:
+        ny, nx = np.shape(data)
+        data   = np.array(data)
+    except:
+        nx     = np.shape(data)[0]
+        ny     = 1
+        data   = np.array([data])
+
+    if tie_precision is not None: 
+        data = np.round(data, tie_precision)
+
+    if ny==1: #time series
+        partitions = np.apply_along_axis(func1d       = np.lib.stride_tricks.sliding_window_view, 
+                                         axis         = 1, 
+                                         arr          = data, 
+                                         window_shape = (dx+(dx-1)*(taux-1),)
+                                        )
+        partitions = partitions[::, ::, ::taux].reshape(-1, dx*dy) 
+    else: #image
+        partitions = np.lib.stride_tricks.sliding_window_view(x            = data, 
+                                                              window_shape = (dy+(dy-1)*(tauy-1), dx+(dx-1)*(taux-1))
+                                                             )
+        partitions = partitions[::, ::, ::tauy, ::taux].reshape(-1, dx*dy)
+    
+    if dx*dy>6 and nx*ny>1000: #a special approach is employed when dealing with large arrays and large embedding dimensions.
+        weights                   = partitions.var(axis=1)
+        flat_symbolic_sequence    = np.apply_along_axis(np.argsort, 1, partitions)
+
+        str_symbols               = np.apply_along_axis(np.array2string, 1, flat_symbolic_sequence, separator='')
+        idx_sort                  = np.argsort(str_symbols)
+        _, idx_start              = np.unique(str_symbols[idx_sort], return_index=True)
+        sets_same_symbol          = np.split(idx_sort, idx_start[1:])
+
+        total_variance_per_symbol = np.fromiter((weights[symbol_].sum() for symbol_ in sets_same_symbol), dtype='float')        
+    
+    else: #simpler approach employed to small series (less than 1000 observations) and small embedding dimensions (dx*dy < 7, < ~5000 permutations).
+        weights                   = partitions.var(axis=1)
+        flat_symbolic_sequence    = np.apply_along_axis(np.argsort, 1, partitions)
+        symbols                   = np.unique(flat_symbolic_sequence, return_counts=False, axis=0)
+        total_variance_per_symbol = np.fromiter((weights[(flat_symbolic_sequence==symbol_).all(axis=1)].sum() for symbol_ in symbols), dtype='float')
         
-#     return np.asarray((final_hlist_, final_clist_)).T
+    probs = total_variance_per_symbol/total_variance_per_symbol.sum()
+
+    logfunc = np.log if base=='e' else np.log2
+    s       = -np.sum(probs[probs>0]*logfunc(probs[probs>0]))
+
+    if normalized==True:        
+        smax = logfunc(float(math.factorial(dx*dy)))
+        return s/smax
+    else:
+        return s
+
+
+def fisher_shannon(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precision=None):
+    """
+    Calculates permutation entropy\\ [#bandt_pompe]_ and Fisher 
+    information\\ [#olivares]_ using an ordinal distribution obtained 
+    from data.
+    
+    Parameters
+    ----------
+    data : array
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`
+           or an ordinal probability distribution (such as the ones returned by 
+           :func:`ordpy.ordinal_distribution`).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series 
+         (default: 1).
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tauy : int
+           Embedding delay (vertical axis) (default: 1).
+    probs : boolean
+            If `True`, it assumes **data** is an ordinal probability distribution.
+            If `False`, **data** is expected to be a one- or two-dimensional array
+            (default: `False`). 
+    tie_precision : None, int
+                    If not `None`, **data** is rounded with `tie_precision`
+                    decimal numbers (default: `None`).
+
+    Returns
+    -------
+     : tuple
+       Values of normalized permutation entropy and Fisher information.
+
+    Examples
+    --------
+    >>> fisher_shannon([4,7,9,10,6,11,3], dx=2)
+    (0.9182958340544896, 0.028595479208968325)
+    >>>
+    >>> p = ordinal_distribution([4,7,9,10,6,11,3], dx=2, return_missing=True)[1]
+    >>> fisher_shannon(p, dx=2, probs=True)
+    (0.9182958340544896, 0.028595479208968325)
+    >>>
+    >>> fisher_shannon([[1,2,1],[8,3,4],[6,7,5]], dx=2, dy=2)
+    (0.32715643797829735, 1.0)
+    >>>
+    >>> fisher_shannon([1/3, 1/15, 2/15, 3/15, 4/15, 0], dx=3, probs=True)
+    (0.8314454838586239, 0.19574180681374548)
+    >>>
+    >>> fisher_shannon([[1,2,1,4],[8,3,4,5],[6,7,5,6]], dx=3, dy=2)
+    (0.2107070115500801, 1.0)    
+    """  
+    if not probs:
+        if dx*dy>10:
+            warnings.warn("Large values of embedding dimension may lead to memory allocation problems.")                
+        else: pass
+        
+        symbols, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)
+        h                      = permutation_entropy(probabilities, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)        
+        
+        #In case not all possible permutations occur in **data**, we assign zero probability the non-occurring states. 
+        #This is necessary to calculate the Fisher information measure
+        if (probabilities==1.).sum()==1.:
+            return h, 1.
+        elif len(probabilities)==dx*dy:
+            all_probs = probabilities
+        else:
+            all_symbols           = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
+            all_probs             = np.full(math.factorial(dx*dy), 0.)
+
+            _, ncols              = all_symbols.shape
+            dtype                 = {'names':['f{}'.format(i) for i in range(ncols)], 'formats': ncols*[all_symbols.dtype]}
+            logifilter            = np.isin(all_symbols.view(dtype), symbols.view(dtype)).flatten()
+            all_probs[logifilter] = probabilities            
+
+    else:
+        warnings.warn("Be mindful the correct calculation of Fisher information depends on all possible permutations " + 
+                      "given the embedding dimensions dx and dy, not only on the permutations occurring in data.")
+
+        all_probs = np.asarray(data)
+        h         = permutation_entropy(all_probs, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
+        
+        if (all_probs==1.).sum()==1.:
+            return h, 1.
+
+    return h, np.sum(np.diff(np.sqrt(all_probs[::-1]))**2.)/2  #F = F_0 \sum_{i = 1}^{N - 1} (\sqrt{p_{i+1}} - \sqrt{p_{i}})^2, with F_0=1/2
+
+    
+def permutation_js_distance(data, dx=3, dy=1, taux=1, tauy=1, base='e', normalized=True, tie_precision=None):
+    """
+    Calculates the permutation Jensen-Shannon distance\\ [#zunino2022]_ between 
+    multiple time series (or channels of a multivariate time series) or 
+    multiple matrices (images) using ordinal distributions obtained from data.
+    
+    Parameters
+    ---------
+    data : array 
+           Array object containing  arrays in the format 
+           :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`.
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series 
+         (default: 1).
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tauy : int
+           Embedding delay (vertical axis) (default: 1).    
+    base : str, int
+           Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 2).
+    normalized: boolean
+                If `True`, the permutation Jensen-Shannon distance is normalized by  
+                the logarithm of 2. (default: `True`). If `False`, it is not.
+    tie_precision : None, int
+                    If not `None`, **data** is rounded with `tie_precision`
+                    decimal numbers (default: `None`).
+                    
+    Returns
+    -------
+    : float
+      Value of permutation Jensen-Shannon distance.
+    
+    Examples
+    --------
+    >>> permutation_js_distance([[1,2,6,5,4], [1,2,1]], dx=3, base=2, normalized=False)
+    0.677604543245723
+    >>>
+    >>> permutation_js_distance([[1,2,6,5,4], [1,2,1]], dx=3, base='e', normalized=False)
+    0.5641427870206323
+    >>>
+    >>> permutation_js_distance([[[1,2,6],[4,2,6]], [[1,2,6],[1,2,4]]], dx=2, dy=2)
+    0.7071067811865476
+    >>>
+    >>> permutation_js_distance([[[1,2,6,5,4],[4,2,6,3,4]], [[1,2,6],[1,2,4]]], dx=2, dy=2)
+    0.809715420521041
+    """
+    if dx*dy>10:
+        warnings.warn("Large values of embedding dimension may lead to memory allocation problems.")                
+    else: pass
+    
+    logfunc                         = np.log if base=="e" else np.log2
+    num_of_channels                 = len(data)
+    sum_of_entropies, probabilities = 0., []
+
+    for channel_ in data:
+        symbols, probs     = ordinal_distribution(channel_, dx=dx, dy=dy, taux=taux, tauy=tauy, return_missing=True, tie_precision=tie_precision)
+
+        symbols_as_strings = np.apply_along_axis(np.array2string, 1, symbols, separator='')
+        mask_probs         = np.apply_along_axis(np.argsort,      0, symbols_as_strings)
+
+        probabilities.append(probs[mask_probs])
+        sum_of_entropies  += -np.sum(probs[probs>0]*logfunc(probs[probs>0]))/num_of_channels
+
+    sum_of_distros = np.sum(probabilities, axis=0)/num_of_channels
+    entropy_of_sum = -np.sum(sum_of_distros[sum_of_distros>0]*logfunc(sum_of_distros[sum_of_distros>0]))
+    distance       = entropy_of_sum - sum_of_entropies
+    is_it_nan      = np.isnan(np.sqrt(distance))        
+
+    if is_it_nan==True or num_of_channels==1: #added `is_it_nan` after having problems calculating the square root of very small negative numbers caused by floating-point representation problems in Python.
+        return 0                              #the second boolean check basically covers the case only one series is provided.
+    else:
+        if normalized==True:
+            return np.sqrt(distance/logfunc(num_of_channels))
+        else:
+            return np.sqrt(distance)
+
+
+def permutation_contrasts(data, taux=1, tie_precision=None):
+    """
+    Calculates the four pattern (permutation) contrasts [#bandt]_ 
+    of a time series (with dx=3) using an ordinal distribution 
+    obtained from data.
+    
+    Parameters
+    ---------
+    data : array 
+           Array object containing a pair of arrays in the format 
+           :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`.
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tie_precision : None, int
+                    If not `None`, **data** is rounded with `tie_precision`
+                    decimal numbers (default: `None`).
+                    
+    Returns
+    -------
+     : tuple
+       Tuple containing values corresponding to the pattern (permutation) 
+       contrasts: up-down balance, persistence, rotational-asymmetry,
+       and up-down scaling.
+       
+    Examples
+    --------
+    >>> permutation_contrasts([4,7,9,10,6,11,3])
+    (0.4, 0.4, 0.6, -0.2)
+    >>>
+    >>> permutation_contrasts([4,7,9,10,6,11,3], taux=2)
+    (0.0, 0.666, -0.333, 0.333)
+    >>>
+    >>> permutation_contrasts([5,2,3,4,2,7,4])
+    (0.2, 0.2, 0.0, 0.0)
+    >>>
+    >>> permutation_contrasts([5, 2, 3, 4, 2, 7, 4], taux=2)
+    (0.0, 0.666, 0.333, 0.333)
+    """
+    dict_symbols = dict([('[012]', 0),('[021]', 1),('[102]', 2),
+                         ('[120]', 3),('[201]', 4),('[210]', 5)])
+    
+    symbols                = ordinal_sequence(data, dx=3, dy=1, taux=taux, tauy=1, overlapping=True, tie_precision=tie_precision)
+    symbols, symbols_count = np.unique(symbols, return_counts=True, axis=0)
+    probabilities          = symbols_count/symbols_count.sum()
+    symbols                = np.apply_along_axis(np.argsort, 1, symbols) #sort the permutations once again so they correspond to the ones used by Bandt and Wittfeld.
+
+
+    symbols         = np.apply_along_axis(np.array2string, 1, symbols, separator='')
+    indices         = np.fromiter(map(dict_symbols.get, symbols), dtype='int')
+    all_probs       = np.fromiter((probabilities[np.argwhere(indices==type_).flatten()].sum() for type_ in range(6)), dtype='float')            
+
+    up_down_balance = all_probs[0] - all_probs[5] #p012 - p210
+    persistence     = all_probs[0] + all_probs[5] #p012 + p210
+    rot_asymetry    = all_probs[2] + all_probs[3] - all_probs[1] - all_probs[4] #p102 + p120 - p021 - p201
+    updown_scaling  = all_probs[1] + all_probs[2] - all_probs[3] - all_probs[4] #p021 + p102 - p120 - p201
+    
+    return up_down_balance, persistence, rot_asymetry, updown_scaling
+
+
+def smoothness_structure(data, taux=1, tauy=1, tie_precision=None):
+    """
+    Calculates the smoothness and curve structure\\ [#bandt_wittfeld]_ 
+    of an image (with embedding parameters dx=dy=2) using an ordinal
+    distribution obtained from data.
+    
+    Parameters
+    ---------
+    data : array
+           Array object in the format 
+           :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]`.
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tauy : int
+           Embedding delay (vertical axis) (default: 1).    
+    tie_precision : None, int
+                    If not `None`, **data** is rounded with `tie_precision`
+                    decimal numbers (default: `None`).
+                    
+    Returns
+    -------
+     : tuple
+       Values of smoothness and curve structure.
+       
+    Examples
+    --------
+    >>> smoothness_structure([[1,2,1,4],[8,3,4,5],[6,7,5,6]])
+    (0.0, 0.333)
+    >>>
+    >>> smoothness_structure([[1,2,1,4],[8,3,4,5],[6,7,5,6]], taux=2, tauy=1)
+    (-0.0833, 0.75)
+    >>>
+    >>> smoothness_structure([[1,2,1,4],[8,3,4,5],[6,7,5,6]], taux=2, tauy=2)
+    (-0.333, 1.0)
+    """
+    #These permutations correspond to a different sorting process laid out in the paper by Bandt and Wittfeld
+    dict_types  = dict([('[0123]', 0),('[0132]', 1),('[0213]', 0),('[0231]', 2),
+                        ('[0312]', 1),('[0321]', 2),('[1023]', 1),('[1032]', 0),
+                        ('[1203]', 1),('[1230]', 2),('[1302]', 0),('[1320]', 2),
+                        ('[2013]', 2),('[2031]', 0),('[2103]', 2),('[2130]', 1),
+                        ('[2301]', 0),('[2310]', 1),('[3012]', 2),('[3021]', 1),
+                        ('[3102]', 2),('[3120]', 0),('[3201]', 1),('[3210]', 0)])
+
+    symbols                = ordinal_sequence(data, dx=2, dy=2, taux=taux, tauy=tauy, overlapping=True, tie_precision=tie_precision)
+    symbols                = symbols.reshape(-1, 4) #reshape the symbols array to facilitate the application of np.unique below
+    symbols, symbols_count = np.unique(symbols, return_counts=True, axis=0)
+    probabilities          = symbols_count/symbols_count.sum()
+    symbols                = np.apply_along_axis(np.argsort, 1, symbols) #resort the permutations so they correspond to the ones used by Bandt and Wittfeld.
+
+    probs_types = np.full(shape=3, fill_value=0.)
+    symbols     = np.apply_along_axis(np.array2string, 1, symbols, separator='')
+    indices     = np.fromiter(map(dict_types.get, symbols), dtype='int')
+    probs_types = np.fromiter((probabilities[np.argwhere(indices==type_).flatten()].sum() for type_ in range(3)), dtype='float')
+
+    smoothness  = probs_types[0] - 1/3
+    structure   = probs_types[1] - probs_types[2]
+
+    return smoothness, structure
+

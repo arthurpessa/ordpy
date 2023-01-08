@@ -23,7 +23,7 @@ on Bandt and Pompe's [#bandt_pompe]_ symbolic encoding scheme.
 If you have used ``ordpy`` in a scientific publication, we would appreciate citations to the following reference [#pessa2021]_:
 
 - A. A. B. Pessa, H. V. Ribeiro, `ordpy: A Python package for data analysis with permutation entropy and ordinal 
-  network methods <https://doi.org/10.1063/5.0049901>`_, Chaos 31, 063110 (2021).
+  network methods <https://doi.org/10.1063/5.0049901>`_, Chaos 31, 063110 (2021).  `arXiv:2102.06786 <https://arxiv.org/abs/2102.06786>`_
 
 .. code-block:: bibtex
     
@@ -40,6 +40,8 @@ If you have used ``ordpy`` in a scientific publication, we would appreciate cita
 
 ``ordpy`` implements the following data analysis methods:
 
+Released on version 1.0 (February 2021):
+
 - Permutation entropy for time series [#bandt_pompe]_ and images [#ribeiro_2012]_;
 - Complexity-entropy plane for time series [#lopezruiz]_, [#rosso]_ and 
   images [#ribeiro_2012]_;
@@ -53,6 +55,15 @@ If you have used ``ordpy`` in a scientific publication, we would appreciate cita
   time series [#McCullough]_, [#pessa2019]_ and images [#pessa2020]_.
 - Missing ordinal patterns [#amigo]_ and missing transitions between ordinal
   patterns [#pessa2019]_ for time series and images.
+
+Released on version 1.1.0 (January   2023):
+
+- Weighted permutation entropy for time series [#fadlallah]_ and images;
+- Fisher-Shannon plane for time series [#olivares]_ and images;
+- Permutation Jensen-Shannon distance for time series [#zunino2022]_ and images;
+- Four pattern permutation contrasts (up-down balance, persistence, 
+  rotational-asymmetry, and up-down scaling.) for time series [#bandt]_; 
+- Smoothness-structure plane for images [#bandt_wittfeld]_.
 
 For more detailed information about the methods implemented in ``ordpy``, please 
 consult its `documentation <https://arthurpessa.github.io/ordpy/_build/html/index.html>`_.
@@ -253,3 +264,21 @@ References
 .. [#rosso_curvas] Martin, M. T., Plastino, A., & Rosso, O. A. (2006). 
    Generalized Statistical Complexity Measures: Geometrical and 
    Analytical Properties, Physica A, 369, 439–462.
+
+.. [#fadlallah] Fadlallah B., Chen, B., Keil A. & Príncipe, José (2013). 
+   Weighted-permutation entropy: a complexity measure for time series 
+   incorporating amplitude information. Physical Review E, 97, 022911.
+
+.. [#olivares] Olivares, F., Plastino, A., & Rosso, O. A. (2012). 
+   Contrasting chaos with noise via local versus global 
+   information quantifiers. Physics Letters A, 376, 1577–1583.
+
+.. [#zunino2022] Zunino L., Olivares, F., Ribeiro H. V. & Rosso, O. A. (2022). 
+   Permutation Jensen-Shannon distance: A versatile and fast symbolic tool
+   for complex time-series analysis. Physical Review E, 105, 045310.
+
+.. [#bandt] Bandt, C. (2022). Statistics and modelling of order patterns in
+   univariate series. arXiv:2212.14386.
+
+.. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2022). Two new parameters for 
+   the ordinal analysis of images. arXiv:2212.14643.
