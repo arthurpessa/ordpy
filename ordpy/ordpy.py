@@ -121,8 +121,8 @@ References
    Permutation Jensen-Shannon distance: A versatile and fast symbolic tool
    for complex time-series analysis. Physical Review E, 105, 045310.
 
-.. [#bandt] Bandt, C. (2022). Statistics and modelling of order patterns in
-   univariate series. arXiv:2212.14386.
+.. [#bandt] Bandt, C. (2023). Statistics and contrasts of order patterns in
+   univariate time series, Chaos, 33, 033124.
 
 .. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2022). Two new parameters for 
    the ordinal analysis of images. arXiv:2212.14643.
@@ -386,7 +386,7 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_pre
     return symbols
 
 
-def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False, tie_precision=None):
+def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False, tie_precision=None, ordered=False):
     """
     Applies the Bandt and Pompe\\ [#bandt_pompe]_ symbolization approach to obtain 
     a probability distribution of ordinal patterns (permutations) from data.
@@ -413,12 +413,15 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
     tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
                     decimal numbers (default: `None`).
+    ordered: boolean
+                    If `True`, it returns ordinal patterns not appearing in the 
+                    symbolic sequence obtained from **data**. If `False`, these
+                    missing patterns (permutations) are omitted (default: `False`).
     Returns
     -------
      : tuple
        Tuple containing two arrays, one with the ordinal patterns occurring in data 
        and another with their corresponding probabilities.
-
     Examples
     --------
     >>> ordinal_distribution([4,7,9,10,6,11,3], dx=2)
@@ -450,7 +453,6 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
     def setdiff(a, b):
         """
         Searches for elements (subarrays) in `a` that are not contained in `b` [*]_. 
-
         Parameters
         ----------    
         a : tuples, lists or arrays
@@ -464,11 +466,9 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
         -------
         : array
             An array containing the elements in `a` that are not contained in `b`.
-
         Notes
         -----
         .. [*] This function was adapted from https://stackoverflow.com/questions/8317022/get-intersecting-rows-across-two-2d-numpy-arrays
-
         Examples
         --------
         >>> a = ((0,1,2), (0,1,2), (1,0,2), (2,0,1))
@@ -500,16 +500,32 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
     symbols, symbols_count = np.unique(symbols, return_counts=True, axis=0)
     probabilities          = symbols_count/symbols_count.sum()
 
+    
     if return_missing==False:
         return symbols, probabilities
     
     else:
-        all_symbols   = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
-        miss_symbols  = setdiff(all_symbols, symbols)
-        symbols       = np.concatenate((symbols, miss_symbols)).astype('int')
-        probabilities = np.concatenate((probabilities, np.zeros(miss_symbols.__len__())))
-        
-        return symbols, probabilities
+        if len(probabilities)==np.math.factorial(dx*dy):
+            return symbols, probabilities
+        else:
+            if ordered==True:
+                all_symbols           = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
+                all_probs             = np.full(math.factorial(dx*dy), 0.)
+
+                _, ncols              = all_symbols.shape
+                dtype                 = {'names':['f{}'.format(i) for i in range(ncols)], 'formats': ncols*[all_symbols.dtype]}
+                logifilter            = np.isin(all_symbols.view(dtype), symbols.view(dtype)).flatten()
+                all_probs[logifilter] = probabilities 
+                
+                return all_symbols, all_probs
+            
+            else:
+                all_symbols   = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
+                miss_symbols  = setdiff(all_symbols, symbols)
+                symbols       = np.concatenate((symbols, miss_symbols)).astype('int')
+                probabilities = np.concatenate((probabilities, np.zeros(miss_symbols.__len__())))
+
+                return symbols, probabilities
 
 
 def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=True, probs=False, tie_precision=None):
@@ -2152,12 +2168,10 @@ def fisher_shannon(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precision=
     tie_precision : None, int
                     If not `None`, **data** is rounded with `tie_precision`
                     decimal numbers (default: `None`).
-
     Returns
     -------
      : tuple
        Values of normalized permutation entropy and Fisher information.
-
     Examples
     --------
     >>> fisher_shannon([4,7,9,10,6,11,3], dx=2)
@@ -2180,38 +2194,27 @@ def fisher_shannon(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precision=
         if dx*dy>10:
             warnings.warn("Large values of embedding dimension may lead to memory allocation problems.")                
         else: pass
-        
-        symbols, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=False, tie_precision=tie_precision)
-        h                      = permutation_entropy(probabilities, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)        
-        
+      
+        symbols, probabilities = ordinal_distribution(data, dx, dy, taux, tauy, return_missing=True, tie_precision=tie_precision, ordered=True)
+
         #In case not all possible permutations occur in **data**, we assign zero probability the non-occurring states. 
         #This is necessary to calculate the Fisher information measure
         if (probabilities==1.).sum()==1.:
-            return h, 1.
-        elif len(probabilities)==dx*dy:
-            all_probs = probabilities
-        else:
-            all_symbols           = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
-            all_probs             = np.full(math.factorial(dx*dy), 0.)
-
-            _, ncols              = all_symbols.shape
-            dtype                 = {'names':['f{}'.format(i) for i in range(ncols)], 'formats': ncols*[all_symbols.dtype]}
-            logifilter            = np.isin(all_symbols.view(dtype), symbols.view(dtype)).flatten()
-            all_probs[logifilter] = probabilities            
-
+            return 0., 1.
+        else: 
+            h = permutation_entropy(probabilities, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
     else:
         warnings.warn("Be mindful the correct calculation of Fisher information depends on all possible permutations " + 
                       "given the embedding dimensions dx and dy, not only on the permutations occurring in data.")
 
-        all_probs = np.asarray(data)
-        h         = permutation_entropy(all_probs, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
+        if (probabilities==1.).sum()==1.:
+            return 0., 1.
+        else:
+            h = permutation_entropy(probabilities, dx, dy, taux, tauy, probs=True, tie_precision=tie_precision)
         
-        if (all_probs==1.).sum()==1.:
-            return h, 1.
-
-    return h, np.sum(np.diff(np.sqrt(all_probs[::-1]))**2.)/2  #F = F_0 \sum_{i = 1}^{N - 1} (\sqrt{p_{i+1}} - \sqrt{p_{i}})^2, with F_0=1/2
-
+    return h, np.sum(np.diff(np.sqrt(probabilities[::-1]))**2.)/2  #F = F_0 \sum_{i = 1}^{N - 1} (\sqrt{p_{i+1}} - \sqrt{p_{i}})^2, with F_0=1/2
     
+   
 def permutation_js_distance(data, dx=3, dy=1, taux=1, tauy=1, base='e', normalized=True, tie_precision=None):
     """
     Calculates the permutation Jensen-Shannon distance\\ [#zunino2022]_ between 
@@ -2271,13 +2274,10 @@ def permutation_js_distance(data, dx=3, dy=1, taux=1, tauy=1, base='e', normaliz
     sum_of_entropies, probabilities = 0., []
 
     for channel_ in data:
-        symbols, probs     = ordinal_distribution(channel_, dx=dx, dy=dy, taux=taux, tauy=tauy, return_missing=True, tie_precision=tie_precision)
+        symbols, probs    = ordinal_distribution(channel_, dx=dx, dy=dy, taux=taux, tauy=tauy, return_missing=True, tie_precision=tie_precision, ordered=True)
 
-        symbols_as_strings = np.apply_along_axis(np.array2string, 1, symbols, separator='')
-        mask_probs         = np.apply_along_axis(np.argsort,      0, symbols_as_strings)
-
-        probabilities.append(probs[mask_probs])
-        sum_of_entropies  += -np.sum(probs[probs>0]*logfunc(probs[probs>0]))/num_of_channels
+        probabilities.append(probs)
+        sum_of_entropies += -np.sum(probs[probs>0]*logfunc(probs[probs>0]))/num_of_channels
 
     sum_of_distros = np.sum(probabilities, axis=0)/num_of_channels
     entropy_of_sum = -np.sum(sum_of_distros[sum_of_distros>0]*logfunc(sum_of_distros[sum_of_distros>0]))
@@ -2292,7 +2292,7 @@ def permutation_js_distance(data, dx=3, dy=1, taux=1, tauy=1, base='e', normaliz
         else:
             return np.sqrt(distance)
 
-
+         
 def permutation_contrasts(data, taux=1, tie_precision=None):
     """
     Calculates the four pattern (permutation) contrasts [#bandt]_ 
@@ -2331,26 +2331,23 @@ def permutation_contrasts(data, taux=1, tie_precision=None):
     >>> permutation_contrasts([5, 2, 3, 4, 2, 7, 4], taux=2)
     (0.0, 0.666, 0.333, 0.333)
     """
-    dict_symbols = dict([('[012]', 0),('[021]', 1),('[102]', 2),
-                         ('[120]', 3),('[201]', 4),('[210]', 5)])
+    dict_symbols = dict([('[012]', 0),('[021]', 1),('[102]', 2), ('[120]', 3),('[201]', 4),('[210]', 5)])
     
     symbols                = ordinal_sequence(data, dx=3, dy=1, taux=taux, tauy=1, overlapping=True, tie_precision=tie_precision)
     symbols, symbols_count = np.unique(symbols, return_counts=True, axis=0)
     probabilities          = symbols_count/symbols_count.sum()
-    symbols                = np.apply_along_axis(np.argsort, 1, symbols) #sort the permutations once again so they correspond to the ones used by Bandt and Wittfeld.
 
+    symbols                            = np.apply_along_axis(np.array2string, 1, symbols, separator='')
+    indices                            = np.fromiter(map(dict_symbols.get, symbols), dtype='int')
+    p123, p132, p213, p312, p231, p321 = np.fromiter((probabilities[np.argwhere(indices==type_).flatten()].sum() for type_ in range(6)), dtype='float')            
 
-    symbols         = np.apply_along_axis(np.array2string, 1, symbols, separator='')
-    indices         = np.fromiter(map(dict_symbols.get, symbols), dtype='int')
-    all_probs       = np.fromiter((probabilities[np.argwhere(indices==type_).flatten()].sum() for type_ in range(6)), dtype='float')            
-
-    up_down_balance = all_probs[0] - all_probs[5] #p012 - p210
-    persistence     = all_probs[0] + all_probs[5] #p012 + p210
-    rot_asymetry    = all_probs[2] + all_probs[3] - all_probs[1] - all_probs[4] #p102 + p120 - p021 - p201
-    updown_scaling  = all_probs[1] + all_probs[2] - all_probs[3] - all_probs[4] #p021 + p102 - p120 - p201
+    up_down_balance = p123 - p321
+    persistence     = p123 + p321
+    rot_asymmetry   = p213 + p231 - p132 - p312
+    updown_scaling  = p132 + p213 - p231 - p312
     
-    return up_down_balance, persistence, rot_asymetry, updown_scaling
-
+    return up_down_balance, persistence, rot_asymmetry, updown_scaling
+   
 
 def smoothness_structure(data, taux=1, tauy=1, tie_precision=None):
     """
