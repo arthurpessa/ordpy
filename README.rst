@@ -273,8 +273,8 @@ References
    Permutation Jensen-Shannon distance: A versatile and fast symbolic tool
    for complex time-series analysis. Physical Review E, 105, 045310.
 
-.. [#bandt] Bandt, C. (2022). Statistics and modelling of order patterns in
-   univariate series. arXiv:2212.14386.
+.. [#bandt] Bandt, C. (2023).Statistics and contrasts of order patterns in
+   univariate time series, Chaos, 33, 033124.
 
 .. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2022). Two new parameters for 
    the ordinal analysis of images. arXiv:2212.14643.
