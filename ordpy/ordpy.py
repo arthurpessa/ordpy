@@ -2388,7 +2388,7 @@ def smoothness_structure(data, taux=1, tauy=1, tie_precision=None):
     >>> smoothness_structure([[1,2,1,4],[8,3,4,5],[6,7,5,6]], taux=2, tauy=2)
     (-0.333, 1.0)
     """
-    #These permutations correspond to a different sorting process laid out in the paper by Bandt and Wittfeld
+
     dict_types  = dict([('[0123]', 0),('[0132]', 1),('[0213]', 0),('[0231]', 1),
                         ('[0312]', 2),('[0321]', 2),('[1023]', 1),('[1032]', 0),
                         ('[1203]', 2),('[1230]', 2),('[1302]', 0),('[1320]', 1),
@@ -2400,7 +2400,6 @@ def smoothness_structure(data, taux=1, tauy=1, tie_precision=None):
     symbols                = symbols.reshape(-1, 4) #reshape the symbols array to facilitate the application of np.unique below
     symbols, symbols_count = np.unique(symbols, return_counts=True, axis=0)
     probabilities          = symbols_count/symbols_count.sum()
-    symbols                = np.apply_along_axis(np.argsort, 1, symbols) #resort the permutations so they correspond to the ones used by Bandt and Wittfeld.
 
     probs_types = np.full(shape=3, fill_value=0.)
     symbols     = np.apply_along_axis(np.array2string, 1, symbols, separator='')
