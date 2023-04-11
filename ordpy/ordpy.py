@@ -2389,12 +2389,12 @@ def smoothness_structure(data, taux=1, tauy=1, tie_precision=None):
     (-0.333, 1.0)
     """
     #These permutations correspond to a different sorting process laid out in the paper by Bandt and Wittfeld
-    dict_types  = dict([('[0123]', 0),('[0132]', 1),('[0213]', 0),('[0231]', 2),
-                        ('[0312]', 1),('[0321]', 2),('[1023]', 1),('[1032]', 0),
-                        ('[1203]', 1),('[1230]', 2),('[1302]', 0),('[1320]', 2),
-                        ('[2013]', 2),('[2031]', 0),('[2103]', 2),('[2130]', 1),
-                        ('[2301]', 0),('[2310]', 1),('[3012]', 2),('[3021]', 1),
-                        ('[3102]', 2),('[3120]', 0),('[3201]', 1),('[3210]', 0)])
+    dict_types  = dict([('[0123]', 0),('[0132]', 1),('[0213]', 0),('[0231]', 1),
+                        ('[0312]', 2),('[0321]', 2),('[1023]', 1),('[1032]', 0),
+                        ('[1203]', 2),('[1230]', 2),('[1302]', 0),('[1320]', 1),
+                        ('[2013]', 1),('[2031]', 0),('[2103]', 2),('[2130]', 2),
+                        ('[2301]', 0),('[2310]', 1),('[3012]', 2),('[3021]', 2),
+                        ('[3102]', 1),('[3120]', 0),('[3201]', 1),('[3210]', 0)])
 
     symbols                = ordinal_sequence(data, dx=2, dy=2, taux=taux, tauy=tauy, overlapping=True, tie_precision=tie_precision)
     symbols                = symbols.reshape(-1, 4) #reshape the symbols array to facilitate the application of np.unique below
