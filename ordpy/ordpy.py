@@ -414,9 +414,10 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
                     If not `None`, **data** is rounded with `tie_precision`
                     decimal numbers (default: `None`).
     ordered: boolean
-                    If `True`, it returns ordinal patterns not appearing in the 
-                    symbolic sequence obtained from **data**. If `False`, these
-                    missing patterns (permutations) are omitted (default: `False`).
+             If `True`, it returns ordinal patterns not appearing in the 
+             symbolic sequence obtained from **data** in ascending ordered. 
+             The `return_missing` parameter must also be `True`.
+   
     Returns
     -------
      : tuple
