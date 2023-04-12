@@ -414,15 +414,16 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
                     If not `None`, **data** is rounded with `tie_precision`
                     decimal numbers (default: `None`).
     ordered: boolean
-             If `True`, it returns ordinal patterns not appearing in the 
+             If `True`, it also returns ordinal patterns not appearing in the 
              symbolic sequence obtained from **data** in ascending ordered. 
              The `return_missing` parameter must also be `True`.
    
     Returns
     -------
      : tuple
-       Tuple containing two arrays, one with the ordinal patterns occurring in data 
-       and another with their corresponding probabilities.
+       Tuple containing two arrays, one with the ordinal patterns and another 
+       with their corresponding probabilities.
+       
     Examples
     --------
     >>> ordinal_distribution([4,7,9,10,6,11,3], dx=2)
