@@ -1,0 +1,69 @@
+cff-version: 1.2.0
+title: ordpy
+message: >-
+  ordpy: A Python package for data analysis with permutation
+  entropy and ordinal network methods
+type: software
+authors:
+  - given-names: Arthur A. B.
+    family-names: Pessa
+    email: arthur_pessa@hotmail.com
+    affiliation: >-
+      Departamento de Física, Universidade Estadual de
+      Maringá, Maringá, PR 87020-900, Brazil
+    orcid: 'https://orcid.org/0000-0002-4942-0618'
+  - given-names: Haroldo V.
+    family-names: Ribeiro
+    affiliation: >-
+      Departamento de Física, Universidade Estadual de
+      Maringá, Maringá, PR 87020-900, Brazil
+    email: hvr@dfi.uem.br
+    orcid: 'https://orcid.org/0000-0002-9532-5195'
+identifiers:
+  - type: doi
+    value: 10.1063/5.0049901
+  - type: other
+    value: 'https://arxiv.org/abs/2102.06786'
+    description: 'arXiv:2102.06786'
+repository-code: 'https://github.com/arthurpessa/ordpy'
+url: 'https://arthurpessa.github.io/ordpy/'
+abstract: >-
+  Since Bandt and Pompe’s seminal work, permutation entropy
+  has been used in several applications and is now an
+  essential tool for time series analysis. Beyond becoming a
+  popular and successful technique, permutation entropy
+  inspired a framework for mapping time series into symbolic
+  sequences that triggered the development of many other
+  tools, including an approach for creating networks from
+  time series known as ordinal networks. Despite increasing
+  popularity, the computational development of these methods
+  is fragmented, and there were still no efforts focusing on
+  creating a unified software package. Here, we present
+  ordpy (http://github.com/arthurpessa/ordpy), a simple and
+  open-source Python module that implements permutation
+  entropy and several of the principal methods related to
+  Bandt and Pompe’s framework to analyze time series and
+  two-dimensional data. In particular, ordpy implements
+  permutation entropy, Tsallis and Rényi permutation
+  entropies, complexity–entropy plane, complexity–entropy
+  curves, missing ordinal patterns, ordinal networks, and
+  missing ordinal transitions for one-dimensional (time
+  series) and two-dimensional (images) data as well as their
+  multiscale generalizations. We review some theoretical
+  aspects of these tools and illustrate the use of ordpy by
+  replicating several literature results.
+license: MIT
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Arthur A. B."
+    given-names: "Pessa"
+  - family-names: "Haroldo V."
+    given-names: "Ribeiro"
+  doi: "10.1063/5.0049901"
+  journal: "Chaos: An Interdisciplinary Journal of Nonlinear Science"
+  start: 063110
+  title: "ordpy: A Python package for data analysis with permutation entropy and ordinal network methods"
+  issue: 6
+  volume: 31
+  year: 2021
