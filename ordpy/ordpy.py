@@ -124,8 +124,8 @@ References
 .. [#bandt] Bandt, C. (2023). Statistics and contrasts of order patterns in
    univariate time series, Chaos, 33, 033124.
 
-.. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2022). Two new parameters for 
-   the ordinal analysis of images. arXiv:2212.14643.
+.. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2023). Two new parameters for 
+   the ordinal analysis of images, Chaos, 33, 043124.
 
 .. [#rosso_curvas] Martin, M. T., Plastino, A., & Rosso, O. A. (2006). 
    Generalized Statistical Complexity Measures: Geometrical and 
