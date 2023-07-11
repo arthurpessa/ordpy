@@ -512,14 +512,15 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
         else:
             if ordered==True:
                 all_symbols           = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
+                all_symbols_str       = np.apply_along_axis(np.array2string, 1, all_symbols, separator='')
+                symbols_unique_str    = np.apply_along_axis(np.array2string, 1, symbols, separator='')
                 all_probs             = np.full(math.factorial(dx*dy), 0.)
 
-                _, ncols              = all_symbols.shape
-                dtype                 = {'names':['f{}'.format(i) for i in range(ncols)], 'formats': ncols*[all_symbols.dtype]}
-                logifilter            = np.isin(all_symbols.view(dtype), symbols.view(dtype)).flatten()
-                all_probs[logifilter] = probabilities 
+                dict_probs = dict(zip(all_symbols_str, all_probs))
+                for symbol, probability in zip(symbols_unique_str, probabilities):
+                    dict_probs[symbol] = probability
                 
-                return all_symbols, all_probs
+                return np.asarray(list(dict_probs.keys())), np.asarray(list(dict_probs.values()))
             
             else:
                 all_symbols   = np.asarray(list(itertools.permutations(range(dx*dy))), dtype='int')
