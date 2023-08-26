@@ -278,3 +278,9 @@ References
 
 .. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2022). Two new parameters for 
    the ordinal analysis of images. arXiv:2212.14643.
+
+.. [#martins2023] Adriel M.F. Martins, Leonardo H.S. Fernandes, Abraão D.C. Nascimento, (2023). 
+   Scientific progress in information theory quantifiers. Chaos, Solitons & Fractals, 170, 113260.
+
+.. [#fernandes2021] Leonardo H.S. Fernandes, Fernando H.A. de Araújo, Igor E.M. Silva, Jusie S.P. Neto, (2021). 
+   Macroeconophysics indicator of economic efficiency. Physica A: Statistical Mechanics and its Applications, 573, 125946.
