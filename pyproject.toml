@@ -14,7 +14,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/arthurpessa/ordpy"
 Repository = "https://github.com/arthurpessa/ordpy"
-Issues = "https://github.com/arthurpessa/ordpyissues"
+Issues = "https://github.com/arthurpessa/ordpy/issues"
 
 [build-system]
 requires = [
