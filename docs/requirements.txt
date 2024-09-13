@@ -1,2 +1,5 @@
 sphinx_rtd_theme
+sphinxcontrib-napoleon
 readthedocs-sphinx-search
+numpy
+ordpy

@@ -21,7 +21,7 @@ with open("README.rst", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="ordpy",
-    version="1.1.2",
+    version="1.1.4",
     author="Arthur A. B. Pessa and Haroldo V. Ribeiro",
     author_email="arthur_pessa@hotmail.com, hvr@dfi.uem.br",
     description="A Python package for data analysis with permutation entropy and ordinal networks methods.",

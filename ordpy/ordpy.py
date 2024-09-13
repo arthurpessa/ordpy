@@ -2209,7 +2209,8 @@ def fisher_shannon(data, dx=3, dy=1, taux=1, tauy=1, probs=False, tie_precision=
     else:
         warnings.warn("Be mindful the correct calculation of Fisher information depends on all possible permutations " + 
                       "given the embedding dimensions dx and dy, not only on the permutations occurring in data.")
-
+                      
+        probabilities = np.asarray(data)	
         if (probabilities==1.).sum()==1.:
             return 0., 1.
         else:

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods &mdash; ordpy 1.0 documentation</title>
@@ -17,7 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/js/rtd_search_config.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/js/rtd_sphinx_search.min.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -30,15 +30,11 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="#" class="icon icon-home">
-            ordpy
+            <a href="#" class="icon icon-home"> ordpy
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -50,6 +46,27 @@
 <li><a class="reference internal" href="#installing">Installing</a></li>
 <li><a class="reference internal" href="#basic-usage">Basic usage</a></li>
 <li><a class="reference internal" href="#list-of-functions">List of functions</a></li>
+<li><a class="reference internal" href="#ordpy.complexity_entropy"><code class="docutils literal notranslate"><span class="pre">complexity_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.fisher_shannon"><code class="docutils literal notranslate"><span class="pre">fisher_shannon()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.global_node_entropy"><code class="docutils literal notranslate"><span class="pre">global_node_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.logq"><code class="docutils literal notranslate"><span class="pre">logq()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.maximum_complexity_entropy"><code class="docutils literal notranslate"><span class="pre">maximum_complexity_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.minimum_complexity_entropy"><code class="docutils literal notranslate"><span class="pre">minimum_complexity_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.missing_links"><code class="docutils literal notranslate"><span class="pre">missing_links()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.missing_patterns"><code class="docutils literal notranslate"><span class="pre">missing_patterns()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.ordinal_distribution"><code class="docutils literal notranslate"><span class="pre">ordinal_distribution()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.ordinal_network"><code class="docutils literal notranslate"><span class="pre">ordinal_network()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.ordinal_sequence"><code class="docutils literal notranslate"><span class="pre">ordinal_sequence()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.permutation_contrasts"><code class="docutils literal notranslate"><span class="pre">permutation_contrasts()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.permutation_entropy"><code class="docutils literal notranslate"><span class="pre">permutation_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.permutation_js_distance"><code class="docutils literal notranslate"><span class="pre">permutation_js_distance()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.random_ordinal_network"><code class="docutils literal notranslate"><span class="pre">random_ordinal_network()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.renyi_complexity_entropy"><code class="docutils literal notranslate"><span class="pre">renyi_complexity_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.renyi_entropy"><code class="docutils literal notranslate"><span class="pre">renyi_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.smoothness_structure"><code class="docutils literal notranslate"><span class="pre">smoothness_structure()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.tsallis_complexity_entropy"><code class="docutils literal notranslate"><span class="pre">tsallis_complexity_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.tsallis_entropy"><code class="docutils literal notranslate"><span class="pre">tsallis_entropy()</span></code></a></li>
+<li><a class="reference internal" href="#ordpy.weighted_permutation_entropy"><code class="docutils literal notranslate"><span class="pre">weighted_permutation_entropy()</span></code></a></li>
 <li><a class="reference internal" href="#indices">Indices</a></li>
 </ul>
 </div>
@@ -66,7 +83,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="#" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
@@ -81,12 +98,12 @@
 </div>
 <span class="target" id="module-ordpy"></span><section id="ordpy-a-python-package-for-data-analysis-with-permutation-entropy-and-ordinal-network-methods">
 <h1>ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods<a class="headerlink" href="#ordpy-a-python-package-for-data-analysis-with-permutation-entropy-and-ordinal-network-methods" title="Permalink to this heading"></a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">ordpy</span></code> is a pure Python module <a class="footnote-reference brackets" href="#pessa2021" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> that implements data analysis methods based
-on Bandt and Pompe’s <a class="footnote-reference brackets" href="#bandt-pompe" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> symbolic encoding scheme.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ordpy</span></code> is a pure Python module <a class="footnote-reference brackets" href="#pessa2021" id="id1">1</a> that implements data analysis methods based
+on Bandt and Pompe’s <a class="footnote-reference brackets" href="#bandt-pompe" id="id2">2</a> symbolic encoding scheme.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have used <code class="docutils literal notranslate"><span class="pre">ordpy</span></code> in a scientific publication, we would appreciate
-citations to the following reference <a class="footnote-reference brackets" href="#pessa2021" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>:</p>
+citations to the following reference <a class="footnote-reference brackets" href="#pessa2021" id="id3">1</a>:</p>
 <ul class="simple">
 <li><p>A. A. B. Pessa, H. V. Ribeiro, <a class="reference external" href="https://doi.org/10.1063/5.0049901">ordpy: A Python package for data
 analysis with permutation entropy and ordinal network methods</a>, Chaos 31, 063110 (2021). <a class="reference external" href="https://arxiv.org/abs/2102.06786">arXiv:2102.06786</a></p></li>
@@ -109,162 +126,126 @@ analysis with permutation entropy and ordinal network methods</a>, Chaos 31, 063
 <p><code class="docutils literal notranslate"><span class="pre">ordpy</span></code> implements the following data analysis methods:</p>
 <p>Released on version 1.0.0 (February 2021):</p>
 <ul class="simple">
-<li><p>Permutation entropy for time series <a class="footnote-reference brackets" href="#bandt-pompe" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> and images <a class="footnote-reference brackets" href="#ribeiro-2012" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>;</p></li>
-<li><p>Complexity-entropy plane for time series <a class="footnote-reference brackets" href="#lopezruiz" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#rosso" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> and
-images <a class="footnote-reference brackets" href="#ribeiro-2012" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>;</p></li>
-<li><p>Multiscale complexity-entropy plane for time series <a class="footnote-reference brackets" href="#zunino2012" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a> and
-images <a class="footnote-reference brackets" href="#zunino2016" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>;</p></li>
-<li><p>Tsallis <a class="footnote-reference brackets" href="#ribeiro2017" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> and Rényi <a class="footnote-reference brackets" href="#jauregui" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> generalized complexity-entropy
+<li><p>Permutation entropy for time series <a class="footnote-reference brackets" href="#bandt-pompe" id="id5">2</a> and images <a class="footnote-reference brackets" href="#ribeiro-2012" id="id6">3</a>;</p></li>
+<li><p>Complexity-entropy plane for time series <a class="footnote-reference brackets" href="#lopezruiz" id="id7">4</a>, <a class="footnote-reference brackets" href="#rosso" id="id8">5</a> and
+images <a class="footnote-reference brackets" href="#ribeiro-2012" id="id9">3</a>;</p></li>
+<li><p>Multiscale complexity-entropy plane for time series <a class="footnote-reference brackets" href="#zunino2012" id="id10">6</a> and
+images <a class="footnote-reference brackets" href="#zunino2016" id="id11">7</a>;</p></li>
+<li><p>Tsallis <a class="footnote-reference brackets" href="#ribeiro2017" id="id12">8</a> and Rényi <a class="footnote-reference brackets" href="#jauregui" id="id13">9</a> generalized complexity-entropy
 curves for time series and images;</p></li>
-<li><p>Ordinal networks for time series <a class="footnote-reference brackets" href="#small" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#pessa2019" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> and
-images <a class="footnote-reference brackets" href="#pessa2020" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a>;</p></li>
+<li><p>Ordinal networks for time series <a class="footnote-reference brackets" href="#small" id="id14">10</a>, <a class="footnote-reference brackets" href="#pessa2019" id="id15">11</a> and
+images <a class="footnote-reference brackets" href="#pessa2020" id="id16">12</a>;</p></li>
 <li><p>Global node entropy of ordinal networks for
-time series <a class="footnote-reference brackets" href="#mccullough" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a>, <a class="footnote-reference brackets" href="#pessa2019" id="id18" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> and images <a class="footnote-reference brackets" href="#pessa2020" id="id19" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a>.</p></li>
-<li><p>Missing ordinal patterns <a class="footnote-reference brackets" href="#amigo" id="id20" role="doc-noteref"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></a> and missing transitions between ordinal
-patterns <a class="footnote-reference brackets" href="#pessa2019" id="id21" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> for time series and images.</p></li>
+time series <a class="footnote-reference brackets" href="#mccullough" id="id17">13</a>, <a class="footnote-reference brackets" href="#pessa2019" id="id18">11</a> and images <a class="footnote-reference brackets" href="#pessa2020" id="id19">12</a>.</p></li>
+<li><p>Missing ordinal patterns <a class="footnote-reference brackets" href="#amigo" id="id20">14</a> and missing transitions between ordinal
+patterns <a class="footnote-reference brackets" href="#pessa2019" id="id21">11</a> for time series and images.</p></li>
 </ul>
 <p>Released on version 1.1.0 (January 2023):</p>
 <ul class="simple">
-<li><p>Weighted permutation entropy for time series <a class="footnote-reference brackets" href="#fadlallah" id="id22" role="doc-noteref"><span class="fn-bracket">[</span>15<span class="fn-bracket">]</span></a> and images;</p></li>
-<li><p>Fisher-Shannon plane for time series <a class="footnote-reference brackets" href="#olivares" id="id23" role="doc-noteref"><span class="fn-bracket">[</span>16<span class="fn-bracket">]</span></a> and images;</p></li>
-<li><p>Permutation Jensen-Shannon distance for time series <a class="footnote-reference brackets" href="#zunino2022" id="id24" role="doc-noteref"><span class="fn-bracket">[</span>17<span class="fn-bracket">]</span></a> and images;</p></li>
+<li><p>Weighted permutation entropy for time series <a class="footnote-reference brackets" href="#fadlallah" id="id22">15</a> and images;</p></li>
+<li><p>Fisher-Shannon plane for time series <a class="footnote-reference brackets" href="#olivares" id="id23">16</a> and images;</p></li>
+<li><p>Permutation Jensen-Shannon distance for time series <a class="footnote-reference brackets" href="#zunino2022" id="id24">17</a> and images;</p></li>
 <li><p>Four pattern permutation contrasts (up-down balance, persistence,
-rotational-asymmetry, and up-down scaling.) for time series <a class="footnote-reference brackets" href="#bandt" id="id25" role="doc-noteref"><span class="fn-bracket">[</span>18<span class="fn-bracket">]</span></a>;</p></li>
-<li><p>Smoothness-structure plane for images <a class="footnote-reference brackets" href="#bandt-wittfeld" id="id26" role="doc-noteref"><span class="fn-bracket">[</span>19<span class="fn-bracket">]</span></a>.</p></li>
+rotational-asymmetry, and up-down scaling.) for time series <a class="footnote-reference brackets" href="#bandt" id="id25">18</a>;</p></li>
+<li><p>Smoothness-structure plane for images <a class="footnote-reference brackets" href="#bandt-wittfeld" id="id26">19</a>.</p></li>
 </ul>
 <p class="rubric">References</p>
-<aside class="footnote brackets" id="pessa2021" role="note">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>,<a role="doc-backlink" href="#id27">3</a>)</span>
-<p>Pessa, A. A., &amp; Ribeiro, H. V. (2021). ordpy: A Python package
+<dl class="footnote brackets">
+<dt class="label" id="pessa2021"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>,<a href="#id27">3</a>)</span></dt>
+<dd><p>Pessa, A. A., &amp; Ribeiro, H. V. (2021). ordpy: A Python package
 for data analysis with permutation entropy and ordinal networks methods.
 Chaos, 31, 063110.</p>
-</aside>
-<aside class="footnote brackets" id="bandt-pompe" role="note">
-<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id28">3</a>,<a role="doc-backlink" href="#id31">4</a>,<a role="doc-backlink" href="#id47">5</a>,<a role="doc-backlink" href="#id51">6</a>,<a role="doc-backlink" href="#id53">7</a>)</span>
-<p>Bandt, C., &amp; Pompe, B. (2002). Permutation entropy: A Natural
+</dd>
+<dt class="label" id="bandt-pompe"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id5">2</a>,<a href="#id28">3</a>,<a href="#id31">4</a>,<a href="#id47">5</a>,<a href="#id51">6</a>,<a href="#id53">7</a>)</span></dt>
+<dd><p>Bandt, C., &amp; Pompe, B. (2002). Permutation entropy: A Natural
 Complexity Measure for Time Series. Physical Review Letters, 88, 174102.</p>
-</aside>
-<aside class="footnote brackets" id="ribeiro-2012" role="note">
-<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id6">1</a>,<a role="doc-backlink" href="#id9">2</a>,<a role="doc-backlink" href="#id54">3</a>)</span>
-<p>Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &amp;
+</dd>
+<dt class="label" id="ribeiro-2012"><span class="brackets">3</span><span class="fn-backref">(<a href="#id6">1</a>,<a href="#id9">2</a>,<a href="#id54">3</a>)</span></dt>
+<dd><p>Ribeiro, H. V., Zunino, L., Lenzi, E. K., Santoro, P. A., &amp;
 Mendes, R. S. (2012). Complexity-Entropy Causality Plane as a Complexity
 Measure for Two-Dimensional Patterns. PLOS ONE, 7, e40689.</p>
-</aside>
-<aside class="footnote brackets" id="lopezruiz" role="note">
-<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id7">1</a>,<a role="doc-backlink" href="#id29">2</a>)</span>
-<p>Lopez-Ruiz, R., Mancini, H. L., &amp; Calbet, X. (1995). A Statistical
+</dd>
+<dt class="label" id="lopezruiz"><span class="brackets">4</span><span class="fn-backref">(<a href="#id7">1</a>,<a href="#id29">2</a>)</span></dt>
+<dd><p>Lopez-Ruiz, R., Mancini, H. L., &amp; Calbet, X. (1995). A Statistical
 Measure of Complexity. Physics Letters A, 209, 321-326.</p>
-</aside>
-<aside class="footnote brackets" id="rosso" role="note">
-<span class="label"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id8">1</a>,<a role="doc-backlink" href="#id30">2</a>)</span>
-<p>Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &amp;
+</dd>
+<dt class="label" id="rosso"><span class="brackets">5</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id30">2</a>)</span></dt>
+<dd><p>Rosso, O. A., Larrondo, H. A., Martin, M. T., Plastino, A., &amp;
 Fuentes, M. A. (2007). Distinguishing Noise from Chaos. Physical Review
 Letters, 99, 154102.</p>
-</aside>
-<aside class="footnote brackets" id="zunino2012" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">6</a><span class="fn-bracket">]</span></span>
-<p>Zunino, L., Soriano, M. C., &amp; Rosso, O. A. (2012).
+</dd>
+<dt class="label" id="zunino2012"><span class="brackets"><a class="fn-backref" href="#id10">6</a></span></dt>
+<dd><p>Zunino, L., Soriano, M. C., &amp; Rosso, O. A. (2012).
 Distinguishing Chaotic and Stochastic Dynamics from Time Series by Using
 a Multiscale Symbolic Approach. Physical Review E, 86, 046210.</p>
-</aside>
-<aside class="footnote brackets" id="zunino2016" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">7</a><span class="fn-bracket">]</span></span>
-<p>Zunino, L., &amp; Ribeiro, H. V. (2016). Discriminating Image
+</dd>
+<dt class="label" id="zunino2016"><span class="brackets"><a class="fn-backref" href="#id11">7</a></span></dt>
+<dd><p>Zunino, L., &amp; Ribeiro, H. V. (2016). Discriminating Image
 Textures with the Multiscale Two-Dimensional Complexity-Entropy Causality
 Plane. Chaos, Solitons &amp; Fractals, 91, 679-688.</p>
-</aside>
-<aside class="footnote brackets" id="ribeiro2017" role="note">
-<span class="label"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id12">1</a>,<a role="doc-backlink" href="#id61">2</a>,<a role="doc-backlink" href="#id62">3</a>)</span>
-<p>Ribeiro, H. V., Jauregui, M., Zunino, L., &amp; Lenzi, E. K.
+</dd>
+<dt class="label" id="ribeiro2017"><span class="brackets">8</span><span class="fn-backref">(<a href="#id12">1</a>,<a href="#id61">2</a>,<a href="#id62">3</a>)</span></dt>
+<dd><p>Ribeiro, H. V., Jauregui, M., Zunino, L., &amp; Lenzi, E. K.
 (2017). Characterizing Time Series Via Complexity-Entropy Curves.
 Physical Review E, 95, 062106.</p>
-</aside>
-<aside class="footnote brackets" id="jauregui" role="note">
-<span class="label"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id13">1</a>,<a role="doc-backlink" href="#id58">2</a>,<a role="doc-backlink" href="#id59">3</a>)</span>
-<p>Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &amp;
+</dd>
+<dt class="label" id="jauregui"><span class="brackets">9</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id58">2</a>,<a href="#id59">3</a>)</span></dt>
+<dd><p>Jauregui, M., Zunino, L., Lenzi, E. K., Mendes, R. S., &amp;
 Ribeiro, H. V. (2018). Characterization of Time Series via Rényi
 Complexity-Entropy Curves. Physica A, 498, 74-85.</p>
-</aside>
-<aside class="footnote brackets" id="small" role="note">
-<span class="label"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id14">1</a>,<a role="doc-backlink" href="#id48">2</a>)</span>
-<p>Small, M. (2013). Complex Networks From Time Series: Capturing
+</dd>
+<dt class="label" id="small"><span class="brackets">10</span><span class="fn-backref">(<a href="#id14">1</a>,<a href="#id48">2</a>)</span></dt>
+<dd><p>Small, M. (2013). Complex Networks From Time Series: Capturing
 Dynamics. In 2013 IEEE International Symposium on Circuits and Systems
 (ISCAS2013) (pp. 2509-2512). IEEE.</p>
-</aside>
-<aside class="footnote brackets" id="pessa2019" role="note">
-<span class="label"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id15">1</a>,<a role="doc-backlink" href="#id18">2</a>,<a role="doc-backlink" href="#id21">3</a>,<a role="doc-backlink" href="#id33">4</a>,<a role="doc-backlink" href="#id45">5</a>,<a role="doc-backlink" href="#id49">6</a>,<a role="doc-backlink" href="#id56">7</a>)</span>
-<p>Pessa, A. A., &amp; Ribeiro, H. V. (2019). Characterizing Stochastic
+</dd>
+<dt class="label" id="pessa2019"><span class="brackets">11</span><span class="fn-backref">(<a href="#id15">1</a>,<a href="#id18">2</a>,<a href="#id21">3</a>,<a href="#id33">4</a>,<a href="#id45">5</a>,<a href="#id49">6</a>,<a href="#id56">7</a>)</span></dt>
+<dd><p>Pessa, A. A., &amp; Ribeiro, H. V. (2019). Characterizing Stochastic
 Time Series With Ordinal Networks. Physical Review E, 100, 042304.</p>
-</aside>
-<aside class="footnote brackets" id="pessa2020" role="note">
-<span class="label"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id16">1</a>,<a role="doc-backlink" href="#id19">2</a>,<a role="doc-backlink" href="#id50">3</a>,<a role="doc-backlink" href="#id57">4</a>)</span>
-<p>Pessa, A. A., &amp; Ribeiro, H. V. (2020). Mapping Images Into
+</dd>
+<dt class="label" id="pessa2020"><span class="brackets">12</span><span class="fn-backref">(<a href="#id16">1</a>,<a href="#id19">2</a>,<a href="#id50">3</a>,<a href="#id57">4</a>)</span></dt>
+<dd><p>Pessa, A. A., &amp; Ribeiro, H. V. (2020). Mapping Images Into
 Ordinal Networks. Physical Review E, 102, 052312.</p>
-</aside>
-<aside class="footnote brackets" id="mccullough" role="note">
-<span class="label"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id17">1</a>,<a role="doc-backlink" href="#id34">2</a>)</span>
-<p>McCullough, M., Small, M., Iu, H. H. C., &amp; Stemler, T. (2017).
+</dd>
+<dt class="label" id="mccullough"><span class="brackets">13</span><span class="fn-backref">(<a href="#id17">1</a>,<a href="#id34">2</a>)</span></dt>
+<dd><p>McCullough, M., Small, M., Iu, H. H. C., &amp; Stemler, T. (2017).
 Multiscale Ordinal Network Analysis of Human Cardiac Dynamics.
 Philosophical Transactions of the Royal Society A, 375, 20160292.</p>
-</aside>
-<aside class="footnote brackets" id="amigo" role="note">
-<span class="label"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id20">1</a>,<a role="doc-backlink" href="#id46">2</a>)</span>
-<p>Amigó, J. M., Zambrano, S., &amp; Sanjuán, M. A. F. (2007).
+</dd>
+<dt class="label" id="amigo"><span class="brackets">14</span><span class="fn-backref">(<a href="#id20">1</a>,<a href="#id46">2</a>)</span></dt>
+<dd><p>Amigó, J. M., Zambrano, S., &amp; Sanjuán, M. A. F. (2007).
 True and False Forbidden Patterns in Deterministic and Random Dynamics.
 Europhysics Letters, 79, 50001.</p>
-</aside>
-<aside class="footnote brackets" id="fadlallah" role="note">
-<span class="label"><span class="fn-bracket">[</span>15<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id22">1</a>,<a role="doc-backlink" href="#id63">2</a>)</span>
-<p>Fadlallah B., Chen, B., Keil A. &amp; Príncipe, J. (2013).
+</dd>
+<dt class="label" id="fadlallah"><span class="brackets">15</span><span class="fn-backref">(<a href="#id22">1</a>,<a href="#id63">2</a>)</span></dt>
+<dd><p>Fadlallah B., Chen, B., Keil A. &amp; Príncipe, J. (2013).
 Weighted-permutation entropy: a complexity measure for time series
 incorporating amplitude information. Physical Review E, 97, 022911.</p>
-</aside>
-<aside class="footnote brackets" id="olivares" role="note">
-<span class="label"><span class="fn-bracket">[</span>16<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id23">1</a>,<a role="doc-backlink" href="#id32">2</a>)</span>
-<p>Olivares, F., Plastino, A., &amp; Rosso, O. A. (2012).
+</dd>
+<dt class="label" id="olivares"><span class="brackets">16</span><span class="fn-backref">(<a href="#id23">1</a>,<a href="#id32">2</a>)</span></dt>
+<dd><p>Olivares, F., Plastino, A., &amp; Rosso, O. A. (2012).
 Contrasting chaos with noise via local versus global
 information quantifiers. Physics Letters A, 376, 1577–1583.</p>
-</aside>
-<aside class="footnote brackets" id="zunino2022" role="note">
-<span class="label"><span class="fn-bracket">[</span>17<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id24">1</a>,<a role="doc-backlink" href="#id55">2</a>)</span>
-<p>Zunino L., Olivares, F., Ribeiro H. V. &amp; Rosso, O. A. (2022).
+</dd>
+<dt class="label" id="zunino2022"><span class="brackets">17</span><span class="fn-backref">(<a href="#id24">1</a>,<a href="#id55">2</a>)</span></dt>
+<dd><p>Zunino L., Olivares, F., Ribeiro H. V. &amp; Rosso, O. A. (2022).
 Permutation Jensen-Shannon distance: A versatile and fast symbolic tool
 for complex time-series analysis. Physical Review E, 105, 045310.</p>
-</aside>
-<aside class="footnote brackets" id="bandt" role="note">
-<span class="label"><span class="fn-bracket">[</span>18<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id25">1</a>,<a role="doc-backlink" href="#id52">2</a>)</span>
-<p>Bandt, C. (2023). Statistics and contrasts of order patterns in
+</dd>
+<dt class="label" id="bandt"><span class="brackets">18</span><span class="fn-backref">(<a href="#id25">1</a>,<a href="#id52">2</a>)</span></dt>
+<dd><p>Bandt, C. (2023). Statistics and contrasts of order patterns in
 univariate time series, Chaos, 33, 033124.</p>
-</aside>
-<aside class="footnote brackets" id="bandt-wittfeld" role="note">
-<span class="label"><span class="fn-bracket">[</span>19<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id26">1</a>,<a role="doc-backlink" href="#id60">2</a>)</span>
-<p>Bandt, C., &amp; Wittfeld, K. (2023). Two new parameters for
+</dd>
+<dt class="label" id="bandt-wittfeld"><span class="brackets">19</span><span class="fn-backref">(<a href="#id26">1</a>,<a href="#id60">2</a>)</span></dt>
+<dd><p>Bandt, C., &amp; Wittfeld, K. (2023). Two new parameters for
 the ordinal analysis of images, Chaos, 33, 043124.</p>
-</aside>
-<aside class="footnote brackets" id="rosso-curvas" role="note">
-<span class="label"><span class="fn-bracket">[</span>20<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id39">1</a>,<a role="doc-backlink" href="#id42">2</a>)</span>
-<p>Martin, M. T., Plastino, A., &amp; Rosso, O. A. (2006).
+</dd>
+<dt class="label" id="rosso-curvas"><span class="brackets">20</span><span class="fn-backref">(<a href="#id39">1</a>,<a href="#id42">2</a>)</span></dt>
+<dd><p>Martin, M. T., Plastino, A., &amp; Rosso, O. A. (2006).
 Generalized Statistical Complexity Measures: Geometrical and
 Analytical Properties, Physica A, 369, 439–462.</p>
-</aside>
+</dd>
+</dl>
 </section>
 <section id="installing">
 <h1>Installing<a class="headerlink" href="#installing" title="Permalink to this heading"></a></h1>
@@ -283,7 +264,7 @@ Analytical Properties, Physica A, 369, 439–462.</p>
 <h1>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading"></a></h1>
 <p>We provide a <a class="reference external" href="https://github.com/arthurpessa/ordpy/blob/master/examples/ordpy.ipynb">notebook</a>
 illustrating how to use <code class="docutils literal notranslate"><span class="pre">ordpy</span></code>. This notebook reproduces all figures of our
-article <a class="footnote-reference brackets" href="#pessa2021" id="id27" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. The code below shows simple applications of <code class="docutils literal notranslate"><span class="pre">ordpy</span></code>.</p>
+article <a class="footnote-reference brackets" href="#pessa2021" id="id27">1</a>. The code below shows simple applications of <code class="docutils literal notranslate"><span class="pre">ordpy</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Complexity-entropy plane for logistic map and Gaussian noise.</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -387,14 +368,15 @@ article <a class="footnote-reference brackets" href="#pessa2021" id="id27" role=
 </section>
 <section id="list-of-functions">
 <h1>List of functions<a class="headerlink" href="#list-of-functions" title="Permalink to this heading"></a></h1>
+</section>
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.complexity_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">complexity_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L604-L681"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.complexity_entropy" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates permutation entropy<a class="footnote-reference brackets" href="#bandt-pompe" id="id28" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> and statistical
-complexity<a class="footnote-reference brackets" href="#lopezruiz" id="id29" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a><sup>,</sup><a class="footnote-reference brackets" href="#rosso" id="id30" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> using an ordinal
+<dd><p>Calculates permutation entropy<a class="footnote-reference brackets" href="#bandt-pompe" id="id28">2</a> and statistical
+complexity<a class="footnote-reference brackets" href="#lopezruiz" id="id29">4</a><sup>,</sup><a class="footnote-reference brackets" href="#rosso" id="id30">5</a> using an ordinal
 distribution obtained from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -413,10 +395,10 @@ If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dim
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Values of normalized permutation entropy and statistical complexity.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -442,12 +424,12 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.fisher_shannon">
-<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">fisher_shannon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2144-L2218"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.fisher_shannon" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates permutation entropy<a class="footnote-reference brackets" href="#bandt-pompe" id="id31" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> and Fisher
-information<a class="footnote-reference brackets" href="#olivares" id="id32" role="doc-noteref"><span class="fn-bracket">[</span>16<span class="fn-bracket">]</span></a> using an ordinal distribution obtained
+<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">fisher_shannon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2144-L2219"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.fisher_shannon" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates permutation entropy<a class="footnote-reference brackets" href="#bandt-pompe" id="id31">2</a> and Fisher
+information<a class="footnote-reference brackets" href="#olivares" id="id32">16</a> using an ordinal distribution obtained
 from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -466,10 +448,10 @@ If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dim
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Values of normalized permutation entropy and Fisher information.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -496,15 +478,15 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.global_node_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">global_node_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1403-L1488"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.global_node_entropy" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates global node entropy<a class="footnote-reference brackets" href="#pessa2019" id="id33" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a><sup>,</sup><a class="footnote-reference brackets" href="#mccullough" id="id34" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a> for an
+<dd><p>Calculates global node entropy<a class="footnote-reference brackets" href="#pessa2019" id="id33">11</a><sup>,</sup><a class="footnote-reference brackets" href="#mccullough" id="id34">13</a> for an
 ordinal network obtained from data. (Assumes directed and weighted edges).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (array, return of <a class="reference internal" href="#ordpy.ordinal_network" title="ordpy.ordinal_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_network()</span></code></a>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
 \ldots, [x_{n1}, x_{n2}, x_{n3}, \ldots, x_{nm}]]\)</span>
-or an ordinal network returned by <a class="reference internal" href="#ordpy.ordinal_network" title="ordpy.ordinal_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_network()</span></code></a><a class="footnote-reference brackets" href="#id36" id="id35" role="doc-noteref"><span class="fn-bracket">[</span>*<span class="fn-bracket">]</span></a>.</p></li>
+or an ordinal network returned by <a class="reference internal" href="#ordpy.ordinal_network" title="ordpy.ordinal_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_network()</span></code></a><a class="footnote-reference brackets" href="#id36" id="id35">*</a>.</p></li>
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
 <li><p><strong>dy</strong> (<em>int</em>) – Embedding dimension (vertical axis); it must be 1 for time series
 (default: 1).</p></li>
@@ -521,20 +503,21 @@ successions in a symbolic sequence or only <cite>‘horizontal’</cite> or
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value of global node entropy.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<aside class="footnote brackets" id="id36" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id35">*</a><span class="fn-bracket">]</span></span>
-<p>In case <strong>data</strong> is an ordinal network returned by
+<dl class="footnote brackets">
+<dt class="label" id="id36"><span class="brackets"><a class="fn-backref" href="#id35">*</a></span></dt>
+<dd><p>In case <strong>data</strong> is an ordinal network returned by
 <a class="reference internal" href="#ordpy.ordinal_network" title="ordpy.ordinal_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_network()</span></code></a>, the parameters of
 <a class="reference internal" href="#ordpy.global_node_entropy" title="ordpy.global_node_entropy"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.global_node_entropy()</span></code></a> are inferred from the network.</p>
-</aside>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">global_node_entropy</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],</span> <span class="n">dx</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">0.0</span>
@@ -562,32 +545,33 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">logq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L684-L726"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.logq" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the <cite>q</cite>-logarithm of x.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>float</em><em>, </em><em>array</em>) – Real number or array containing real numbers.</p></li>
 <li><p><strong>q</strong> (<em>float</em>) – Tsallis’s <cite>q</cite> parameter (default: 1).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value or array of values containing the <cite>q</cite>-logarithm of x.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float or array</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>The <cite>q</cite>-logarithm of <cite>x</cite> is defined as<a class="footnote-reference brackets" href="#id38" id="id37" role="doc-noteref"><span class="fn-bracket">[</span>†<span class="fn-bracket">]</span></a></p>
+<p>The <cite>q</cite>-logarithm of <cite>x</cite> is defined as<a class="footnote-reference brackets" href="#id38" id="id37">†</a></p>
 <blockquote>
 <div><div class="math notranslate nohighlight">
 \[\]</div>
 <p>log_q (x) = frac{x^{1-q} - 1}{1-q}~~text{for}~~qneq 1</p>
 <p>and <span class="math notranslate nohighlight">\(\log_q (x) = \log (x)\)</span> for <span class="math notranslate nohighlight">\(q=1\)</span>.</p>
 </div></blockquote>
-<aside class="footnote brackets" id="id38" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id37">†</a><span class="fn-bracket">]</span></span>
-<p>Tsallis, C. (2009). Introduction to Nonextensive Statistical
+<dl class="footnote brackets">
+<dt class="label" id="id38"><span class="brackets"><a class="fn-backref" href="#id37">†</a></span></dt>
+<dd><p>Tsallis, C. (2009). Introduction to Nonextensive Statistical
 Mechanics: Approaching a Complex World. Springer.</p>
-</aside>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">logq</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="p">)</span>
 <span class="go">1.0</span>
@@ -603,9 +587,9 @@ Mechanics: Approaching a Complex World. Springer.</p>
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">maximum_complexity_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1957-L2044"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.maximum_complexity_entropy" title="Permalink to this definition"></a></dt>
 <dd><p>Generates data corresponding to values of normalized permutation entropy and
 statistical complexity which delimit the upper boundary in the
-complexity-entropy  causality plane<a class="footnote-reference brackets" href="#rosso-curvas" id="id39" role="doc-noteref"><span class="fn-bracket">[</span>20<span class="fn-bracket">]</span></a><sup>,</sup><a class="footnote-reference brackets" href="#id41" id="id40" role="doc-noteref"><span class="fn-bracket">[</span>‡<span class="fn-bracket">]</span></a>.</p>
+complexity-entropy  causality plane<a class="footnote-reference brackets" href="#rosso-curvas" id="id39">20</a><sup>,</sup><a class="footnote-reference brackets" href="#id41" id="id40">‡</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
 <li><p><strong>dy</strong> (<em>int</em>) – Embedding dimension (vertical axis); must be 1 for time series
@@ -615,22 +599,23 @@ and statistical complexity is given by
 <span class="math notranslate nohighlight">\([(d_x \times d_y)!-1] \times m\)</span>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Values of normalized permutation entropy and statistical complexity
 belonging to the upper limiting curve of the complexity-entropy causality
 plane.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<aside class="footnote brackets" id="id41" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id40">‡</a><span class="fn-bracket">]</span></span>
-<p>This function was adapted from Sebastian Sippel et al.,
+<dl class="footnote brackets">
+<dt class="label" id="id41"><span class="brackets"><a class="fn-backref" href="#id40">‡</a></span></dt>
+<dd><p>This function was adapted from Sebastian Sippel et al.,
 statcomp: Statistical Complexity and Information Measures for
 Time Series Analysis, version 0.1.0. (Computer Software in R).</p>
-</aside>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maximum_complexity_entropy</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="go">array([[-0.        , -0.        ],</span>
@@ -659,9 +644,9 @@ Time Series Analysis, version 0.1.0. (Computer Software in R).</p>
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">minimum_complexity_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1879-L1954"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.minimum_complexity_entropy" title="Permalink to this definition"></a></dt>
 <dd><p>Generates data corresponding to values of normalized permutation entropy and
 statistical complexity which delimit the lower boundary in the
-complexity-entropy causality plane<a class="footnote-reference brackets" href="#rosso-curvas" id="id42" role="doc-noteref"><span class="fn-bracket">[</span>20<span class="fn-bracket">]</span></a><sup>,</sup><a class="footnote-reference brackets" href="#id44" id="id43" role="doc-noteref"><span class="fn-bracket">[</span>§<span class="fn-bracket">]</span></a>.</p>
+complexity-entropy causality plane<a class="footnote-reference brackets" href="#rosso-curvas" id="id42">20</a><sup>,</sup><a class="footnote-reference brackets" href="#id44" id="id43">§</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
 <li><p><strong>dy</strong> (<em>int</em>) – Embedding dimension (vertical axis); must be 1 for time series
@@ -670,22 +655,23 @@ complexity-entropy causality plane<a class="footnote-reference brackets" href="#
 permutation entropy and statistical complexity.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Values of normalized permutation entropy and statistical complexity
 belonging to the lower limiting curve of the complexity-entropy
 causality plane.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<aside class="footnote brackets" id="id44" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id43">§</a><span class="fn-bracket">]</span></span>
-<p>This function was adapted from Sebastian Sippel et al.,
+<dl class="footnote brackets">
+<dt class="label" id="id44"><span class="brackets"><a class="fn-backref" href="#id43">§</a></span></dt>
+<dd><p>This function was adapted from Sebastian Sippel et al.,
 statcomp: Statistical Complexity and Information Measures for
 Time Series Analysis, version 0.1.0. (Computer Software in R).</p>
-</aside>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">minimum_complexity_entropy</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="go">array([[-0.        , -0.        ],</span>
@@ -714,11 +700,11 @@ Time Series Analysis, version 0.1.0. (Computer Software in R).</p>
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">missing_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1733-L1876"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.missing_links" title="Permalink to this definition"></a></dt>
 <dd><p>Identifies transitions between ordinal patterns (permutations) not occurring
 in data. (These transtitions correspond to directed edges in ordinal
-networks<a class="footnote-reference brackets" href="#pessa2019" id="id45" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>.) Assumes overlapping windows and unitary embedding
+networks<a class="footnote-reference brackets" href="#pessa2019" id="id45">11</a>.) Assumes overlapping windows and unitary embedding
 delay. In case dx&gt;1 and dy&gt;1, both ‘horizontal’ and ‘vertical’ connections are
 considered (see <a class="reference internal" href="#ordpy.ordinal_network" title="ordpy.ordinal_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_network()</span></code></a>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (array, return of <a class="reference internal" href="#ordpy.ordinal_network" title="ordpy.ordinal_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_network()</span></code></a>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -739,11 +725,11 @@ only returns the fraction/number of these missing links.</p></li>
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Tuple containing an array and a float indicating missing links and their
 relative fraction (or raw number).</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -773,9 +759,9 @@ relative fraction (or raw number).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.missing_patterns">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">missing_patterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1651-L1730"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.missing_patterns" title="Permalink to this definition"></a></dt>
-<dd><p>Identifies ordinal patterns (permutations) not occurring in data<a class="footnote-reference brackets" href="#amigo" id="id46" role="doc-noteref"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></a>.</p>
+<dd><p>Identifies ordinal patterns (permutations) not occurring in data<a class="footnote-reference brackets" href="#amigo" id="id46">14</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (array, return of <a class="reference internal" href="#ordpy.ordinal_distribution" title="ordpy.ordinal_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordpy.ordinal_distribution()</span></code></a>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -802,11 +788,11 @@ array (default: <cite>False</cite>).</p></li>
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Tuple containing an array and a float indicating missing
 ordinal patterns and their relative fraction (or raw number).</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -831,10 +817,10 @@ ordinal patterns and their relative fraction (or raw number).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.ordinal_distribution">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">ordinal_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_missing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L389-L531"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.ordinal_distribution" title="Permalink to this definition"></a></dt>
-<dd><p>Applies the Bandt and Pompe<a class="footnote-reference brackets" href="#bandt-pompe" id="id47" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> symbolization approach to obtain
+<dd><p>Applies the Bandt and Pompe<a class="footnote-reference brackets" href="#bandt-pompe" id="id47">2</a> symbolization approach to obtain
 a probability distribution of ordinal patterns (permutations) from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -854,11 +840,11 @@ symbolic sequence obtained from <strong>data</strong> in ascending ordered.
 The <cite>return_missing</cite> parameter must also be <cite>True</cite>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Tuple containing two arrays, one with the ordinal patterns and another
 with their corresponding probabilities.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -896,9 +882,9 @@ with their corresponding probabilities.</p>
 <dt class="sig sig-object py" id="ordpy.ordinal_network">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">ordinal_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1168-L1400"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.ordinal_network" title="Permalink to this definition"></a></dt>
 <dd><p>Maps a data set into the elements (nodes, edges and edge weights) of its
-corresponding ordinal network representation<a class="footnote-reference brackets" href="#small" id="id48" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a><sup>,</sup><a class="footnote-reference brackets" href="#pessa2019" id="id49" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a><sup>,</sup><a class="footnote-reference brackets" href="#pessa2020" id="id50" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a>.</p>
+corresponding ordinal network representation<a class="footnote-reference brackets" href="#small" id="id48">10</a><sup>,</sup><a class="footnote-reference brackets" href="#pessa2019" id="id49">11</a><sup>,</sup><a class="footnote-reference brackets" href="#pessa2020" id="id50">12</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -924,11 +910,11 @@ successions in a symbolic sequence or only <cite>‘horizontal’</cite> or
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Tuple containing three arrays corresponding to nodes, edges and edge weights
 of an ordinal network.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -967,10 +953,10 @@ of an ordinal network.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.ordinal_sequence">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">ordinal_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L278-L386"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.ordinal_sequence" title="Permalink to this definition"></a></dt>
-<dd><p>Applies the Bandt and Pompe<a class="footnote-reference brackets" href="#bandt-pompe" id="id51" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> symbolization approach to obtain
+<dd><p>Applies the Bandt and Pompe<a class="footnote-reference brackets" href="#bandt-pompe" id="id51">2</a> symbolization approach to obtain
 a sequence of ordinal patterns (permutations) from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -988,10 +974,10 @@ non-overlapping.</p></li>
 number of decimals (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Array containing the sequence of ordinal patterns.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array</p>
 </dd>
 </dl>
@@ -1027,12 +1013,12 @@ number of decimals (default: <cite>None</cite>).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.permutation_contrasts">
-<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">permutation_contrasts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2299-L2352"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.permutation_contrasts" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the four pattern (permutation) contrasts <a class="footnote-reference brackets" href="#bandt" id="id52" role="doc-noteref"><span class="fn-bracket">[</span>18<span class="fn-bracket">]</span></a>
+<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">permutation_contrasts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2300-L2353"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.permutation_contrasts" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the four pattern (permutation) contrasts <a class="footnote-reference brackets" href="#bandt" id="id52">18</a>
 of a time series (with dx=3) using an ordinal distribution
 obtained from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object containing a pair of arrays in the format
 <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>.</p></li>
@@ -1041,12 +1027,12 @@ obtained from data.</p>
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Tuple containing values corresponding to the pattern (permutation)
 contrasts: up-down balance, persistence, rotational-asymmetry,
 and up-down scaling.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -1070,9 +1056,9 @@ and up-down scaling.</p>
 <dt class="sig sig-object py" id="ordpy.permutation_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">permutation_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L534-L601"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.permutation_entropy" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the Shannon entropy using an ordinal distribution obtained from
-data<a class="footnote-reference brackets" href="#bandt-pompe" id="id53" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a><sup>,</sup><a class="footnote-reference brackets" href="#ribeiro-2012" id="id54" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+data<a class="footnote-reference brackets" href="#bandt-pompe" id="id53">2</a><sup>,</sup><a class="footnote-reference brackets" href="#ribeiro-2012" id="id54">3</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -1094,10 +1080,10 @@ If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dim
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value of permutation entropy.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1119,12 +1105,12 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.permutation_js_distance">
-<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">permutation_js_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2221-L2296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.permutation_js_distance" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the permutation Jensen-Shannon distance<a class="footnote-reference brackets" href="#zunino2022" id="id55" role="doc-noteref"><span class="fn-bracket">[</span>17<span class="fn-bracket">]</span></a> between
+<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">permutation_js_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2222-L2297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.permutation_js_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the permutation Jensen-Shannon distance<a class="footnote-reference brackets" href="#zunino2022" id="id55">17</a> between
 multiple time series (or channels of a multivariate time series) or
 multiple matrices (images) using ordinal distributions obtained from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object containing  arrays in the format
 <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
@@ -1142,10 +1128,10 @@ the logarithm of 2. (default: <cite>True</cite>). If <cite>False</cite>, it is n
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value of permutation Jensen-Shannon distance.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1169,10 +1155,10 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 <dt class="sig sig-object py" id="ordpy.random_ordinal_network">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">random_ordinal_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1491-L1648"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.random_ordinal_network" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the nodes, edges and edge weights of a random ordinal network: the
-theoretically expected network representation of a random time series<a class="footnote-reference brackets" href="#pessa2019" id="id56" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> or a random two-dimensional array<a class="footnote-reference brackets" href="#pessa2020" id="id57" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a>.
+theoretically expected network representation of a random time series<a class="footnote-reference brackets" href="#pessa2019" id="id56">11</a> or a random two-dimensional array<a class="footnote-reference brackets" href="#pessa2020" id="id57">12</a>.
 (Assumes directed edges and unitary embedding delays.)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dx</strong> (<em>int</em>) – Embedding dimension (horizontal axis) (default: 3).</p></li>
 <li><p><strong>dy</strong> (<em>int</em>) – Embedding dimension (vertical axis); it must be 1 for time series
@@ -1182,11 +1168,11 @@ windows (default: <cite>True</cite>). If <cite>False</cite>, adjacent partitions
 non-overlapping.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Tuple containing three arrays corresponding to nodes, edges and edge weights
 of the random ordinal network.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -1214,10 +1200,10 @@ of the random ordinal network.</p>
 <dt class="sig sig-object py" id="ordpy.renyi_complexity_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">renyi_complexity_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L1018-L1165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.renyi_complexity_entropy" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the Rényi normalized permutation entropy and statistical
-complexity<a class="footnote-reference brackets" href="#jauregui" id="id58" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> using an ordinal distribution obtained from
+complexity<a class="footnote-reference brackets" href="#jauregui" id="id58">9</a> using an ordinal distribution obtained from
 data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -1238,11 +1224,11 @@ If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dim
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value(s) of normalized permutation entropy and statistical complexity in
 Rényi’s formalism.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array</p>
 </dd>
 </dl>
@@ -1273,10 +1259,10 @@ Rényi’s formalism.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.renyi_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">renyi_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L938-L1015"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.renyi_entropy" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the normalized Rényi permutation entropy<a class="footnote-reference brackets" href="#jauregui" id="id59" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> using an
+<dd><p>Calculates the normalized Rényi permutation entropy<a class="footnote-reference brackets" href="#jauregui" id="id59">9</a> using an
 ordinal distribution obtained from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
 <dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -1300,10 +1286,10 @@ If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dim
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value(s) of the normalized Rényi permutation entropy.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float, array</p>
 </dd>
 </dl>
@@ -1328,12 +1314,12 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.smoothness_structure">
-<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">smoothness_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2355-L2412"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.smoothness_structure" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the smoothness and curve structure<a class="footnote-reference brackets" href="#bandt-wittfeld" id="id60" role="doc-noteref"><span class="fn-bracket">[</span>19<span class="fn-bracket">]</span></a>
+<span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">smoothness_structure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2356-L2413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.smoothness_structure" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the smoothness and curve structure<a class="footnote-reference brackets" href="#bandt-wittfeld" id="id60">19</a>
 of an image (with embedding parameters dx=dy=2) using an ordinal
 distribution obtained from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format
 <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -1344,10 +1330,10 @@ distribution obtained from data.</p>
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Values of smoothness and curve structure.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
@@ -1368,10 +1354,10 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 <dt class="sig sig-object py" id="ordpy.tsallis_complexity_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">tsallis_complexity_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L805-L935"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.tsallis_complexity_entropy" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the Tsallis normalized permutation entropy and statistical
-complexity<a class="footnote-reference brackets" href="#ribeiro2017" id="id61" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> using an ordinal distribution obtained from
+complexity<a class="footnote-reference brackets" href="#ribeiro2017" id="id61">8</a> using an ordinal distribution obtained from
 data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
 <dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -1395,11 +1381,11 @@ If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dim
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value(s) of normalized permutation entropy and statistical complexity in
 Tsallis’s formalism.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array</p>
 </dd>
 </dl>
@@ -1430,10 +1416,10 @@ Tsallis’s formalism.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ordpy.tsallis_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">tsallis_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L729-L802"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.tsallis_entropy" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates the normalized Tsallis permutation entropy<a class="footnote-reference brackets" href="#ribeiro2017" id="id62" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> using
+<dd><p>Calculates the normalized Tsallis permutation entropy<a class="footnote-reference brackets" href="#ribeiro2017" id="id62">8</a> using
 an ordinal distribution obtained from data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – <dl class="simple">
 <dt>Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span></dt><dd><p>or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -1457,10 +1443,10 @@ If <cite>False</cite>, <strong>data</strong> is expected to be a one- or two-dim
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Value(s) of the normalized Tsallis permutation entropy.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float, array</p>
 </dd>
 </dl>
@@ -1487,9 +1473,9 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 <dt class="sig sig-object py" id="ordpy.weighted_permutation_entropy">
 <span class="sig-prename descclassname"><span class="pre">ordpy.</span></span><span class="sig-name descname"><span class="pre">weighted_permutation_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tauy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tie_precision</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/hvribeiro/ordpy/blob/master/ordpy/ordpy.py#L2047-L2141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ordpy.weighted_permutation_entropy" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates Shannon entropy using a weighted ordinal distribution
-obtained from data<a class="footnote-reference brackets" href="#fadlallah" id="id63" role="doc-noteref"><span class="fn-bracket">[</span>15<span class="fn-bracket">]</span></a>.</p>
+obtained from data<a class="footnote-reference brackets" href="#fadlallah" id="id63">15</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em>) – Array object in the format <span class="math notranslate nohighlight">\([x_{1}, x_{2}, x_{3}, \ldots ,x_{n}]\)</span>
 or  <span class="math notranslate nohighlight">\([[x_{11}, x_{12}, x_{13}, \ldots, x_{1m}],
@@ -1506,10 +1492,10 @@ maximum value. If <cite>False</cite>, it does not (default: <cite>True</cite>).<
 decimal numbers (default: <cite>None</cite>).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The value of weighted permutation entropy.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -1526,7 +1512,6 @@ decimal numbers (default: <cite>None</cite>).</p></li>
 </div>
 </dd></dl>
 
-</section>
 <section id="indices">
 <h1>Indices<a class="headerlink" href="#indices" title="Permalink to this heading"></a></h1>
 <ul class="simple">
