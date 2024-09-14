@@ -1,16 +1,15 @@
-.. |logo1| image:: https://img.shields.io/pypi/v/ordpy?style=plastic   :alt: PyPI 
+.. |logo1| image:: https://img.shields.io/pypi/v/ordpy?style=plastic   
    :target: https://pypi.org/project/ordpy/
-   :scale: 100%
-.. |logo2| image:: https://img.shields.io/github/license/arthurpessa/ordpy?style=plastic   :alt: GitHub 
+   :alt: PyPI 
+.. |logo2| image:: https://img.shields.io/github/license/arthurpessa/ordpy?style=plastic 
    :target: https://github.com/arthurpessa/ordpy/blob/master/LICENSE
-   :scale: 100%
-.. |logo3| image:: https://img.shields.io/pypi/dm/ordpy?style=plastic   :alt: PyPI - Downloads
+   :alt: GitHub
+.. |logo3| image:: https://img.shields.io/pypi/dm/ordpy?style=plastic
    :target: https://pypi.org/project/ordpy/
-   :scale: 100%
+   :alt: PyPI - Downloads
 .. |logo4| image:: https://readthedocs.org/projects/ordpy/badge/?version=latest
    :target: https://ordpy.readthedocs.io/?badge=latest
    :alt: Documentation Status
-   :scale: 100%
 
 |logo1| |logo2| |logo3| |logo4|
 
