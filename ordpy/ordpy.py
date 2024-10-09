@@ -507,7 +507,7 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
         return symbols, probabilities
     
     else:
-        if len(probabilities)==np.math.factorial(dx*dy):
+        if len(probabilities)==math.factorial(dx*dy):
             return symbols, probabilities
         else:
             if ordered==True:
