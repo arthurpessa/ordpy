@@ -55,7 +55,7 @@ Released on version 1.0 (February 2021):
 - Missing ordinal patterns [#amigo]_ and missing transitions between ordinal
   patterns [#pessa2019]_ for time series and images.
 
-Released on version 1.1.0 (January   2023):
+Released on version 1.1.0 (January 2023):
 
 - Weighted permutation entropy for time series [#fadlallah]_ and images;
 - Fisher-Shannon plane for time series [#olivares]_ and images;
@@ -63,6 +63,10 @@ Released on version 1.1.0 (January   2023):
 - Four pattern permutation contrasts (up-down balance, persistence, 
   rotational-asymmetry, and up-down scaling.) for time series [#bandt]_; 
 - Smoothness-structure plane for images [#bandt_wittfeld]_.
+
+Released on version 1.2.0 (April 2025):
+
+- Two-by-two ordinal patterns for images [#tarozo]_.
 
 For more detailed information about the methods implemented in ``ordpy``, please 
 consult its `documentation <https://arthurpessa.github.io/ordpy/_build/html/index.html>`_.
@@ -277,3 +281,7 @@ References
 
 .. [#bandt_wittfeld] Bandt, C., & Wittfeld, K. (2022). Two new parameters for 
    the ordinal analysis of images. arXiv:2212.14643.
+
+.. [#tarozo] Tarozo, M. M., Pessa, A. A., Zunino, L., Rosso, O. A., Perc, M. 
+   & Ribeiro, H. V. (2025). Two-by-two ordinal patterns in art paintings. 
+   PNAS Nexus, 4, pgaf092.
