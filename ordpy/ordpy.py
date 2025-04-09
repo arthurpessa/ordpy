@@ -54,6 +54,9 @@ Released on version 1.1.0 (January 2023):
   rotational-asymmetry, and up-down scaling.) for time series [#bandt]_; 
 - Smoothness-structure plane for images [#bandt_wittfeld]_.
 
+Released on version 1.2.0 (April 2025):
+- Two-by-two ordinal patterns for images [#tarozo]_.
+
 References
 ----------
 
@@ -131,6 +134,10 @@ References
    Generalized Statistical Complexity Measures: Geometrical and 
    Analytical Properties, Physica A, 369, 439–462.
 
+.. [#tarozo] Tarozo, M. M., Pessa, A. A., Zunino, L., Rosso, O. A., Perc, M. 
+   & Ribeiro, H. V. (2025). Two-by-two ordinal patterns in art paintings. 
+   PNAS Nexus, 4, pgaf092.
+   
 Installing
 ==========
 
@@ -2412,3 +2419,264 @@ def smoothness_structure(data, taux=1, tauy=1, tie_precision=None):
 
     return smoothness, structure
 
+
+def two_by_two_patterns(data, taux=1, tauy=1, overlapping=True, tie_patterns=True, group_patterns=False, tie_precision=None):
+    """
+    Extracts the distribution ordinal patterns from a two-dimensional array of data\\ [#tarozo]_\\ :sup:`,`\\ [#bandt_wittfeld]_.
+    
+    Parameters
+    ----------
+    data : array 
+           Two dimensional array object in the format 
+           :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tauy : int
+           Embedding delay (vertical axis) (default: 1).
+    overlapping : boolean
+                  If `True`, **data** is partitioned into overlapping sliding 
+                  windows (default: `True`). If `False`, adjacent partitions are
+                  non-overlapping.
+    tie_patterns : boolean
+                   If `True`, ties within partitions generate different ordinal patterns,
+                   yielding 75 unique ordinal patterns\\ [#tarozo]_ (default: `True`).
+                   Otherwise, ties are ignored and only 24 unique ordinal patterns 
+                   are generated\\ [#bandt_wittfeld].
+    group_patterns : boolean
+            If `True`, the function returns a dictionary with the probabilities
+            of each ordinal pattern grouped by their types (default: `False`).
+            Otherwise, it returns a dictionary with the probabilities of all
+            ordinal patterns. If `tie_patterns` is `True`, there are 11 groups of
+            ordinal patterns named with letters from A to K. If `tie_patterns` is `False`,
+            there are 3 groups of ordinal patterns named (I), (II) and (III).
+            
+    tie_precision : None, int
+                    If not `None`, **data** is rounded with `tie_precision`
+                    number of decimals (default: `None`).
+
+    Returns
+    -------
+     : dict
+       Dictionary with the probabilities of all ordinal pattern (if `group_patterns` is `False`)
+       or group of ordinal patterns (if `group_patterns` is `True`). The keys of the dictionary 
+       are the ordinal patterns or their types and the values are their probabilities.
+
+    Examples
+    --------
+    >>> two_by_two_patterns([[1,2,1,4],[8,3,4,5],[6,7,5,6]])
+    {'[0000]': 0.0,
+    '[0123]': 0.0,
+    '[2031]': 0.0,
+    '[3210]': 0.0,
+    '[1302]': 0.0,
+    '[0213]': 0.0,
+    '[1032]': 0.0,
+    '[3120]': 0.0,
+    '[2301]': 0.0,
+    '[0132]': 0.3333333333333333,
+    ...
+    }
+    >>> 
+    >>> {pattern: prob for pattern, prob in two_by_two_patterns([[1,2,1,4],[8,3,4,5],[6,7,5,6]]).items() if prob > 0}
+    {'[0132]': 0.3333333333333333,
+    '[1023]': 0.16666666666666666,
+    '[3012]': 0.16666666666666666,
+    '[0112]': 0.3333333333333333}
+    >>>
+    >>> two_by_two_patterns([[1,2,1,4],[8,3,4,5],[6,7,5,6]], group_patterns=True)
+    {'A': 0.0,
+    'B': 0.0,
+    'C': 0.5,
+    'D': 0.0,
+    'E': 0.16666666666666666,
+    'F': 0.3333333333333333,
+    'G': 0.0,
+    'H': 0.0,
+    'I': 0.0,
+    'J': 0.0,
+    'K': 0.0}
+    >>>
+    >>> two_by_two_patterns([[1,2,1,4],[8,3,4,5],[6,7,5,6]], tie_patterns=False, group_patterns=True)
+    {'(I)': 0.3333333333333333, '(II)': 0.5, '(III)': 0.16666666666666666}
+    """
+
+    def rank_sort_ties(data):
+        """
+        Returns the rank order of an array considering possible ties among values.
+
+        Parameters
+        ----------
+        data : array
+               One dimensional array with data.
+        Returns
+        -------
+         : array
+           Array containing the rank sequence.
+
+        Examples
+        --------
+        >>> rank_sort_ties([1,2,3,4])
+        array([0, 1, 2, 3])
+        >>> rank_sort_ties([1,1,3,4])
+        array([0, 0, 1, 2])
+        """
+
+        #adapted from scipy.stats.rankdata   
+        arr = np.ravel(np.asarray(data))
+        sorter = np.argsort(arr)
+
+        inv = np.empty(sorter.size, dtype=np.intp)
+        inv[sorter] = np.arange(sorter.size, dtype=np.intp)
+
+        arr = arr[sorter]
+        obs = np.r_[True, arr[1:] != arr[:-1]]
+        dense = obs.cumsum()[inv]
+
+        return dense - 1
+
+    def rank_sort(data):
+        """
+        Returns the rank order of an array without considering possible ties among values.
+
+        Parameters
+        ----------
+        data : array
+               One dimensional array with data.
+        Returns
+        -------
+         : array
+           Array containing the rank sequence.
+
+        Examples
+        --------
+        >>> rank_sort([1,2,3,4])
+        array([0, 1, 2, 3])
+        >>> rank_sort([1,1,3,4])
+        array([0, 1, 2, 3])
+        """
+
+        #adapted from scipy.stats.rankdata   
+        arr = np.ravel(np.asarray(data))
+        sorter = np.argsort(arr)
+
+        inv = np.empty(sorter.size, dtype=np.intp)
+        inv[sorter] = np.arange(sorter.size, dtype=np.intp)
+
+        arr = arr[sorter]
+        obs = np.ones(sorter.size,dtype=int)
+        dense = obs.cumsum()[inv]
+
+        return dense - 1
+
+#-----------------------------------#-----------------------------------#-----------------------------------#-----------------------
+    dx=dy=2
+    ny, nx = np.shape(data)
+    data   = np.array(data)
+
+    if tie_precision is not None: 
+        data = np.round(data, tie_precision)
+
+    if overlapping == True:
+        partitions        = np.lib.stride_tricks.sliding_window_view(x            = data, 
+                                                                     window_shape = (dy+(dy-1)*(tauy-1), dx+(dx-1)*(taux-1))
+                                                                    )
+        rows, columns, *_ = np.shape(partitions)
+        partitions        = partitions[::,::,::tauy,::taux].reshape(rows, columns, dx*dy)
+    else:
+        partitions = np.concatenate(
+            [
+                [[np.concatenate(data[j:j+dy*tauy:tauy, i:i+dx*taux:taux]) for i in range(0, nx-(dx-1)*taux, dx+(dx-1)*(taux-1))]] 
+                for j in range(0, ny-(dy-1)*tauy, dy+(dy-1)*(tauy-1))
+            ]
+        )
+
+    if tie_patterns:
+        symbols = np.apply_along_axis(rank_sort_ties, 2, partitions)
+    else:
+        symbols = np.apply_along_axis(rank_sort, 2, partitions)
+
+    symbols_unique, symbols_count = np.unique(symbols.reshape(-1, dx*dy) , return_counts=True, axis=0)
+    probabilities                 = symbols_count/symbols_count.sum()
+
+    if tie_patterns:
+        dict_probs = {
+                "[0000]": 0.,  # A
+                "[0123]": 0., "[2031]": 0., "[3210]": 0., "[1302]": 0.,  # B
+                "[0213]": 0., "[1032]": 0., "[3120]": 0., "[2301]": 0.,  # B
+                "[0132]": 0., "[3021]": 0., "[2310]": 0., "[1203]": 0.,  # C
+                "[0312]": 0., "[1023]": 0., "[2130]": 0., "[3201]": 0.,  # C
+                "[0011]": 0., "[1010]": 0., "[1100]": 0., "[0101]": 0.,  # D
+                "[0231]": 0., "[3012]": 0., "[1320]": 0., "[2103]": 0.,  # E
+                "[0321]": 0., "[2013]": 0., "[1230]": 0., "[3102]": 0.,  # E
+                "[0112]": 0., "[1021]": 0., "[2110]": 0., "[1201]": 0.,  # F
+                "[0012]": 0., "[1020]": 0., "[2100]": 0., "[0201]": 0.,  # G
+                "[0021]": 0., "[2010]": 0., "[1200]": 0., "[0102]": 0.,  # G
+                "[0122]": 0., "[2021]": 0., "[2210]": 0., "[1202]": 0.,  # G
+                "[0212]": 0., "[1022]": 0., "[2120]": 0., "[2201]": 0.,  # G
+                "[0001]": 0., "[0010]": 0., "[1000]": 0., "[0100]": 0.,  # H
+                "[0111]": 0., "[1011]": 0., "[1110]": 0., "[1101]": 0.,  # H
+                "[0121]": 0., "[2011]": 0., "[1210]": 0., "[1102]": 0.,  # I
+                "[0211]": 0., "[1012]": 0., "[1120]": 0., "[2101]": 0.,  # I
+                "[0120]": 0., "[2001]": 0., "[0210]": 0., "[1002]": 0.,  # J
+                "[0221]": 0., "[2012]": 0., "[1220]": 0., "[2102]": 0.,  # J
+                "[0110]": 0., "[1001]": 0.,  # K
+            }
+    else:
+        dict_probs = {
+                "[0123]": 0., "[2031]": 0., "[3210]": 0., "[1302]": 0.,  # B->(I)
+                "[0213]": 0., "[1032]": 0., "[3120]": 0., "[2301]": 0.,  # B->(I)
+                "[0132]": 0., "[3021]": 0., "[2310]": 0., "[1203]": 0.,  # C->(II)
+                "[0312]": 0., "[1023]": 0., "[2130]": 0., "[3201]": 0.,  # C->(II)
+                "[0231]": 0., "[3012]": 0., "[1320]": 0., "[2103]": 0.,  # E->(III)
+                "[0321]": 0., "[2013]": 0., "[1230]": 0., "[3102]": 0.,  # E->(III)
+            }
+
+    symbols_unique_str = np.apply_along_axis(np.array2string, 1, symbols_unique, separator='')
+    
+    for symbol, probability in zip(symbols_unique_str, probabilities):
+        dict_probs[symbol] = probability
+
+    if not group_patterns:
+        return dict_probs
+    else:
+        if tie_patterns:
+            groups = {
+                "A": ["[0000]"],
+                "B": ["[0123]", "[2031]", "[3210]", "[1302]", 
+                      "[0213]", "[1032]", "[3120]", "[2301]"],
+                "C": ["[0132]", "[3021]", "[2310]", "[1203]", 
+                      "[0312]", "[1023]", "[2130]", "[3201]"],
+                "D": ["[0011]", "[1010]", "[1100]", "[0101]"],
+                "E": ["[0231]", "[3012]", "[1320]", "[2103]", 
+                      "[0321]", "[2013]", "[1230]", "[3102]"],
+                "F": ["[0112]", "[1021]", "[2110]", "[1201]"],
+                "G": ["[0012]", "[1020]", "[2100]", "[0201]",
+                      "[0021]", "[2010]", "[1200]", "[0102]",
+                      "[0122]", "[2021]", "[2210]", "[1202]",
+                      "[0212]", "[1022]", "[2120]", "[2201]"],
+                "H": ["[0001]", "[0010]", "[1000]", "[0100]",
+                      "[0111]", "[1011]", "[1110]", "[1101]"],
+                "I": ["[0121]", "[2011]", "[1210]", "[1102]",
+                      "[0211]", "[1012]", "[1120]", "[2101]"],
+                "J": ["[0120]", "[2001]", "[0210]", "[1002]",
+                      "[0221]", "[2012]", "[1220]", "[2102]"],
+                "K": ["[0110]", "[1001]"],
+            }
+        else:
+            groups = {
+                "(I)":   ["[0123]", "[2031]", "[3210]", "[1302]", 
+                          "[0213]", "[1032]", "[3120]", "[2301]"],
+                "(II)":  ["[0132]", "[3021]", "[2310]", "[1203]", 
+                          "[0312]", "[1023]", "[2130]", "[3201]"],
+                "(III)": ["[0231]", "[3012]", "[1320]", "[2103]", 
+                          "[0321]", "[2013]", "[1230]", "[3102]"],
+            }
+
+        dict_probs_group = {group: 0. for group in groups.keys()}
+        for group, patterns in groups.items():
+            for pattern in patterns:
+                dict_probs_group[group] += dict_probs[pattern]
+
+        return dict_probs_group
