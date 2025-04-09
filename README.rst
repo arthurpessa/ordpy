@@ -7,11 +7,14 @@
 .. |logo3| image:: https://img.shields.io/pypi/dm/ordpy?style=plastic
    :target: https://pypi.org/project/ordpy/
    :alt: PyPI - Downloads
+.. |logo5| image:: https://static.pepy.tech/badge/ordpy
+   :target: https://pepy.tech/projects/ordpy
+   :alt: PyPI - Total of downloads
 .. |logo4| image:: https://readthedocs.org/projects/ordpy/badge/?version=latest
    :target: https://ordpy.readthedocs.io/?badge=latest
    :alt: Documentation Status
 
-|logo1| |logo2| |logo3| |logo4|
+|logo1| |logo2| |logo3| |logo5| |logo4|
 
 ordpy: A Python Package for Data Analysis with Permutation Entropy and Ordinal Network Methods
 ===============================================================================================
