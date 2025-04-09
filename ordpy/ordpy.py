@@ -55,6 +55,7 @@ Released on version 1.1.0 (January 2023):
 - Smoothness-structure plane for images [#bandt_wittfeld]_.
 
 Released on version 1.2.0 (April 2025):
+
 - Two-by-two ordinal patterns for images [#tarozo]_.
 
 References
@@ -2443,24 +2444,24 @@ def two_by_two_patterns(data, taux=1, tauy=1, overlapping=True, tie_patterns=Tru
                    If `True`, ties within partitions generate different ordinal patterns,
                    yielding 75 unique ordinal patterns\\ [#tarozo]_ (default: `True`).
                    Otherwise, ties are ignored and only 24 unique ordinal patterns 
-                   are generated\\ [#bandt_wittfeld].
+                   are generated\\ [#bandt_wittfeld]_.
     group_patterns : boolean
             If `True`, the function returns a dictionary with the probabilities
             of each ordinal pattern grouped by their types (default: `False`).
             Otherwise, it returns a dictionary with the probabilities of all
-            ordinal patterns. If `tie_patterns` is `True`, there are 11 groups of
-            ordinal patterns named with letters from A to K. If `tie_patterns` is `False`,
+            ordinal patterns. If **tie_patterns** is `True`, there are 11 groups of
+            ordinal patterns named with letters from A to K. If **tie_patterns** is `False`,
             there are 3 groups of ordinal patterns named (I), (II) and (III).
             
     tie_precision : None, int
-                    If not `None`, **data** is rounded with `tie_precision`
+                    If not `None`, **data** is rounded with **tie_precision**
                     number of decimals (default: `None`).
 
     Returns
     -------
      : dict
-       Dictionary with the probabilities of all ordinal pattern (if `group_patterns` is `False`)
-       or group of ordinal patterns (if `group_patterns` is `True`). The keys of the dictionary 
+       Dictionary with the probabilities of all ordinal pattern (if **group_patterns** is `False`)
+       or group of ordinal patterns (if **group_patterns** is `True`). The keys of the dictionary 
        are the ordinal patterns or their types and the values are their probabilities.
 
     Examples
