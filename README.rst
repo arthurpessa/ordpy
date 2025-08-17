@@ -4,8 +4,8 @@
 .. |logo2| image:: https://img.shields.io/github/license/arthurpessa/ordpy?style=plastic 
    :target: https://github.com/arthurpessa/ordpy/blob/master/LICENSE
    :alt: GitHub
-.. |logo3| image:: https://img.shields.io/pypi/dm/ordpy?style=plastic
-   :target: https://pypi.org/project/ordpy/
+.. |logo3| image:: https://static.pepy.tech/badge/ordpy/month
+   :target: https://pepy.tech/projects/ordpy
    :alt: PyPI - Downloads
 .. |logo5| image:: https://static.pepy.tech/badge/ordpy
    :target: https://pepy.tech/projects/ordpy
