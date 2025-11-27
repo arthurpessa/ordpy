@@ -1,6 +1,6 @@
 [project]
 name = "ordpy"
-version = "1.2.1"
+version = "1.2.2"
 authors = [{ name="Arthur A. B. Pessa and Haroldo V. Ribeiro", email="arthur_pessa@hotmail.com" },]
 description = "A Python package for data analysis with permutation entropy and ordinal network methods"
 readme = "README.rst"
