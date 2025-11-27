@@ -539,7 +539,7 @@ def ordinal_distribution(data, dx=3, dy=1, taux=1, tauy=1, return_missing=False,
                 return symbols, probabilities
 
 
-def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=True, probs=False, tie_precision=None):
+def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base='e', normalized=True, probs=False, tie_precision=None):
     """
     Calculates the Shannon entropy using an ordinal distribution obtained from
     data\\ [#bandt_pompe]_\\ :sup:`,`\\ [#ribeiro_2012]_.
@@ -1490,7 +1490,7 @@ def global_node_entropy(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, conn
         args_in        = np.argwhere(links_target==node).flatten()
         p_in           = np.sum(weights[args_in])
         
-        h_i            = -np.sum(renorm_weights*np.log2(renorm_weights))
+        h_i            = -np.sum(renorm_weights*np.log(renorm_weights))
         h_gn          += p_in*h_i
 
     return h_gn
@@ -2052,7 +2052,7 @@ def maximum_complexity_entropy(dx=3, dy=1, m=1):
     return np.asarray((hlist_[args], clist_[args])).T
 
 
-def weighted_permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base=2, normalized=True, tie_precision=None):
+def weighted_permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base='e', normalized=True, tie_precision=None):
     """
     Calculates Shannon entropy using a weighted ordinal distribution
     obtained from data\\ [#fadlallah]_.
