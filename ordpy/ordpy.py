@@ -562,7 +562,7 @@ def permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base='e', normalized=T
     tauy : int
            Embedding delay (vertical axis) (default: 1).
     base : str, int
-           Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 2).
+           Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 'e').
     normalized: boolean
                 If `True`, permutation entropy is normalized by its maximum value 
                 (default: `True`). If `False`, it is not.
@@ -2250,7 +2250,7 @@ def permutation_js_distance(data, dx=3, dy=1, taux=1, tauy=1, base='e', normaliz
     tauy : int
            Embedding delay (vertical axis) (default: 1).    
     base : str, int
-           Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 2).
+           Logarithm base in Shannon's entropy. Either 'e' or 2 (default: 'e').
     normalized: boolean
                 If `True`, the permutation Jensen-Shannon distance is normalized by  
                 the logarithm of 2. (default: `True`). If `False`, it is not.
