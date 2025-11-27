@@ -1,4 +1,4 @@
-cff-version: 1.2.0
+cff-version: 1.2.1
 title: ordpy
 message: >-
   ordpy: A Python package for data analysis with permutation
