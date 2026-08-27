@@ -279,8 +279,26 @@ List of functions
 import itertools
 import math
 import warnings
-
 import numpy as np
+
+
+def _stable_argsort(a, axis=-1):
+    """
+    Returns the indices that would sort an array using a stable sorting algorithm.
+
+    Parameters
+    ----------
+    a : array
+        Array to sort.
+    axis : int
+        Axis along which to sort (default: -1).
+
+    Returns
+    -------
+     : array
+        Array of indices that sort **a** along the specified axis.
+    """
+    return np.argsort(a, axis=axis, kind='stable')
 
 
 def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_precision=None):
@@ -372,7 +390,7 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_pre
                     for j in range(ny-(dy-1)*tauy)
                 ]
             )
-        symbols = np.apply_along_axis(np.argsort, 1, partitions)
+        symbols = _stable_argsort(partitions, axis=1)
         
     else: #image
         if overlapping == True:
@@ -389,7 +407,7 @@ def ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_pre
                     for j in range(0, ny-(dy-1)*tauy, dy+(dy-1)*(tauy-1))
                 ]
             )            
-        symbols = np.apply_along_axis(np.argsort, 2, partitions)
+        symbols = _stable_argsort(partitions, axis=2)
     
     return symbols
 
@@ -1330,7 +1348,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
                     ]
                 )
 
-        states = np.apply_along_axis(np.argsort, 1, partitions)
+        states = _stable_argsort(partitions, axis=1)
         links  = np.concatenate([states[i:(i-1) or None, None] for i in range(2)], axis=1)
 
         unique_links, occurrences = np.unique(links, return_counts=True, axis=0)
@@ -1364,7 +1382,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
 
         #horizontal and vertical successions        
         if not connections in ["horizontal", "vertical"]:
-            states = np.apply_along_axis(np.argsort, 2, partitions)
+            states = _stable_argsort(partitions, axis=2)
             #horizontal successions of permutation states
             hlinks = np.concatenate([[row[i:i+2]] for row in states for i in range(len(row)-1)])
             
@@ -1381,7 +1399,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
 
         #only horizontal successions of permutation states
         elif connections == 'horizontal':
-            states = np.apply_along_axis(np.argsort, 2, partitions)
+            states = _stable_argsort(partitions, axis=2)
             hlinks = np.concatenate([[line[i:i+2]] for line in states for i in range(len(line)-1)], axis=0)
             
             unique_links, occurrences = np.unique(hlinks, return_counts=True, axis=0)
@@ -1390,7 +1408,7 @@ def ordinal_network(data, dx=3, dy=1, taux=1, tauy=1, normalized=True, overlappi
 
         #only vertical successions of permutation states        
         else: #connections == 'vertical':
-            states = np.apply_along_axis(np.argsort, 2, partitions)
+            states = _stable_argsort(partitions, axis=2)
             states = states.transpose(1,0,2)
             vlinks = np.concatenate([[line[i:i+2]] for line in states for i in range(len(line)-1)])
             
@@ -2047,7 +2065,7 @@ def maximum_complexity_entropy(dx=3, dy=1, m=1):
     #flatenning the arrays and ordering the pairs of values.
     hlist_ = hlist_.flatten()
     clist_ = clist_.flatten()
-    args   = np.argsort(hlist_)
+    args   = _stable_argsort(hlist_)
     
     return np.asarray((hlist_[args], clist_[args])).T
 
@@ -2122,10 +2140,10 @@ def weighted_permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base='e', nor
     
     if dx*dy>6 and nx*ny>1000: #a special approach is employed when dealing with large arrays and large embedding dimensions.
         weights                   = partitions.var(axis=1)
-        flat_symbolic_sequence    = np.apply_along_axis(np.argsort, 1, partitions)
+        flat_symbolic_sequence    = _stable_argsort(partitions, axis=1)
 
         str_symbols               = np.apply_along_axis(np.array2string, 1, flat_symbolic_sequence, separator='')
-        idx_sort                  = np.argsort(str_symbols)
+        idx_sort                  = _stable_argsort(str_symbols)
         _, idx_start              = np.unique(str_symbols[idx_sort], return_index=True)
         sets_same_symbol          = np.split(idx_sort, idx_start[1:])
 
@@ -2133,7 +2151,7 @@ def weighted_permutation_entropy(data, dx=3, dy=1, taux=1, tauy=1, base='e', nor
     
     else: #simpler approach employed to small series (less than 1000 observations) and small embedding dimensions (dx*dy < 7, < ~5000 permutations).
         weights                   = partitions.var(axis=1)
-        flat_symbolic_sequence    = np.apply_along_axis(np.argsort, 1, partitions)
+        flat_symbolic_sequence    = _stable_argsort(partitions, axis=1)
         symbols                   = np.unique(flat_symbolic_sequence, return_counts=False, axis=0)
         total_variance_per_symbol = np.fromiter((weights[(flat_symbolic_sequence==symbol_).all(axis=1)].sum() for symbol_ in symbols), dtype='float')
         
@@ -2526,7 +2544,7 @@ def two_by_two_patterns(data, taux=1, tauy=1, overlapping=True, tie_patterns=Tru
 
         #adapted from scipy.stats.rankdata   
         arr = np.ravel(np.asarray(data))
-        sorter = np.argsort(arr)
+        sorter = _stable_argsort(arr)
 
         inv = np.empty(sorter.size, dtype=np.intp)
         inv[sorter] = np.arange(sorter.size, dtype=np.intp)
@@ -2560,7 +2578,7 @@ def two_by_two_patterns(data, taux=1, tauy=1, overlapping=True, tie_patterns=Tru
 
         #adapted from scipy.stats.rankdata   
         arr = np.ravel(np.asarray(data))
-        sorter = np.argsort(arr)
+        sorter =_stable_argsort(arr)
 
         inv = np.empty(sorter.size, dtype=np.intp)
         inv[sorter] = np.arange(sorter.size, dtype=np.intp)

@@ -1,19 +1,3 @@
-#old version
-# from setuptools import setup
-
-# setup(name='ordpy',
-#       version='1.0.0',
-#       description='A Python package for data analysis with permutation entropy and ordinal networks methods.',
-#       url='https://github.com/arthurpessa/ordpy',
-#       author='Arthur A. B. Pessa and Haroldo V. Ribeiro',
-#       author_email='arthur_pessa@hotmail.com, hvr@dfi.uem.br',
-#       license='MIT',
-#       packages=['ordpy'],
-#       install_requires=['numpy'],
-#       python_requires=">=3.6",
-#       zip_safe=False
-# )
-
 import setuptools
 
 with open("README.rst", "r", encoding="utf-8") as fh:
@@ -21,7 +5,7 @@ with open("README.rst", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="ordpy",
-    version="1.2.2",
+    version="1.2.3",
     author="Arthur A. B. Pessa and Haroldo V. Ribeiro",
     author_email="arthur_pessa@hotmail.com",
     description="A Python package for data analysis with permutation entropy and ordinal networks methods.",
